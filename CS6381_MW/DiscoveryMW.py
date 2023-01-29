@@ -150,8 +150,9 @@ class DiscoveryMW ():
       elif (disc_req.msg_type == discovery_pb2.TYPE_ISREADY):
         # this is the is ready request
         timeout = self.upcall_obj.isready_request()
-    #   elif (disc_req.msg_type == discovery_pb2.LookupPubByTopicReq):
-    #     # TODO
+      elif (disc_req.msg_type == discovery_pb2.LookupPubByTopicReq):
+        # this is a lookup publishers by topic/s request
+        timeout = self.upcall_obj.lookup_by_topic_request(disc_req.lookup_req)
 
       else: # anything else is unrecognizable by this object
         # raise an exception here
@@ -248,6 +249,52 @@ class DiscoveryMW ():
       
     except Exception as e:
       raise e
+
+  ########################################
+  # Send list of topic publishers 
+  # back to subscriber
+  ########################################
+  def send_topic_publishers (self, topic_pubs):
+    ''' send topic publishers '''
+    try:
+      self.logger.info ("DiscoveryMW::send_topic_publishers")
+      
+      # first build a IsReady message
+      self.logger.debug ("DiscoveryMW::send_topic_publishers - populate the nested LookupPubByTopicResp msg")
+      lookup_resp = discovery_pb2.LookupPubByTopicResp ()  # allocate 
+
+      message_publishers = []
+      for p in topic_pubs:
+        message_publisher = discovery_pb2.RegistrantInfo
+        message_publisher.id = p.name
+        message_publisher.addr = p.address
+        message_publisher.port = p.port
+
+        message_publishers.append(message_publisher)
+
+      lookup_resp.publishers = message_publishers
+      # actually, there is nothing inside that msg declaration.
+      self.logger.debug ("DiscoveryMW::send_topic_publishers - done populating nested LookupPubByTopicResp msg")
+
+      # Build the outer layer Discovery Message
+      self.logger.debug ("DiscoveryMW::send_topic_publishers - build the outer DiscoveryResp message")
+      disc_resp = discovery_pb2.DiscoveryResp ()
+      disc_resp.msg_type = discovery_pb2.TYPE_LOOKUP_PUB_BY_TOPIC
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_resp.lookup_resp.CopyFrom (lookup_resp)
+      self.logger.debug ("DiscoveryMW::send_topic_publishers - done building the outer message")
+      
+      # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
+      # a real string
+      buf2send = disc_resp.SerializeToString ()
+
+      # now send this to our discovery service
+      self.rep.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      
+    except Exception as e:
+      raise e
+
 
   ########################################
   # set upcall handle
