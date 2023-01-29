@@ -184,6 +184,9 @@ class SubscriberMW ():
       elif (disc_resp.msg_type == discovery_pb2.TYPE_ISREADY):
         # this is a response to is ready request
         timeout = self.upcall_obj.isready_response (disc_resp.isready_resp)
+      elif (disc_resp.msg_type == discovery_pb2.LookupPubByTopicReq):
+        # this is a lookup publishers by topic/s request
+        timeout = self.upcall_obj.lookup_by_topic_response(disc_resp.lookup_resp)
 
       else: # anything else is unrecognizable by this object
         # raise an exception here
@@ -306,6 +309,125 @@ class SubscriberMW ():
     except Exception as e:
       raise e
 
+
+  ########################################
+  # lookup all publishers that operate any topic in the topic list
+  #
+  # Here we send the lookup message and do the serialization
+  #
+  # No return value from this as it is handled in the invoke_operation
+  # method of the application object.
+  ########################################
+  def lookup_by_topic (self, topiclist):
+    ''' lookup all publishers that operate any topic in the topic list '''
+
+    try:
+      self.logger.info ("SubscriberMW::lookup_by_topic")
+
+      # we do a similar kind of serialization as we did in the register
+      # message but much simpler as the message format is very simple.
+      # Then send the request to the discovery service
+    
+      # The following code shows serialization using the protobuf generated code.
+      
+      # first build a IsReady message
+      self.logger.debug ("SubscriberMW::lookup_by_topic - populate the nested LookupPubByTopicReq msg")
+      lookup_req = discovery_pb2.LookupPubByTopicReq()  # allocate 
+      lookup_req.topiclist[:] = topiclist
+      # actually, there is nothing inside that msg declaration.
+      self.logger.debug ("SubscriberMW::lookup_by_topic - done populating nested LookupPubByTopicReq msg")
+
+      # Build the outer layer Discovery Message
+      self.logger.debug ("SubscriberMW::lookup_by_topic - build the outer DiscoveryReq message")
+      disc_req = discovery_pb2.DiscoveryReq()
+      disc_req.msg_type = discovery_pb2.TYPE_LOOKUP_PUB_BY_TOPIC
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_req.lookup_req.CopyFrom (lookup_req)
+      self.logger.debug ("SubscriberMW::lookup_by_topic - done building the outer message")
+      
+      # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
+      # a real string
+      buf2send = disc_req.SerializeToString ()
+      self.logger.debug ("Stringified serialized buf = {}".format (buf2send))
+
+      # now send this to our discovery service
+      self.logger.debug ("SubscriberMW::lookup_by_topic - send stringified buffer to Discovery service")
+      self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      
+      # now go to our event loop to receive a response to this request
+      self.logger.info ("SubscriberMW::lookup_by_topic - request sent and now wait for reply")
+      
+    except Exception as e:
+      raise e
+
+  ########################################
+  # check if the discovery service gives us a green signal to proceed
+  #
+  # Here we send the isready message and do the serialization
+  #
+  # No return value from this as it is handled in the invoke_operation
+  # method of the application object.
+  ########################################
+  def lookup_pubs_by_topic (self):
+    ''' register the appln with the discovery service '''
+
+    try:
+      self.logger.info ("SubscriberMW::is_ready")
+
+      # we do a similar kind of serialization as we did in the register
+      # message but much simpler as the message format is very simple.
+      # Then send the request to the discovery service
+    
+      # The following code shows serialization using the protobuf generated code.
+      
+      # first build a IsReady message
+      self.logger.debug ("SubscriberMW::is_ready - populate the nested IsReady msg")
+      isready_req = discovery_pb2.IsReadyReq ()  # allocate 
+      # actually, there is nothing inside that msg declaration.
+      self.logger.debug ("SubscriberMW::is_ready - done populating nested IsReady msg")
+
+      # Build the outer layer Discovery Message
+      self.logger.debug ("SubscriberMW::is_ready - build the outer DiscoveryReq message")
+      disc_req = discovery_pb2.DiscoveryReq ()
+      disc_req.msg_type = discovery_pb2.TYPE_ISREADY
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_req.isready_req.CopyFrom (isready_req)
+      self.logger.debug ("SubscriberMW::is_ready - done building the outer message")
+      
+      # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
+      # a real string
+      buf2send = disc_req.SerializeToString ()
+      self.logger.debug ("Stringified serialized buf = {}".format (buf2send))
+
+      # now send this to our discovery service
+      self.logger.debug ("SubscriberMW::is_ready - send stringified buffer to Discovery service")
+      self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      
+      # now go to our event loop to receive a response to this request
+      self.logger.info ("SubscriberMW::is_ready - request sent and now wait for reply")
+      
+    except Exception as e:
+      raise e
+
+
+  #################################################################
+  # connect a given publish to the ZMQ SUB socket associated with 
+  # this subscriber.
+  #################################################################
+  def connect_to_publisher(self, publisher):
+    try:
+      self.logger.debug ("SubscriberMW::connect_to_publisher " + str(publisher.id))
+
+      # connect the publisher to the SUB ZMQ Socket
+      self.sub.connect("tcp://{}:{}".format(publisher.addr, publisher.port))
+      
+      self.logger.debug ("SubscriberMW::connect_to_publisher complete")
+    except Exception as e:
+      raise e
+
+
   #################################################################
   # collect the data on our pub socket
   #
@@ -318,20 +440,17 @@ class SubscriberMW ():
   #
   # This part is left as an exercise.
   #################################################################
-  # TODO: something here...
-  def collect (self, id, topic, data):
+  def collect (self):
     try:
       self.logger.debug ("SubscriberMW::collect")
 
-      # Now use the protobuf logic to encode the info and send it.  But for now
-      # we are simply sending the string to make sure dissemination is working.
-      send_str = topic + ":" + data
-      self.logger.debug ("SubscriberMW::collect - {}".format (send_str))
-
-      # send the info as bytes. See how we are providing an encoding of utf-8
-      self.pub.send (bytes(send_str, "utf-8"))
+      # receive the info as bytes. See how we are providing an encoding of utf-8
+      message = self.pub.recv_string()
 
       self.logger.debug ("SubscriberMW::collect complete")
+      
+      return message
+      
     except Exception as e:
       raise e
             
