@@ -11,7 +11,7 @@
 
 
 # This is left as an exercise to the student. Design the logic in a manner similar
-# to the PublisherAppln. As in the publisher application, the subscriber application
+# to the SubscriberAppln. As in the publisher application, the subscriber application
 # will maintain a handle to the underlying subscriber middleware object.
 #
 # The key steps for the subscriber application are
@@ -40,7 +40,7 @@ import logging # for logging. Use it in place of print statements.
 from topic_selector import TopicSelector
 
 # Now import our CS6381 Middleware
-from CS6381_MW.PublisherMW import PublisherMW
+from CS6381_MW.SubscriberMW import SubscriberMW
 # We also need the message formats to handle incoming responses.
 from CS6381_MW import discovery_pb2
 
@@ -48,9 +48,9 @@ from CS6381_MW import discovery_pb2
 from enum import Enum  # for an enumeration we are using to describe what state we are in
 
 ##################################
-#       PublisherAppln class
+#       SubscriberAppln class
 ##################################
-class PublisherAppln ():
+class SubscriberAppln ():
 
   # these are the states through which our publisher appln object goes thru.
   # We maintain the state so we know where we are in the lifecycle and then
@@ -69,10 +69,10 @@ class PublisherAppln ():
   def __init__ (self, logger):
     self.state = self.State.INITIALIZE # state that are we in
     self.name = None # our name (some unique name)
-    self.topiclist = None # the different topics that we publish on
-    self.iters = None   # number of iterations of publication
-    self.frequency = None # rate at which dissemination takes place
-    self.num_topics = None # total num of topics we publish
+    self.topiclist = None # the different topics to which we subscribe
+    self.iters = None   # number of iterations of subscription
+    self.frequency = None # rate at which subscription takes place
+    self.num_topics = None # total num of topics we subscribe to
     self.lookup = None # one of the diff ways we do lookup
     self.dissemination = None # direct or via broker
     self.mw_obj = None # handle to the underlying Middleware object
@@ -86,7 +86,7 @@ class PublisherAppln ():
 
     try:
       # Here we initialize any internal variables
-      self.logger.info ("PublisherAppln::configure")
+      self.logger.info ("SubscriberAppln::configure")
 
       # set our current state to CONFIGURE state
       self.state = self.State.CONFIGURE
@@ -98,24 +98,24 @@ class PublisherAppln ():
       self.num_topics = args.num_topics  # total num of topics we publish
 
       # Now, get the configuration object
-      self.logger.debug ("PublisherAppln::configure - parsing config.ini")
+      self.logger.debug ("SubscriberAppln::configure - parsing config.ini")
       config = configparser.ConfigParser ()
       config.read (args.config)
       self.lookup = config["Discovery"]["Strategy"]
       self.dissemination = config["Dissemination"]["Strategy"]
     
       # Now get our topic list of interest
-      self.logger.debug ("PublisherAppln::configure - selecting our topic list")
+      self.logger.debug ("SubscriberAppln::configure - selecting our topic list")
       ts = TopicSelector ()
       self.topiclist = ts.interest (self.num_topics)  # let topic selector give us the desired num of topics
 
       # Now setup up our underlying middleware object to which we delegate
       # everything
-      self.logger.debug ("PublisherAppln::configure - initialize the middleware object")
-      self.mw_obj = PublisherMW (self.logger)
+      self.logger.debug ("SubscriberAppln::configure - initialize the middleware object")
+      self.mw_obj = SubscriberMW (self.logger)
       self.mw_obj.configure (args) # pass remainder of the args to the m/w object
       
-      self.logger.info ("PublisherAppln::configure - configuration complete")
+      self.logger.info ("SubscriberAppln::configure - configuration complete")
       
     except Exception as e:
       raise e
@@ -127,7 +127,7 @@ class PublisherAppln ():
     ''' Driver program '''
 
     try:
-      self.logger.info ("PublisherAppln::driver")
+      self.logger.info ("SubscriberAppln::driver")
 
       # dump our contents (debugging purposes)
       self.dump ()
@@ -136,7 +136,7 @@ class PublisherAppln ():
       # This is related to upcalls. By passing a pointer to ourselves, the
       # middleware will keep track of it and any time something must
       # be handled by the application level, invoke an upcall.
-      self.logger.debug ("PublisherAppln::driver - upcall handle")
+      self.logger.debug ("SubscriberAppln::driver - upcall handle")
       self.mw_obj.set_upcall_handle (self)
 
       # the next thing we should be doing is to register with the discovery
@@ -159,7 +159,7 @@ class PublisherAppln ():
       #
       self.mw_obj.event_loop (timeout=0)  # start the event loop
       
-      self.logger.info ("PublisherAppln::driver completed")
+      self.logger.info ("SubscriberAppln::driver completed")
       
     except Exception as e:
       raise e
@@ -175,7 +175,7 @@ class PublisherAppln ():
     ''' Invoke operating depending on state  '''
 
     try:
-      self.logger.info ("PublisherAppln::invoke_operation")
+      self.logger.info ("SubscriberAppln::invoke_operation")
 
       # check what state are we in. If we are in REGISTER state,
       # we send register request to discovery service. If we are in
@@ -183,7 +183,7 @@ class PublisherAppln ():
       # service.
       if (self.state == self.State.REGISTER):
         # send a register msg to discovery service
-        self.logger.debug ("PublisherAppln::invoke_operation - register with the discovery service")
+        self.logger.debug ("SubscriberAppln::invoke_operation - register with the discovery service")
         self.mw_obj.register (self.name, self.topiclist)
 
         # Remember that we were invoked by the event loop as part of the upcall.
@@ -200,7 +200,7 @@ class PublisherAppln ():
         # of an explicit loop we are going to go back and forth between the event loop
         # and the upcall until we receive the go ahead from the discovery service.
         
-        self.logger.debug ("PublisherAppln::invoke_operation - check if are ready to go")
+        self.logger.debug ("SubscriberAppln::invoke_operation - check if are ready to go")
         self.mw_obj.is_ready ()  # send the is_ready? request
 
         # Remember that we were invoked by the event loop as part of the upcall.
@@ -214,7 +214,7 @@ class PublisherAppln ():
 
         # We are here because both registration and is ready is done. So the only thing
         # left for us as a publisher is dissemination, which we do it actively here.
-        self.logger.debug ("PublisherAppln::invoke_operation - start Disseminating")
+        self.logger.debug ("SubscriberAppln::invoke_operation - start Disseminating")
 
         # Now disseminate topics at the rate at which we have configured ourselves.
         ts = TopicSelector ()
@@ -234,7 +234,7 @@ class PublisherAppln ():
           # frequency that was configured.
           time.sleep (1/float (self.frequency))  # ensure we get a floating point num
 
-        self.logger.debug ("PublisherAppln::invoke_operation - Dissemination completed")
+        self.logger.debug ("SubscriberAppln::invoke_operation - Dissemination completed")
 
         # we are done. So we move to the completed state
         self.state = self.State.COMPLETED
@@ -252,7 +252,7 @@ class PublisherAppln ():
       else:
         raise ValueError ("Undefined state of the appln object")
       
-      self.logger.info ("PublisherAppln::invoke_operation completed")
+      self.logger.info ("SubscriberAppln::invoke_operation completed")
     except Exception as e:
       raise e
 
@@ -268,9 +268,9 @@ class PublisherAppln ():
     ''' handle register response '''
 
     try:
-      self.logger.info ("PublisherAppln::register_response")
+      self.logger.info ("SubscriberAppln::register_response")
       if (reg_resp.status == discovery_pb2.STATUS_SUCCESS):
-        self.logger.debug ("PublisherAppln::register_response - registration is a success")
+        self.logger.debug ("SubscriberAppln::register_response - registration is a success")
 
         # set our next state to isready so that we can then send the isready message right away
         self.state = self.State.ISREADY
@@ -280,7 +280,7 @@ class PublisherAppln ():
         return 0
       
       else:
-        self.logger.debug ("PublisherAppln::register_response - registration is a failure with reason {}".format (response.reason))
+        self.logger.debug ("SubscriberAppln::register_response - registration is a failure with reason {}".format (response.reason))
         raise ValueError ("Publisher needs to have unique id")
 
     except Exception as e:
@@ -295,14 +295,14 @@ class PublisherAppln ():
     ''' handle isready response '''
 
     try:
-      self.logger.info ("PublisherAppln::isready_response")
+      self.logger.info ("SubscriberAppln::isready_response")
 
       # Notice how we get that loop effect with the sleep (10)
       # by an interaction between the event loop and these
       # upcall methods.
       if not isready_resp.status:
         # discovery service is not ready yet
-        self.logger.debug ("PublisherAppln::driver - Not ready yet; check again")
+        self.logger.debug ("SubscriberAppln::driver - Not ready yet; check again")
         time.sleep (10)  # sleep between calls so that we don't make excessive calls
 
       else:
@@ -325,7 +325,7 @@ class PublisherAppln ():
 
     try:
       self.logger.info ("**********************************")
-      self.logger.info ("PublisherAppln::dump")
+      self.logger.info ("SubscriberAppln::dump")
       self.logger.info ("------------------------------")
       self.logger.info ("     Name: {}".format (self.name))
       self.logger.info ("     Lookup: {}".format (self.lookup))
@@ -384,7 +384,7 @@ def main ():
   try:
     # obtain a system wide logger and initialize it to debug level to begin with
     logging.info ("Main - acquire a child logger and then log messages in the child")
-    logger = logging.getLogger ("PublisherAppln")
+    logger = logging.getLogger ("SubscriberAppln")
     
     # first parse the arguments
     logger.debug ("Main: parse command line arguments")
@@ -397,7 +397,7 @@ def main ():
 
     # Obtain a publisher application
     logger.debug ("Main: obtain the publisher appln object")
-    pub_app = PublisherAppln (logger)
+    pub_app = SubscriberAppln (logger)
 
     # configure the object
     logger.debug ("Main: configure the publisher appln object")

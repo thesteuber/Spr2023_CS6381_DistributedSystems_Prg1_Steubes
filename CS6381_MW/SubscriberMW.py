@@ -142,7 +142,7 @@ class SubscriberMW ():
           # object is in.
           timeout = self.upcall_obj.invoke_operation ()
           
-        elif self.req in events:  # this is the only socket on which we should be receiving replies
+        elif self.req in events:  
 
           # handle the incoming reply from remote entity and return the result
           timeout = self.handle_reply ()
@@ -220,14 +220,12 @@ class SubscriberMW ():
       self.logger.debug ("SubscriberMW::register - populate the Registrant Info")
       reg_info = discovery_pb2.RegistrantInfo () # allocate
       reg_info.id = name  # our id
-      reg_info.addr = self.addr  # our advertised IP addr where we are publishing
-      reg_info.port = self.port # port on which we are publishing
       self.logger.debug ("SubscriberMW::register - done populating the Registrant Info")
       
       # Next build a RegisterReq message
       self.logger.debug ("SubscriberMW::register - populate the nested register req")
       register_req = discovery_pb2.RegisterReq ()  # allocate 
-      register_req.role = discovery_pb2.ROLE_PUBLISHER  # we are a publisher
+      register_req.role = discovery_pb2.ROLE_SUBSCRIBER  # we are a publisher
       # It was observed that we cannot directly assign the nested field here.
       # A way around is to use the CopyFrom method as shown
       register_req.info.CopyFrom (reg_info)  # copy contents of inner structure
@@ -320,6 +318,7 @@ class SubscriberMW ():
   #
   # This part is left as an exercise.
   #################################################################
+  # TODO: something here...
   def disseminate (self, id, topic, data):
     try:
       self.logger.debug ("SubscriberMW::disseminate")
