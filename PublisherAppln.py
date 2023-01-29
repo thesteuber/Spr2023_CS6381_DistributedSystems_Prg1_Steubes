@@ -58,16 +58,25 @@ from topic_selector import TopicSelector
 from CS6381_MW.PublisherMW import PublisherMW
 
 # import any other packages you need.
+from enum import Enum
 
 ##################################
 #       PublisherAppln class
 ##################################
 class PublisherAppln ():
 
+  class State(Enum):
+    INITIALIZE = 0,
+    CONFIGURE = 1,
+    REGISTER = 2,
+    ISREADY = 3,
+    DISSEMINATE = 4,
+    COMPLETED = 5
   ########################################
   # constructor
   ########################################
   def __init__ (self, logger):
+    self.state = self.State.INITIALIZE
     self.iters = None   # number of iterations of publication
     self.frequency = None # rate at which dissemination takes place
     self.name = None # our name (some unique name)
@@ -84,6 +93,7 @@ class PublisherAppln ():
     ''' Initialize the object '''
 
     try:
+      self.state = self.State.CONFIGURE
       # Here we initialize any internal variables
       self.logger.debug ("PublisherAppln::configure")
     
@@ -128,17 +138,20 @@ class PublisherAppln ():
       self.dump ()
 
       # First ask our middleware to register ourselves with the discovery service
+      self.state = self.State.REGISTER
       self.logger.debug ("PublisherAppln::driver - register with the discovery service")
       result = self.mw_obj.register (self.name, self.topiclist)
       self.logger.debug ("PublisherAppln::driver - result of registration".format (result))
 
       # Now keep checking with the discovery service if we are ready to go
+      self.state = self.State.ISREADY
       self.logger.debug ("PublisherAppln::driver - check if are ready to go")
       while (not self.mw_obj.is_ready ()):
         time.sleep (5)  # sleep between calls so that we don't make excessive calls
         self.logger.debug ("PublisherAppln::driver - check again if are ready to go")
 
       # Now disseminate topics at the rate at which we have configured ourselves.
+      self.state = self.State.DISSEMINATE
       ts = TopicSelector ()
       for i in range (self.iters):
         # I leave it to you whether you want to disseminate all the topics of interest in
@@ -155,7 +168,8 @@ class PublisherAppln ():
         # Now sleep for an interval of time to ensure we disseminate at the
         # frequency that was configured.
         time.sleep (1/float (self.frequency))  # ensure we get a floating point num
-        
+      
+      self.state = self.State.COMPLETED
     except Exception as e:
       raise e
 
