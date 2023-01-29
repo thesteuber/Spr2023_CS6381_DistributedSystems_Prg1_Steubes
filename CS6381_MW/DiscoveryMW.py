@@ -135,7 +135,7 @@ class DiscoveryMW ():
       # The way to do this is to first allocate the space for the
       # message we expect, here DiscoveryResp and then parse
       # the incoming bytes and populate this structure (via protobuf code)
-      disc_req = discovery_pb2.RegisterReq()
+      disc_req = discovery_pb2.DiscoveryReq()
       disc_req.ParseFromString(bytesRcvd)
 
       # demultiplex the message based on the message type but let the application
@@ -148,8 +148,10 @@ class DiscoveryMW ():
         # let the appln level object decide what to do
         timeout = self.upcall_obj.register_request (disc_req.register_req)
       elif (disc_req.msg_type == discovery_pb2.TYPE_ISREADY):
-        # this is a response to is ready request
-        timeout = self.upcall_obj.isready_response (disc_req.isready_resp)
+        # this is the is ready request
+        timeout = self.upcall_obj.isready_request()
+    #   elif (disc_req.msg_type == discovery_pb2.LookupPubByTopicReq):
+    #     # TODO
 
       else: # anything else is unrecognizable by this object
         # raise an exception here
@@ -159,7 +161,52 @@ class DiscoveryMW ():
     
     except Exception as e:
       raise e
-            
+
+  ########################################
+  # Send is ready status back to requester
+  ########################################
+  def send_is_ready (self, is_ready):
+    ''' send the is ready status '''
+    try:
+      self.logger.info ("DiscoveryMW::is_ready")
+
+      # we do a similar kind of serialization as we did in the register
+      # message but much simpler as the message format is very simple.
+      # Then send the request to the discovery service
+    
+      # The following code shows serialization using the protobuf generated code.
+      
+      # first build a IsReady message
+      self.logger.debug ("DiscoveryMW::is_ready - populate the nested IsReady msg")
+      isready_resp = discovery_pb2.IsReadyResp ()  # allocate 
+      isready_resp.status = is_ready
+      # actually, there is nothing inside that msg declaration.
+      self.logger.debug ("DiscoveryMW::is_ready - done populating nested IsReady msg")
+
+      # Build the outer layer Discovery Message
+      self.logger.debug ("DiscoveryMW::is_ready - build the outer DiscoveryResp message")
+      disc_resp = discovery_pb2.DiscoveryResp ()
+      disc_resp.msg_type = discovery_pb2.TYPE_ISREADY
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_resp.isready_resp.CopyFrom (isready_resp)
+      self.logger.debug ("DiscoveryMW::is_ready - done building the outer message")
+      
+      # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
+      # a real string
+      buf2send = disc_resp.SerializeToString ()
+      self.logger.debug ("Stringified serialized buf = {}".format (buf2send))
+
+      # now send this to our discovery service
+      self.logger.debug ("DiscoveryMW::is_ready - send stringified buffer to Discovery service")
+      self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      
+      # now go to our event loop to receive a response to this request
+      self.logger.info ("DiscoveryMW::is_ready - request sent and now wait for reply")
+      
+    except Exception as e:
+      raise e
+
   ########################################
   # set upcall handle
   #
