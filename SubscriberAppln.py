@@ -34,6 +34,7 @@ import time   # for sleep
 import argparse # for argument parsing
 import configparser # for configuration parsing
 import logging # for logging. Use it in place of print statements.
+import json
 
 # Import our topic selector. Feel free to use alternate way to
 # get your topics of interest
@@ -46,6 +47,7 @@ from CS6381_MW import discovery_pb2
 
 # import any other packages you need.
 from enum import Enum  # for an enumeration we are using to describe what state we are in
+
 
 ##################################
 #       SubscriberAppln class
@@ -320,7 +322,8 @@ class SubscriberAppln ():
 
       # connect each of the publishers to this subscriber
       for p in lookup_resp.publishers:
-        self.mw_obj.connect_to_publisher(p)
+        self.logger.debug ("tcp://{}:{}".format(p.addr, p.port))
+        self.mw_obj.connect_to_publisher(p, self.topiclist)
 
       # set state to collect so that the polling will be listening to the publishers and handling
       self.state = self.State.COLLECT
@@ -373,7 +376,7 @@ def parseCmdLineArgs ():
 
   parser.add_argument ("-a", "--addr", default="localhost", help="IP addr of this publisher to advertise (default: localhost)")
 
-  parser.add_argument ("-p", "--port", type=int, default=5577, help="Port number on which our underlying publisher ZMQ service runs, default=5577")
+  parser.add_argument ("-p", "--port", type=int, default=5578, help="Port number on which our underlying publisher ZMQ service runs, default=5578")
     
   parser.add_argument ("-d", "--discovery", default="localhost:5555", help="IP Addr:Port combo for the discovery service, default localhost:5555")
 

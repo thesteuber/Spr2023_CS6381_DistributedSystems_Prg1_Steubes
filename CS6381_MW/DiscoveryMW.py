@@ -254,17 +254,15 @@ class DiscoveryMW ():
       self.logger.debug ("DiscoveryMW::send_topic_publishers - populate the nested LookupPubByTopicResp msg")
       lookup_resp = discovery_pb2.LookupPubByTopicResp ()  # allocate 
 
-      message_publishers = []
       for p in topic_pubs:
-        message_publisher = discovery_pb2.RegistrantInfo
+        message_publisher = lookup_resp.publishers.add()
         message_publisher.id = p.name
         message_publisher.addr = p.address
         message_publisher.port = p.port
-
-        message_publishers.append(message_publisher)
+        self.logger.debug ("tcp://{}:{}".format(message_publisher.addr, message_publisher.port))
 
       self.logger.debug ("DiscoveryMW::send_topic_publishers - done prepping message publishers")
-      lookup_resp.publishers = message_publishers
+
       # actually, there is nothing inside that msg declaration.
       self.logger.debug ("DiscoveryMW::send_topic_publishers - done populating nested LookupPubByTopicResp msg")
 

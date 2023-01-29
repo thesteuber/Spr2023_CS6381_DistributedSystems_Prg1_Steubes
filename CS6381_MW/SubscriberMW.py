@@ -184,7 +184,7 @@ class SubscriberMW ():
       elif (disc_resp.msg_type == discovery_pb2.TYPE_ISREADY):
         # this is a response to is ready request
         timeout = self.upcall_obj.isready_response (disc_resp.isready_resp)
-      elif (disc_resp.msg_type == discovery_pb2.LookupPubByTopicReq):
+      elif (disc_resp.msg_type == discovery_pb2.TYPE_LOOKUP_PUB_BY_TOPIC):
         # this is a lookup publishers by topic/s request
         timeout = self.upcall_obj.lookup_by_topic_response(disc_resp.lookup_resp)
 
@@ -416,12 +416,15 @@ class SubscriberMW ():
   # connect a given publish to the ZMQ SUB socket associated with 
   # this subscriber.
   #################################################################
-  def connect_to_publisher(self, publisher):
+  def connect_to_publisher(self, publisher, topiclist):
     try:
       self.logger.debug ("SubscriberMW::connect_to_publisher " + str(publisher.id))
+      self.logger.debug ("tcp://{}:{}".format(publisher.addr, publisher.port))
 
       # connect the publisher to the SUB ZMQ Socket
       self.sub.connect("tcp://{}:{}".format(publisher.addr, publisher.port))
+      for t in topiclist:
+        self.sub.subscribe(t)
       
       self.logger.debug ("SubscriberMW::connect_to_publisher complete")
     except Exception as e:
@@ -445,7 +448,7 @@ class SubscriberMW ():
       self.logger.debug ("SubscriberMW::collect")
 
       # receive the info as bytes. See how we are providing an encoding of utf-8
-      message = self.pub.recv_string()
+      message = self.sub.recv_string()
 
       self.logger.debug ("SubscriberMW::collect complete")
       
