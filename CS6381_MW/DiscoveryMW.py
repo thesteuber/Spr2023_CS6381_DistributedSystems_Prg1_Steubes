@@ -140,7 +140,7 @@ class DiscoveryMW ():
       elif (disc_req.msg_type == discovery_pb2.TYPE_ISREADY):
         # this is the is ready request
         timeout = self.upcall_obj.isready_request()
-      elif (disc_req.msg_type == discovery_pb2.LookupPubByTopicReq):
+      elif (disc_req.msg_type == discovery_pb2.TYPE_LOOKUP_PUB_BY_TOPIC):
         # this is a lookup publishers by topic/s request
         timeout = self.upcall_obj.lookup_by_topic_request(disc_req.lookup_req)
 
@@ -214,8 +214,8 @@ class DiscoveryMW ():
       # first build a IsReady message
       self.logger.debug ("DiscoveryMW::send_is_ready - populate the nested IsReady msg")
       isready_resp = discovery_pb2.IsReadyResp ()  # allocate 
-      # isready_resp.status = is_ready # TODO uncomment
-      isready_resp.status = True
+      isready_resp.status = is_ready
+      
       # actually, there is nothing inside that msg declaration.
       self.logger.debug ("DiscoveryMW::send_is_ready - done populating nested IsReady msg")
 
@@ -263,7 +263,8 @@ class DiscoveryMW ():
 
         message_publishers.append(message_publisher)
 
-      lookup_resp.publishers[:] = message_publishers
+      self.logger.debug ("DiscoveryMW::send_topic_publishers - done prepping message publishers")
+      lookup_resp.publishers = message_publishers
       # actually, there is nothing inside that msg declaration.
       self.logger.debug ("DiscoveryMW::send_topic_publishers - done populating nested LookupPubByTopicResp msg")
 
