@@ -272,7 +272,7 @@ class DiscoveryMW ():
 
         message_publishers.append(message_publisher)
 
-      lookup_resp.publishers = message_publishers
+      lookup_resp.publishers[:] = message_publishers
       # actually, there is nothing inside that msg declaration.
       self.logger.debug ("DiscoveryMW::send_topic_publishers - done populating nested LookupPubByTopicResp msg")
 
