@@ -60,7 +60,7 @@ class SubscriberAppln ():
     CONFIGURE = 1,
     REGISTER = 2,
     ISREADY = 3,
-    DISSEMINATE = 4,
+    COLLECT = 4,
     COMPLETED = 5
 
   ########################################
@@ -94,7 +94,7 @@ class SubscriberAppln ():
       # initialize our variables
       self.name = args.name # our name
       self.iters = args.iters  # num of iterations
-      self.frequency = args.frequency # frequency with which topics are disseminated
+      self.frequency = args.frequency # frequency with which topics are collected
       self.num_topics = args.num_topics  # total num of topics we publish
 
       # Now, get the configuration object
@@ -210,27 +210,27 @@ class SubscriberAppln ():
         # for the next iteration of the event loop to a large num and so return a None.
         return None
       
-      elif (self.state == self.State.DISSEMINATE):
+      elif (self.state == self.State.COLLECT):
 
         # We are here because both registration and is ready is done. So the only thing
         # left for us as a publisher is dissemination, which we do it actively here.
         self.logger.debug ("SubscriberAppln::invoke_operation - start Disseminating")
 
-        # Now disseminate topics at the rate at which we have configured ourselves.
+        # Now COLLECT topics at the rate at which we have configured ourselves.
         ts = TopicSelector ()
         for i in range (self.iters):
-          # I leave it to you whether you want to disseminate all the topics of interest in
+          # I leave it to you whether you want to COLLECT all the topics of interest in
           # each iteration OR some subset of it. Please modify the logic accordingly.
-          # Here, we choose to disseminate on all topics that we publish.  Also, we don't care
+          # Here, we choose to COLLECT on all topics that we publish.  Also, we don't care
           # about their values. But in future assignments, this can change.
           for topic in self.topiclist:
             # For now, we have chosen to send info in the form "topic name: topic value"
             # In later assignments, we should be using more complex encodings using
             # protobuf.  In fact, I am going to do this once my basic logic is working.
             dissemination_data = ts.gen_publication (topic)
-            self.mw_obj.disseminate (self.name, topic, dissemination_data)
+            self.mw_obj.collect (self.name, topic, dissemination_data)
 
-          # Now sleep for an interval of time to ensure we disseminate at the
+          # Now sleep for an interval of time to ensure we COLLECT at the
           # frequency that was configured.
           time.sleep (1/float (self.frequency))  # ensure we get a floating point num
 
@@ -307,8 +307,8 @@ class SubscriberAppln ():
 
       else:
         # we got the go ahead
-        # set the state to disseminate
-        self.state = self.State.DISSEMINATE
+        # set the state to collect
+        self.state = self.State.COLLECT
         
       # return timeout of 0 so event loop calls us back in the invoke_operation
       # method, where we take action based on what state we are in.
@@ -366,7 +366,7 @@ def parseCmdLineArgs ():
 
   parser.add_argument ("-c", "--config", default="config.ini", help="configuration file (default: config.ini)")
 
-  parser.add_argument ("-f", "--frequency", type=int,default=1, help="Rate at which topics disseminated: default once a second - use integers")
+  parser.add_argument ("-f", "--frequency", type=int,default=1, help="Rate at which topics collected: default once a second - use integers")
 
   parser.add_argument ("-i", "--iters", type=int, default=1000, help="number of publication iterations (default: 1000)")
 

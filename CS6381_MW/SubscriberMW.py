@@ -307,7 +307,7 @@ class SubscriberMW ():
       raise e
 
   #################################################################
-  # disseminate the data on our pub socket
+  # collect the data on our pub socket
   #
   # do the actual dissemination of info using the ZMQ pub socket
   #
@@ -319,19 +319,19 @@ class SubscriberMW ():
   # This part is left as an exercise.
   #################################################################
   # TODO: something here...
-  def disseminate (self, id, topic, data):
+  def collect (self, id, topic, data):
     try:
-      self.logger.debug ("SubscriberMW::disseminate")
+      self.logger.debug ("SubscriberMW::collect")
 
       # Now use the protobuf logic to encode the info and send it.  But for now
       # we are simply sending the string to make sure dissemination is working.
       send_str = topic + ":" + data
-      self.logger.debug ("SubscriberMW::disseminate - {}".format (send_str))
+      self.logger.debug ("SubscriberMW::collect - {}".format (send_str))
 
       # send the info as bytes. See how we are providing an encoding of utf-8
       self.pub.send (bytes(send_str, "utf-8"))
 
-      self.logger.debug ("SubscriberMW::disseminate complete")
+      self.logger.debug ("SubscriberMW::collect complete")
     except Exception as e:
       raise e
             
