@@ -23,15 +23,6 @@ class Registrant:
         self.port = port             # Registrant Port
         self.topic_list = topic_list # Registrant Topic List
 
-    ########################################
-    # constructor
-    ########################################
-    def __init__ (self, name):
-        self.name = name          # Registrant name (some unique name)
-        self.address = None       # Registrant Address (IP)
-        self.port = None          # Registrant Port
-        self.topic_list = None    # Registrant Topic List
-
 ##################################
 #       DiscoveryLedger class
 ##################################

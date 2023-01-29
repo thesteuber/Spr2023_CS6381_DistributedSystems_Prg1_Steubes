@@ -188,7 +188,7 @@ class DiscoveryAppln ():
       # if subscriber, check if subscriber is already registered, if not, add to ledger.
       elif (reg_req.role == discovery_pb2.ROLE_SUBSCRIBER):
         if (not any(s.name == reg_req.info.id for s in self.discovery_ledger.subscribers)):
-            self.discovery_ledger.subscribers.append(Registrant(reg_req.info.id))
+            self.discovery_ledger.subscribers.append(Registrant(reg_req.info.id, None, None, None))
             success = True
         else:
             reason = "Publisher names must be unique."
@@ -267,9 +267,7 @@ class DiscoveryAppln ():
       self.logger.info ("------------------------------")
       self.logger.info ("     Name: {}".format (self.name))
       self.logger.info ("     Lookup: {}".format (self.lookup))
-      self.logger.info ("     Dissemination: {}".format (self.dissemination))
       self.logger.info ("     Num Topics: {}".format (self.num_topics))
-      self.logger.info ("     TopicList: {}".format (self.topiclist))
       self.logger.info ("     Iterations: {}".format (self.iters))
       self.logger.info ("     Frequency: {}".format (self.frequency))
       self.logger.info ("**********************************")
@@ -292,11 +290,11 @@ def parseCmdLineArgs ():
   # using, what is our endpoint (i.e., port where we are going to bind at the
   # ZMQ level)
   
-  parser.add_argument ("-n", "--name", default="pub", help="Some name assigned to us. Keep it unique per publisher")
+  parser.add_argument ("-n", "--name", default="disc", help="Some name assigned to us. Keep it unique per publisher")
 
   parser.add_argument ("-a", "--addr", default="localhost", help="IP addr of this publisher to advertise (default: localhost)")
 
-  parser.add_argument ("-p", "--port", type=int, default=5577, help="Port number on which our underlying publisher ZMQ service runs, default=5577")
+  parser.add_argument ("-p", "--port", type=int, default=5555, help="Port number on which our underlying publisher ZMQ service runs, default=5555")
     
   parser.add_argument ("-d", "--discovery", default="localhost:5555", help="IP Addr:Port combo for the discovery service, default localhost:5555")
 
@@ -312,7 +310,7 @@ def parseCmdLineArgs ():
   
   parser.add_argument ("-s", "--subs", type=int, default=1, help="number of needed subscribers to be ready (default: 1)")
 
-  parser.add_argument ("-p", "--pubs", type=int, default=1, help="number of needed publishers to be ready (default: 1)")
+  parser.add_argument ("-P", "--pubs", type=int, default=1, help="number of needed publishers to be ready (default: 1)")
 
 
   return parser.parse_args()

@@ -78,15 +78,8 @@ class DiscoveryMW ():
       # Since we are using the event loop approach, register the REP socket for incoming events
       self.logger.debug ("DiscoveryMW::configure - register the REP socket for incoming replies")
       self.poller.register (self.rep, zmq.POLLIN)
-      
-    #   # Since we are the publisher, the best practice as suggested in ZMQ is for us to
-    #   # "bind" the PUB socket
-    #   self.logger.debug ("DiscoveryMW::configure - bind to the pub socket")
-    #   # note that we publish on any interface hence the * followed by port number.
-    #   # We always use TCP as the transport mechanism (at least for these assignments)
-    #   # Since port is an integer, we convert it to string to make it part of the URL
-    #   bind_string = "tcp://*:" + str(self.port)
-    #   self.pub.bind (bind_string)
+
+      self.rep.bind("tcp://*:{}".format(self.port))
       
       self.logger.info ("DiscoveryMW::configure completed")
 
@@ -112,9 +105,6 @@ class DiscoveryMW ():
         if self.rep in events:  
           # handle the incoming reply from remote entity and return the result
           timeout = self.handle_reply()
-          
-        else:
-          raise Exception ("Unknown event after poll")
 
       self.logger.info ("DiscoveryMW::event_loop - out of the event loop")
     except Exception as e:
@@ -224,7 +214,8 @@ class DiscoveryMW ():
       # first build a IsReady message
       self.logger.debug ("DiscoveryMW::send_is_ready - populate the nested IsReady msg")
       isready_resp = discovery_pb2.IsReadyResp ()  # allocate 
-      isready_resp.status = is_ready
+      # isready_resp.status = is_ready # TODO uncomment
+      isready_resp.status = True
       # actually, there is nothing inside that msg declaration.
       self.logger.debug ("DiscoveryMW::send_is_ready - done populating nested IsReady msg")
 
