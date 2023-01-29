@@ -51,9 +51,9 @@ from CS6381_MW import discovery_pb2
 from enum import Enum  # for an enumeration we are using to describe what state we are in
 
 ##################################
-#       PublisherAppln class
+#       DiscoveryAppln class
 ##################################
-class PublisherAppln ():
+class DiscoveryAppln ():
 
   # these are the states through which our publisher appln object goes thru.
   # We maintain the state so we know where we are in the lifecycle and then
