@@ -10,7 +10,7 @@
 ###############################################
 
 # Designing the logic is left as an exercise for the student. Please see the
-# PublisherMW.py file as to how the middleware side of things are constructed
+# SubscriberMW.py file as to how the middleware side of things are constructed
 # and accordingly design things for the subscriber side of things.
 #
 # Remember that the subscriber middleware does not do anything on its own.
@@ -48,7 +48,7 @@ from CS6381_MW import discovery_pb2
 ##################################
 #       Publisher Middleware class
 ##################################
-class PublisherMW ():
+class SubscriberMW ():
 
   ########################################
   # constructor
@@ -56,7 +56,7 @@ class PublisherMW ():
   def __init__ (self, logger):
     self.logger = logger  # internal logger for print statements
     self.req = None # will be a ZMQ REQ socket to talk to Discovery service
-    self.pub = None # will be a ZMQ PUB socket for dissemination
+    self.sub = None # will be a ZMQ SUB socket for dissemination
     self.poller = None # used to wait on incoming replies
     self.addr = None # our advertised IP address
     self.port = None # port num where we are going to publish our topics
@@ -71,52 +71,43 @@ class PublisherMW ():
 
     try:
       # Here we initialize any internal variables
-      self.logger.info ("PublisherMW::configure")
+      self.logger.info ("SubscriberMW::configure")
 
       # First retrieve our advertised IP addr and the publication port num
       self.port = args.port
       self.addr = args.addr
       
       # Next get the ZMQ context
-      self.logger.debug ("PublisherMW::configure - obtain ZMQ context")
+      self.logger.debug ("SubscriberMW::configure - obtain ZMQ context")
       context = zmq.Context ()  # returns a singleton object
 
       # get the ZMQ poller object
-      self.logger.debug ("PublisherMW::configure - obtain the poller")
+      self.logger.debug ("SubscriberMW::configure - obtain the poller")
       self.poller = zmq.Poller ()
       
       # Now acquire the REQ and PUB sockets
       # REQ is needed because we are the client of the Discovery service
       # PUB is needed because we publish topic data
-      self.logger.debug ("PublisherMW::configure - obtain REQ and PUB sockets")
+      self.logger.debug ("SubscriberMW::configure - obtain REQ and SUB sockets")
       self.req = context.socket (zmq.REQ)
-      self.pub = context.socket (zmq.PUB)
+      self.sub = context.socket (zmq.SUB)
 
       # Since are using the event loop approach, register the REQ socket for incoming events
       # Note that nothing ever will be received on the PUB socket and so it does not make
       # any sense to register it with the poller for an incoming message.
-      self.logger.debug ("PublisherMW::configure - register the REQ socket for incoming replies")
+      self.logger.debug ("SubscriberMW::configure - register the REQ socket for incoming replies")
       self.poller.register (self.req, zmq.POLLIN)
       
       # Now connect ourselves to the discovery service. Recall that the IP/port were
       # supplied in our argument parsing. Best practices of ZQM suggest that the
       # one who maintains the REQ socket should do the "connect"
-      self.logger.debug ("PublisherMW::configure - connect to Discovery service")
+      self.logger.debug ("SubscriberMW::configure - connect to Discovery service")
       # For our assignments we will use TCP. The connect string is made up of
       # tcp:// followed by IP addr:port number.
       connect_str = "tcp://" + args.discovery
       self.req.connect (connect_str)
       
-      # Since we are the publisher, the best practice as suggested in ZMQ is for us to
-      # "bind" the PUB socket
-      self.logger.debug ("PublisherMW::configure - bind to the pub socket")
-      # note that we publish on any interface hence the * followed by port number.
-      # We always use TCP as the transport mechanism (at least for these assignments)
-      # Since port is an integer, we convert it to string to make it part of the URL
-      bind_string = "tcp://*:" + str(self.port)
-      self.pub.bind (bind_string)
-      
-      self.logger.info ("PublisherMW::configure completed")
+      self.logger.info ("SubscriberMW::configure completed")
 
     except Exception as e:
       raise e
@@ -127,7 +118,7 @@ class PublisherMW ():
   def event_loop (self, timeout=None):
 
     try:
-      self.logger.info ("PublisherMW::event_loop - run the event loop")
+      self.logger.info ("SubscriberMW::event_loop - run the event loop")
 
       # we are using a class variable called "handle_events" which is set to
       # True but can be set out of band to False in order to exit this forever
@@ -159,7 +150,7 @@ class PublisherMW ():
         else:
           raise Exception ("Unknown event after poll")
 
-      self.logger.info ("PublisherMW::event_loop - out of the event loop")
+      self.logger.info ("SubscriberMW::event_loop - out of the event loop")
     except Exception as e:
       raise e
             
@@ -169,7 +160,7 @@ class PublisherMW ():
   def handle_reply (self):
 
     try:
-      self.logger.info ("PublisherMW::handle_reply")
+      self.logger.info ("SubscriberMW::handle_reply")
 
       # let us first receive all the bytes
       bytesRcvd = self.req.recv ()
@@ -217,7 +208,7 @@ class PublisherMW ():
     ''' register the appln with the discovery service '''
 
     try:
-      self.logger.info ("PublisherMW::register")
+      self.logger.info ("SubscriberMW::register")
 
       # as part of registration with the discovery service, we send
       # what role we are playing, the list of topics we are publishing,
@@ -226,31 +217,31 @@ class PublisherMW ():
       # The following code shows serialization using the protobuf generated code.
 
       # Build the Registrant Info message first.
-      self.logger.debug ("PublisherMW::register - populate the Registrant Info")
+      self.logger.debug ("SubscriberMW::register - populate the Registrant Info")
       reg_info = discovery_pb2.RegistrantInfo () # allocate
       reg_info.id = name  # our id
       reg_info.addr = self.addr  # our advertised IP addr where we are publishing
       reg_info.port = self.port # port on which we are publishing
-      self.logger.debug ("PublisherMW::register - done populating the Registrant Info")
+      self.logger.debug ("SubscriberMW::register - done populating the Registrant Info")
       
       # Next build a RegisterReq message
-      self.logger.debug ("PublisherMW::register - populate the nested register req")
+      self.logger.debug ("SubscriberMW::register - populate the nested register req")
       register_req = discovery_pb2.RegisterReq ()  # allocate 
       register_req.role = discovery_pb2.ROLE_PUBLISHER  # we are a publisher
       # It was observed that we cannot directly assign the nested field here.
       # A way around is to use the CopyFrom method as shown
       register_req.info.CopyFrom (reg_info)  # copy contents of inner structure
       register_req.topiclist[:] = topiclist   # this is how repeated entries are added (or use append() or extend ()
-      self.logger.debug ("PublisherMW::register - done populating nested RegisterReq")
+      self.logger.debug ("SubscriberMW::register - done populating nested RegisterReq")
 
       # Finally, build the outer layer DiscoveryReq Message
-      self.logger.debug ("PublisherMW::register - build the outer DiscoveryReq message")
+      self.logger.debug ("SubscriberMW::register - build the outer DiscoveryReq message")
       disc_req = discovery_pb2.DiscoveryReq ()  # allocate
       disc_req.msg_type = discovery_pb2.TYPE_REGISTER  # set message type
       # It was observed that we cannot directly assign the nested field here.
       # A way around is to use the CopyFrom method as shown
       disc_req.register_req.CopyFrom (register_req)
-      self.logger.debug ("PublisherMW::register - done building the outer message")
+      self.logger.debug ("SubscriberMW::register - done building the outer message")
       
       # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
       # a real string
@@ -258,11 +249,11 @@ class PublisherMW ():
       self.logger.debug ("Stringified serialized buf = {}".format (buf2send))
 
       # now send this to our discovery service
-      self.logger.debug ("PublisherMW::register - send stringified buffer to Discovery service")
+      self.logger.debug ("SubscriberMW::register - send stringified buffer to Discovery service")
       self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
 
       # now go to our event loop to receive a response to this request
-      self.logger.info ("PublisherMW::register - sent register message and now now wait for reply")
+      self.logger.info ("SubscriberMW::register - sent register message and now now wait for reply")
     
     except Exception as e:
       raise e
@@ -279,7 +270,7 @@ class PublisherMW ():
     ''' register the appln with the discovery service '''
 
     try:
-      self.logger.info ("PublisherMW::is_ready")
+      self.logger.info ("SubscriberMW::is_ready")
 
       # we do a similar kind of serialization as we did in the register
       # message but much simpler as the message format is very simple.
@@ -288,19 +279,19 @@ class PublisherMW ():
       # The following code shows serialization using the protobuf generated code.
       
       # first build a IsReady message
-      self.logger.debug ("PublisherMW::is_ready - populate the nested IsReady msg")
+      self.logger.debug ("SubscriberMW::is_ready - populate the nested IsReady msg")
       isready_req = discovery_pb2.IsReadyReq ()  # allocate 
       # actually, there is nothing inside that msg declaration.
-      self.logger.debug ("PublisherMW::is_ready - done populating nested IsReady msg")
+      self.logger.debug ("SubscriberMW::is_ready - done populating nested IsReady msg")
 
       # Build the outer layer Discovery Message
-      self.logger.debug ("PublisherMW::is_ready - build the outer DiscoveryReq message")
+      self.logger.debug ("SubscriberMW::is_ready - build the outer DiscoveryReq message")
       disc_req = discovery_pb2.DiscoveryReq ()
       disc_req.msg_type = discovery_pb2.TYPE_ISREADY
       # It was observed that we cannot directly assign the nested field here.
       # A way around is to use the CopyFrom method as shown
       disc_req.isready_req.CopyFrom (isready_req)
-      self.logger.debug ("PublisherMW::is_ready - done building the outer message")
+      self.logger.debug ("SubscriberMW::is_ready - done building the outer message")
       
       # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
       # a real string
@@ -308,11 +299,11 @@ class PublisherMW ():
       self.logger.debug ("Stringified serialized buf = {}".format (buf2send))
 
       # now send this to our discovery service
-      self.logger.debug ("PublisherMW::is_ready - send stringified buffer to Discovery service")
+      self.logger.debug ("SubscriberMW::is_ready - send stringified buffer to Discovery service")
       self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
       
       # now go to our event loop to receive a response to this request
-      self.logger.info ("PublisherMW::is_ready - request sent and now wait for reply")
+      self.logger.info ("SubscriberMW::is_ready - request sent and now wait for reply")
       
     except Exception as e:
       raise e
@@ -331,17 +322,17 @@ class PublisherMW ():
   #################################################################
   def disseminate (self, id, topic, data):
     try:
-      self.logger.debug ("PublisherMW::disseminate")
+      self.logger.debug ("SubscriberMW::disseminate")
 
       # Now use the protobuf logic to encode the info and send it.  But for now
       # we are simply sending the string to make sure dissemination is working.
       send_str = topic + ":" + data
-      self.logger.debug ("PublisherMW::disseminate - {}".format (send_str))
+      self.logger.debug ("SubscriberMW::disseminate - {}".format (send_str))
 
       # send the info as bytes. See how we are providing an encoding of utf-8
       self.pub.send (bytes(send_str, "utf-8"))
 
-      self.logger.debug ("PublisherMW::disseminate complete")
+      self.logger.debug ("SubscriberMW::disseminate complete")
     except Exception as e:
       raise e
             
