@@ -41,7 +41,7 @@ class DiscoveryMW ():
   ########################################
   def __init__ (self, logger):
     self.logger = logger  # internal logger for print statements
-    self.rep = None # will be a ZMQ REQ socket to talk to Discovery service
+    self.rep = None # will be a ZMQ REP socket to talk to Discovery service
     self.poller = None # used to wait on incoming replies
     self.addr = None # our advertised IP address
     self.port = None # port num where we are going to publish our topics
@@ -162,13 +162,14 @@ class DiscoveryMW ():
     except Exception as e:
       raise e
 
+
   ########################################
-  # Send is ready status back to requester
+  # Send is register status back to requester
   ########################################
-  def send_is_ready (self, is_ready):
-    ''' send the is ready status '''
+  def send_register_status (self, success, reason):
+    ''' send the register status '''
     try:
-      self.logger.info ("DiscoveryMW::is_ready")
+      self.logger.info ("DiscoveryMW::send_register_status")
 
       # we do a similar kind of serialization as we did in the register
       # message but much simpler as the message format is very simple.
@@ -177,32 +178,73 @@ class DiscoveryMW ():
       # The following code shows serialization using the protobuf generated code.
       
       # first build a IsReady message
-      self.logger.debug ("DiscoveryMW::is_ready - populate the nested IsReady msg")
+      self.logger.debug ("DiscoveryMW::send_register_status - populate the nested Register Response msg")
+      reg_resp = discovery_pb2.RegisterResp ()  # allocate 
+      reg_resp.status = discovery_pb2.Status.STATUS_SUCCESS if success else discovery_pb2.Status.STATUS_FAILURE
+      reg_resp.reason = reason
+      
+      # actually, there is nothing inside that msg declaration.
+      self.logger.debug ("DiscoveryMW::send_register_status - done populating nested Register Response msg")
+
+      # Build the outer layer Discovery Message
+      self.logger.debug ("DiscoveryMW::send_register_status - build the outer Register Response message")
+      disc_resp = discovery_pb2.DiscoveryResp ()
+      disc_resp.msg_type = discovery_pb2.TYPE_REGISTER
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_resp.register_resp.CopyFrom (reg_resp)
+      self.logger.debug ("DiscoveryMW::send_register_status - done building the outer message")
+      
+      # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
+      # a real string
+      buf2send = disc_resp.SerializeToString ()
+
+      # now send this to our discovery service
+      self.rep.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      
+    except Exception as e:
+      raise e
+
+
+  ########################################
+  # Send is ready status back to requester
+  ########################################
+  def send_is_ready (self, is_ready):
+    ''' send the is ready status '''
+    try:
+      self.logger.info ("DiscoveryMW::send_is_ready")
+
+      # we do a similar kind of serialization as we did in the register
+      # message but much simpler as the message format is very simple.
+      # Then send the request to the discovery service
+    
+      # The following code shows serialization using the protobuf generated code.
+      
+      # first build a IsReady message
+      self.logger.debug ("DiscoveryMW::send_is_ready - populate the nested IsReady msg")
       isready_resp = discovery_pb2.IsReadyResp ()  # allocate 
       isready_resp.status = is_ready
       # actually, there is nothing inside that msg declaration.
-      self.logger.debug ("DiscoveryMW::is_ready - done populating nested IsReady msg")
+      self.logger.debug ("DiscoveryMW::send_is_ready - done populating nested IsReady msg")
 
       # Build the outer layer Discovery Message
-      self.logger.debug ("DiscoveryMW::is_ready - build the outer DiscoveryResp message")
+      self.logger.debug ("DiscoveryMW::send_is_ready - build the outer DiscoveryResp message")
       disc_resp = discovery_pb2.DiscoveryResp ()
       disc_resp.msg_type = discovery_pb2.TYPE_ISREADY
       # It was observed that we cannot directly assign the nested field here.
       # A way around is to use the CopyFrom method as shown
       disc_resp.isready_resp.CopyFrom (isready_resp)
-      self.logger.debug ("DiscoveryMW::is_ready - done building the outer message")
+      self.logger.debug ("DiscoveryMW::send_is_ready - done building the outer message")
       
       # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
       # a real string
       buf2send = disc_resp.SerializeToString ()
-      self.logger.debug ("Stringified serialized buf = {}".format (buf2send))
 
       # now send this to our discovery service
-      self.logger.debug ("DiscoveryMW::is_ready - send stringified buffer to Discovery service")
-      self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      self.rep.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
       
       # now go to our event loop to receive a response to this request
-      self.logger.info ("DiscoveryMW::is_ready - request sent and now wait for reply")
+      self.logger.info ("DiscoveryMW::send_is_ready - request sent and now wait for reply")
       
     except Exception as e:
       raise e

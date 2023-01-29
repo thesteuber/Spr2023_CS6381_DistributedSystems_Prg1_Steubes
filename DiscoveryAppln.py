@@ -49,6 +49,7 @@ from CS6381_MW import discovery_pb2
 
 # import any other packages you need.
 from enum import Enum  # for an enumeration we are using to describe what state we are in
+from DiscoveryLedger import DiscoveryLedger, Registrant
 
 ##################################
 #       DiscoveryAppln class
@@ -81,6 +82,7 @@ class DiscoveryAppln ():
     self.subs = None # expected number of subscribers before ready
     self.pubs = None # expected number of publishers before ready
     self.is_ready = False
+    self.discovery_ledger = None
 
   ########################################
   # configure/initialize
@@ -102,7 +104,8 @@ class DiscoveryAppln ():
       self.num_topics = args.num_topics  # total num of topics we publish
       self.subs = args.subs
       self.pubs = args.pubs
-
+      self.discovery_ledger = DiscoveryLedger()
+      
       # Now, get the configuration object
       self.logger.debug ("DiscoveryAppln::configure - parsing config.ini")
       config = configparser.ConfigParser ()
@@ -157,99 +160,8 @@ class DiscoveryAppln ():
     except Exception as e:
       raise e
 
+  
   ########################################
-  # generic invoke method called as part of upcall
-  #
-  # This method will get invoked as part of the upcall made
-  # by the middleware's event loop after it sees a timeout has
-  # occurred.
-  ########################################
-  def invoke_operation (self):
-    ''' Invoke operating depending on state  '''
-
-    try:
-      self.logger.info ("DiscoveryAppln::invoke_operation")
-
-      # check what state are we in. If we are in REGISTER state,
-      # we send register request to discovery service. If we are in
-      # ISREADY state, then we keep checking with the discovery
-      # service.
-      if (self.state == self.State.REGISTER):
-        # send a register msg to discovery service
-        self.logger.debug ("DiscoveryAppln::invoke_operation - register with the discovery service")
-        self.mw_obj.register (self.name, self.topiclist)
-
-        # Remember that we were invoked by the event loop as part of the upcall.
-        # So we are going to return back to it for its next iteration. Because
-        # we have just now sent a register request, the very next thing we expect is
-        # to receive a response from remote entity. So we need to set the timeout
-        # for the next iteration of the event loop to a large num and so return a None.
-        return None
-      
-      elif (self.state == self.State.ISREADY):
-        # Now keep checking with the discovery service if we are ready to go
-        #
-        # Note that in the previous version of the code, we had a loop. But now instead
-        # of an explicit loop we are going to go back and forth between the event loop
-        # and the upcall until we receive the go ahead from the discovery service.
-        
-        self.logger.debug ("DiscoveryAppln::invoke_operation - check if are ready to go")
-        self.mw_obj.is_ready ()  # send the is_ready? request
-
-        # Remember that we were invoked by the event loop as part of the upcall.
-        # So we are going to return back to it for its next iteration. Because
-        # we have just now sent a isready request, the very next thing we expect is
-        # to receive a response from remote entity. So we need to set the timeout
-        # for the next iteration of the event loop to a large num and so return a None.
-        return None
-      
-      elif (self.state == self.State.DISSEMINATE):
-
-        # We are here because both registration and is ready is done. So the only thing
-        # left for us as a publisher is dissemination, which we do it actively here.
-        self.logger.debug ("DiscoveryAppln::invoke_operation - start Disseminating")
-
-        # Now disseminate topics at the rate at which we have configured ourselves.
-        ts = TopicSelector ()
-        for i in range (self.iters):
-          # I leave it to you whether you want to disseminate all the topics of interest in
-          # each iteration OR some subset of it. Please modify the logic accordingly.
-          # Here, we choose to disseminate on all topics that we publish.  Also, we don't care
-          # about their values. But in future assignments, this can change.
-          for topic in self.topiclist:
-            # For now, we have chosen to send info in the form "topic name: topic value"
-            # In later assignments, we should be using more complex encodings using
-            # protobuf.  In fact, I am going to do this once my basic logic is working.
-            dissemination_data = ts.gen_publication (topic)
-            self.mw_obj.disseminate (self.name, topic, dissemination_data)
-
-          # Now sleep for an interval of time to ensure we disseminate at the
-          # frequency that was configured.
-          time.sleep (1/float (self.frequency))  # ensure we get a floating point num
-
-        self.logger.debug ("DiscoveryAppln::invoke_operation - Dissemination completed")
-
-        # we are done. So we move to the completed state
-        self.state = self.State.COMPLETED
-
-        # return a timeout of zero so that the event loop sends control back to us right away.
-        return 0
-        
-      elif (self.state == self.State.COMPLETED):
-
-        # we are done. Time to break the event loop. So we created this special method on the
-        # middleware object to kill its event loop
-        self.mw_obj.disable_event_loop ()
-        return None
-
-      else:
-        raise ValueError ("Undefined state of the appln object")
-      
-      self.logger.info ("DiscoveryAppln::invoke_operation completed")
-    except Exception as e:
-      raise e
-
-    ########################################
   # handle register request method called as part of upcall
   #
   # As mentioned in class, the middleware object can do the reading
@@ -257,13 +169,38 @@ class DiscoveryAppln ():
   # of the message and what should be done. So it becomes the job
   # of the application. Hence this upcall is made to us.
   ########################################
-  def register_request (self, reg_resp):
+  def register_request (self, reg_req):
     ''' handle register request '''
 
     try:
       self.logger.info ("DiscoveryAppln::register_request")
+      success = False
+      reason = ""
+
+      # if publisher, check if publisher is already registered, if not, add to ledger.
+      if (reg_req.role == discovery_pb2.ROLE_PUBLISHER):
+        if (not any(p.name == reg_req.info.id for p in self.discovery_ledger.publishers)):
+            self.discovery_ledger.publishers.append(Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, reg_req.topiclist))
+            success = True
+        else:
+            reason = "Publisher names must be unique."
+    
+      # if subscriber, check if subscriber is already registered, if not, add to ledger.
+      elif (reg_req.role == discovery_pb2.ROLE_SUBSCRIBER):
+        if (not any(s.name == reg_req.info.id for s in self.discovery_ledger.subscribers)):
+            self.discovery_ledger.subscribers.append(Registrant(reg_req.info.id))
+            success = True
+        else:
+            reason = "Publisher names must be unique."
       
-      # TODO: track registrant based on type (sub/pub) 
+      # there should only be subscriber and publisher types requesting to register
+      else:
+        raise Exception ("Unknown event after poll")
+
+      if (len(self.discovery_ledger.publishers) >= self.pubs and len(self.discovery_ledger.subscribers) >= self.subs):
+        self.is_ready = True
+    
+      self.mw_obj.send_register_status(success, reason)
 
       # return a timeout of zero so that the event loop in its next iteration will immediately make
       # an upcall to us
