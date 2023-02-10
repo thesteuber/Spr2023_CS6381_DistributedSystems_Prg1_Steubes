@@ -51,8 +51,9 @@ class BrokerAppln ():
     CONFIGURE = 1,
     REGISTER = 2,
     ISREADY = 3,
-    DISSEMINATE = 4,
-    COMPLETED = 5
+    LOOKUP = 4,
+    COLLECT = 5,
+    COMPLETED = 6
 
   ########################################
   # constructor
@@ -201,38 +202,23 @@ class BrokerAppln ():
         # for the next iteration of the event loop to a large num and so return a None.
         return None
       
-      elif (self.state == self.State.DISSEMINATE):
+      elif (self.state == self.State.LOOKUP):
+        # the discovery service is ready, so now we need to lookup all pubs to subscribe to direct
+        self.logger.debug ("BrokerAppln::invoke_operation - start LookUp all pubs")
+        self.mw_obj.lookup_all_pubs() # lookup all publishers
 
-        # We are here because both registration and is ready is done. So the only thing
-        # left for us as a publisher is dissemination, which we do it actively here.
-        self.logger.debug ("BrokerAppln::invoke_operation - start Disseminating")
+      elif (self.state == self.State.COLLECT):
+        self.logger.debug ("BrokerAppln::invoke_operation - start collecting")
+        # Collect any messages sent from the connected publishers
+        message = self.mw_obj.collect()
+        self.logger.debug ("BrokerAppln::invoke_operation - collecting completed")
 
-        # Now disseminate topics at the rate at which we have configured ourselves.
-        # TODO something here for this to be a broker I suppose
-        ts = TopicSelector ()
-        for i in range (self.iters):
-          # I leave it to you whether you want to disseminate all the topics of interest in
-          # each iteration OR some subset of it. Please modify the logic accordingly.
-          # Here, we choose to disseminate on all topics that we publish.  Also, we don't care
-          # about their values. But in future assignments, this can change.
-          for topic in self.topiclist:
-            # For now, we have chosen to send info in the form "topic name: topic value"
-            # In later assignments, we should be using more complex encodings using
-            # protobuf.  In fact, I am going to do this once my basic logic is working.
-            dissemination_data = ts.gen_publication (topic)
-            self.mw_obj.disseminate (self.name, topic, dissemination_data)
+        self.logger.debug ("BrokerAppln::invoke_operation - start disseminate relay")
+        self.mw_obj.disseminate(message)
+        self.logger.debug ("BrokerAppln::invoke_operation - completed disseminate relay")
 
-          # Now sleep for an interval of time to ensure we disseminate at the
-          # frequency that was configured.
-          time.sleep (1/float (self.frequency))  # ensure we get a floating point num
-
-        self.logger.debug ("BrokerAppln::invoke_operation - Dissemination completed")
-
-        # we are done. So we move to the completed state
-        self.state = self.State.COMPLETED
-
-        # return a timeout of zero so that the event loop sends control back to us right away.
-        return 0
+        # return a timeout or frequency to limit the polling.
+        return self.frequency
         
       elif (self.state == self.State.COMPLETED):
 
@@ -300,7 +286,33 @@ class BrokerAppln ():
       else:
         # we got the go ahead
         # set the state to disseminate
-        self.state = self.State.DISSEMINATE
+        self.state = self.State.LOOKUP
+        
+      # return timeout of 0 so event loop calls us back in the invoke_operation
+      # method, where we take action based on what state we are in.
+      return 0
+    
+    except Exception as e:
+      raise e
+
+  ########################################
+  # handle lookup_all_pubs_response response method called as part of upcall
+  #
+  # Also a part of upcall handled by application logic
+  ########################################
+  def lookup_all_pubs_response (self, allpubs_resp):
+    ''' lookup_all_pubs_response '''
+
+    try:
+      self.logger.info ("BrokerAppln::lookup_all_pubs_response")
+
+      # connect each of the publishers to this subscriber
+      for p in allpubs_resp.publishers:
+        self.logger.debug ("tcp://{}:{}".format(p.addr, p.port))
+        self.mw_obj.connect_to_publisher(p)
+
+      # set state to collect so that the polling will be listening to the publishers and handling
+      self.state = self.State.COLLECT
         
       # return timeout of 0 so event loop calls us back in the invoke_operation
       # method, where we take action based on what state we are in.

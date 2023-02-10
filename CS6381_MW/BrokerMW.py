@@ -23,12 +23,14 @@
 import os     # for OS functions
 import sys    # for syspath and system exception
 import time   # for sleep
+import datetime
 import logging # for logging. Use it in place of print statements.
 import zmq  # ZMQ sockets
 
 # import serialization logic
 from CS6381_MW import discovery_pb2
 #from CS6381_MW import topic_pb2  # you will need this eventually
+from topic_selector import TopicSelector
 
 # import any other packages you need.
 from CS6381_MW import Common
@@ -45,6 +47,7 @@ class BrokerMW ():
     self.logger = logger  # internal logger for print statements
     self.req = None # will be a ZMQ REQ socket to talk to Discovery service
     self.pub = None # will be a ZMQ PUB socket for dissemination
+    self.sub = None # will be a ZMQ SUB socket for dissemination
     self.poller = None # used to wait on incoming replies
     self.addr = None # our advertised IP address
     self.port = None # port num where we are going to publish our topics
@@ -79,6 +82,7 @@ class BrokerMW ():
       self.logger.debug ("BrokerMW::configure - obtain REQ and PUB sockets")
       self.req = context.socket (zmq.REQ)
       self.pub = context.socket (zmq.PUB)
+      self.sub = context.socket (zmq.SUB)
 
       # Since are using the event loop approach, register the REQ socket for incoming events
       # Note that nothing ever will be received on the PUB socket and so it does not make
@@ -181,6 +185,9 @@ class BrokerMW ():
       elif (disc_resp.msg_type == discovery_pb2.TYPE_ISREADY):
         # this is a response to is ready request
         timeout = self.upcall_obj.isready_response (disc_resp.isready_resp)
+      elif (disc_resp.msg_type == discovery_pb2.TYPE_LOOKUP_ALL_PUBS):
+        # this is a response to is ready request
+        timeout = self.upcall_obj.lookup_all_pubs_response (disc_resp.allpubs_resp)
 
       else: # anything else is unrecognizable by this object
         # raise an exception here
@@ -304,6 +311,97 @@ class BrokerMW ():
       
     except Exception as e:
       raise e
+ 
+  ########################################
+  # get all pubs from discovery service
+  ########################################
+  def lookup_all_pubs (self):
+    ''' register the appln with the discovery service '''
+
+    try:
+      self.logger.info ("BrokerMW::lookup_all_pubs")
+
+      # we do a similar kind of serialization as we did in the register
+      # message but much simpler as the message format is very simple.
+      # Then send the request to the discovery service
+    
+      # The following code shows serialization using the protobuf generated code.
+      
+      # first build a LookupAllPubsReq message
+      self.logger.debug ("BrokerMW::lookup_all_pubs - populate the nested LookupAllPubsReq msg")
+      allpubs_req = discovery_pb2.LookupAllPubsReq ()  # allocate 
+      # actually, there is nothing inside that msg declaration.
+      self.logger.debug ("BrokerMW::lookup_all_pubs - done populating nested LookupAllPubsReq msg")
+
+      # Build the outer layer Discovery Message
+      self.logger.debug ("BrokerMW::lookup_all_pubs - build the outer DiscoveryReq message")
+      disc_req = discovery_pb2.DiscoveryReq ()
+      disc_req.msg_type = discovery_pb2.TYPE_LOOKUP_ALL_PUBS
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_req.allpubs_req.CopyFrom (allpubs_req)
+      self.logger.debug ("BrokerMW::lookup_all_pubs - done building the outer message")
+      
+      # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
+      # a real string
+      buf2send = disc_req.SerializeToString ()
+      self.logger.debug ("Stringified serialized buf = {}".format (buf2send))
+
+      # now send this to our discovery service
+      self.logger.debug ("BrokerMW::lookup_all_pubs - send stringified buffer to Discovery service")
+      self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      
+      # now go to our event loop to receive a response to this request
+      self.logger.info ("BrokerMW::lookup_all_pubs - request sent and now wait for reply")
+      
+    except Exception as e:
+      raise e
+
+  #################################################################
+  # connect a given publisher to the ZMQ SUB socket associated with 
+  # this broker.
+  #################################################################
+  def connect_to_publisher(self, publisher):
+    try:
+      self.logger.debug ("BrokerMW::connect_to_publisher " + str(publisher.id))
+      self.logger.debug ("tcp://{}:{}".format(publisher.addr, publisher.port))
+
+      # connect the publisher to the SUB ZMQ Socket
+      self.sub.connect("tcp://{}:{}".format(publisher.addr, publisher.port))
+      ts = TopicSelector ()
+      allTopics = ts.interest (9)
+      for t in allTopics:
+        self.sub.subscribe(t)
+      
+      self.logger.debug ("BrokerMW::connect_to_publisher complete")
+    except Exception as e:
+      raise e
+
+  #################################################################
+  # collect the data on our pub socket
+  #
+  # do the actual dissemination of info using the ZMQ pub socket
+  #
+  # Note, here I am sending three diff params. I am eventually going to replace this
+  # sending of a simple string with protobuf serialization. Recall that we need to be
+  # sending publisher id, topic, data, timestamp at a minimum for our experimental
+  # data collection. So anyway we will need to do the necessary serialization.
+  #
+  # This part is left as an exercise.
+  #################################################################
+  def collect (self):
+    try:
+      self.logger.debug ("BrokerMW::collect")
+
+      # receive the info as bytes. See how we are providing an encoding of utf-8
+      message = self.sub.recv_string()
+
+      self.logger.debug ("BrokerMW::collect complete")
+
+      return message
+      
+    except Exception as e:
+      raise e
 
   #################################################################
   # disseminate the data on our pub socket
@@ -317,19 +415,14 @@ class BrokerMW ():
   #
   # This part is left as an exercise.
   #################################################################
-  # TODO this this needs to be a bit different/not needed?
-  def disseminate (self, id, topic, data):
+  def disseminate (self, message):
     try:
       self.logger.debug ("BrokerMW::disseminate")
-
-      # Now use the protobuf logic to encode the info and send it.  But for now
-      # we are simply sending the string to make sure dissemination is working.
-      #send_str = topic + ":" + data + ":" + str(time.time())
-      send_str = str(Common.TopicParcel(topic, data, id))
-      self.logger.debug ("BrokerMW::disseminate - {}".format (send_str))
+      
+      self.logger.debug ("BrokerMW::disseminate - {}".format (message))
 
       # send the info as bytes. See how we are providing an encoding of utf-8
-      self.pub.send (bytes(send_str, "utf-8"))
+      self.pub.send (bytes(message, "utf-8"))
 
       self.logger.debug ("BrokerMW::disseminate complete")
     except Exception as e:

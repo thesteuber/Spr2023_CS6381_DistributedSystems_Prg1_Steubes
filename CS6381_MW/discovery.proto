@@ -118,7 +118,7 @@ message DiscoveryReq
               RegisterReq register_req = 2;
               IsReadyReq isready_req = 3;
               LookupPubByTopicReq lookup_req = 4;
-              // add more 
+              LookupAllPubsReq allpubs_req = 5;
         }
 }
 
@@ -130,7 +130,7 @@ message DiscoveryResp
               RegisterResp register_resp = 2;
               IsReadyResp isready_resp = 3;
               LookupPubByTopicResp lookup_resp = 4;
-              // add more 
+              LookupAllPubsResp allpubs_resp = 5;
         }
 }
 
