@@ -83,6 +83,7 @@ class DiscoveryAppln ():
     self.pubs = None # expected number of publishers before ready
     self.is_ready = False
     self.discovery_ledger = None
+    self.dissemination = None # Method by which messages are disseminated: ViaBroker or Direct
 
   ########################################
   # configure/initialize
@@ -111,6 +112,7 @@ class DiscoveryAppln ():
       config = configparser.ConfigParser ()
       config.read (args.config)
       self.lookup = config["Discovery"]["Strategy"]
+      self.dissemination = config["Dissemination"]["Strategy"]
     
       # Now get our topic list of interest
       self.logger.debug ("DiscoveryAppln::configure - selecting our topic list")
@@ -192,13 +194,22 @@ class DiscoveryAppln ():
             success = True
         else:
             reason = "Publisher names must be unique."
+
+      # if broker, check if broker is already registered, if not, add to ledger.
+      elif (reg_req.role == discovery_pb2.ROLE_BOTH):
+        if (self.discovery_ledger.broker == None):
+            self.discovery_ledger.broker = Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, None)
+            success = True
+        else:
+            reason = "Only 1 broker may be used."
       
       # there should only be subscriber and publisher types requesting to register
       else:
         raise Exception ("Unknown event after poll")
 
       if (len(self.discovery_ledger.publishers) >= self.pubs and len(self.discovery_ledger.subscribers) >= self.subs):
-        self.is_ready = True
+        if (self.dissemination == "Direct" or (self.dissemination == "Broker" and self.discovery_ledger.broker != None)):
+          self.is_ready = True
     
       self.mw_obj.send_register_status(success, reason)
 

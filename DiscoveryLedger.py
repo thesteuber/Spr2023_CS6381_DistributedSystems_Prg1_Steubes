@@ -34,3 +34,4 @@ class DiscoveryLedger ():
     def __init__ (self):
         self.subscribers = list() # List of subscriber registrants
         self.publishers = list()  # List of publisher registrants
+        self.broker = None # Singular broker in case a ViaBroker is leveraged
