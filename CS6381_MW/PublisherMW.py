@@ -35,6 +35,7 @@ from CS6381_MW import discovery_pb2
 #from CS6381_MW import topic_pb2  # you will need this eventually
 
 # import any other packages you need.
+from CS6381_MW import Common
 
 ##################################
 #       Publisher Middleware class
@@ -326,7 +327,8 @@ class PublisherMW ():
 
       # Now use the protobuf logic to encode the info and send it.  But for now
       # we are simply sending the string to make sure dissemination is working.
-      send_str = topic + ":" + data
+      #send_str = topic + ":" + data + ":" + str(time.time())
+      send_str = str(Common.TopicParcel(topic, data, id))
       self.logger.debug ("PublisherMW::disseminate - {}".format (send_str))
 
       # send the info as bytes. See how we are providing an encoding of utf-8

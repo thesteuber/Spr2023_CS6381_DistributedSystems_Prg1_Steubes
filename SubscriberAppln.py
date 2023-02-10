@@ -47,7 +47,7 @@ from CS6381_MW import discovery_pb2
 
 # import any other packages you need.
 from enum import Enum  # for an enumeration we are using to describe what state we are in
-
+from CS6381_MW import Common
 
 ##################################
 #       SubscriberAppln class
@@ -228,7 +228,8 @@ class SubscriberAppln ():
         message = self.mw_obj.collect ()
 
         self.logger.debug ("SubscriberAppln::invoke_operation - collecting completed")
-        self.logger.debug (message)
+        self.logger.debug (str(message))
+        self.logger.debug (message.sent_at)
 
         # return a timeout or frequency to limit the polling.
         return self.frequency
@@ -380,7 +381,7 @@ def parseCmdLineArgs ():
     
   parser.add_argument ("-d", "--discovery", default="localhost:5555", help="IP Addr:Port combo for the discovery service, default localhost:5555")
 
-  parser.add_argument ("-T", "--num_topics", type=int, choices=range(1,10), default=1, help="Number of topics to publish, currently restricted to max of 9")
+  parser.add_argument ("-T", "--num_topics", type=int, choices=range(1,10), default=1, help="Number of topics to subscribe, currently restricted to max of 9")
 
   parser.add_argument ("-c", "--config", default="config.ini", help="configuration file (default: config.ini)")
 

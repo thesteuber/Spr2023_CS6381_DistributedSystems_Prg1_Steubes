@@ -44,6 +44,8 @@ from CS6381_MW import discovery_pb2
 #from CS6381_MW import topic_pb2  # you will need this eventually
 
 # import any other packages you need.
+from CS6381_MW import Common
+import datetime
 
 ##################################
 #       Publisher Middleware class
@@ -451,8 +453,11 @@ class SubscriberMW ():
       message = self.sub.recv_string()
 
       self.logger.debug ("SubscriberMW::collect complete")
-      
-      return message
+      resultParcel = Common.TopicParcel.fromMessage(message)
+      latency = (datetime.datetime.now() - datetime.datetime.fromisoformat(resultParcel.sent_at)).microseconds / 1000
+      self.logger.debug ("SubscriberMW::collect latency of message: " + str(latency) + "ms")
+
+      return resultParcel
       
     except Exception as e:
       raise e
