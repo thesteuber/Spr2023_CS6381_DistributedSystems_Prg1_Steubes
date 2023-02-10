@@ -254,7 +254,11 @@ class DiscoveryAppln ():
       self.logger.info ("DiscoveryAppln::lookup_by_topic_request")
 
       # get list of publishers that match up with any topic in the request topic list
-      topic_pubs = [p for p in self.discovery_ledger.publishers if any(t in p.topic_list for t in lookup_req.topiclist)]
+      topic_pubs = None
+      if (self.dissemination == "Broker"):
+        topic_pubs = [self.discovery_ledger.broker] # only send the broker to subs requesting pubs if via broker
+      else:
+        topic_pubs = [p for p in self.discovery_ledger.publishers if any(t in p.topic_list for t in lookup_req.topiclist)]
 
       # use middleware to serialize and send the is ready status
       self.mw_obj.send_topic_publishers(topic_pubs)
