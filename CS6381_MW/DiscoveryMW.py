@@ -319,7 +319,7 @@ class DiscoveryMW ():
       disc_resp.msg_type = discovery_pb2.TYPE_LOOKUP_ALL_PUBS
       # It was observed that we cannot directly assign the nested field here.
       # A way around is to use the CopyFrom method as shown
-      disc_resp.lookup_resp.CopyFrom (lookup_resp)
+      disc_resp.allpubs_resp.CopyFrom (lookup_resp)
       self.logger.debug ("DiscoveryMW::send_all_publishers - done building the outer message")
       
       # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
