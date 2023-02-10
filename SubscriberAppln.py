@@ -35,6 +35,7 @@ import argparse # for argument parsing
 import configparser # for configuration parsing
 import logging # for logging. Use it in place of print statements.
 import json
+import datetime
 
 # Import our topic selector. Feel free to use alternate way to
 # get your topics of interest
@@ -48,6 +49,7 @@ from CS6381_MW import discovery_pb2
 # import any other packages you need.
 from enum import Enum  # for an enumeration we are using to describe what state we are in
 from CS6381_MW import Common
+import os.path
 
 ##################################
 #       SubscriberAppln class
@@ -72,6 +74,7 @@ class SubscriberAppln ():
   def __init__ (self, logger):
     self.state = self.State.INITIALIZE # state that are we in
     self.name = None # our name (some unique name)
+    self.metric_file = None # metrics.csv file location for output
     self.topiclist = None # the different topics to which we subscribe
     self.iters = None   # number of iterations of subscription
     self.frequency = None # rate at which subscription takes place
@@ -96,6 +99,21 @@ class SubscriberAppln ():
       
       # initialize our variables
       self.name = args.name # our name
+      self.metric_file = args.metrics_file # output file name
+      
+      # if not os.path.isfile(self.metric_file):
+      #   self.logger.info ("SubscriberAppln::configure out file does not exists, creating it")
+      #   f = open(self.metric_file, "w+")
+      #   f.write("pub,sub,sent_at,received_at,latency")
+      #   f.close()
+      # else:
+      #   f = open(self.metric_file, "w+")
+      #   f.write("pub,sub,sent_at,received_at,latency")
+      #   f.close()
+      f = open(self.metric_file, "w+")
+      f.write("pub,sub,sent_at,received_at,latency\n")
+      f.close()
+
       self.iters = args.iters  # num of iterations
       self.frequency = args.frequency # frequency with which topics are collected
       self.num_topics = args.num_topics  # total num of topics we publish
@@ -230,6 +248,7 @@ class SubscriberAppln ():
         self.logger.debug ("SubscriberAppln::invoke_operation - collecting completed")
         self.logger.debug (str(message))
         self.logger.debug (message.sent_at)
+        self.write_latency_row(message)
 
         # return a timeout or frequency to limit the polling.
         return self.frequency
@@ -337,6 +356,15 @@ class SubscriberAppln ():
       raise e
 
   ########################################
+  # append entry to metric file
+  ########################################
+  def write_latency_row(self, parcel):
+    f = open(self.metric_file, "a+")
+    received_at = datetime.datetime.now().isoformat(sep=" ")
+    latency = (datetime.datetime.fromisoformat(received_at) - datetime.datetime.fromisoformat(parcel.sent_at)).microseconds / 1000
+    f.write(parcel.publisher + "," + self.name + "," + parcel.sent_at + "," + received_at + "," + str(latency) + "\n")
+
+  ########################################
   # dump the contents of the object 
   ########################################
   def dump (self):
@@ -373,9 +401,11 @@ def parseCmdLineArgs ():
   # using, what is our endpoint (i.e., port where we are going to bind at the
   # ZMQ level)
   
-  parser.add_argument ("-n", "--name", default="pub", help="Some name assigned to us. Keep it unique per publisher")
+  parser.add_argument ("-n", "--name", default="sub", help="Some name assigned to us. Keep it unique per publisher")
 
   parser.add_argument ("-a", "--addr", default="localhost", help="IP addr of this publisher to advertise (default: localhost)")
+
+  parser.add_argument ("-m", "--metrics_file", default="./out/metrics.csv", help="Location to write latencies to")
 
   parser.add_argument ("-p", "--port", type=int, default=5578, help="Port number on which our underlying publisher ZMQ service runs, default=5578")
     
