@@ -143,6 +143,9 @@ class DiscoveryMW ():
       elif (disc_req.msg_type == discovery_pb2.TYPE_LOOKUP_PUB_BY_TOPIC):
         # this is a lookup publishers by topic/s request
         timeout = self.upcall_obj.lookup_by_topic_request(disc_req.lookup_req)
+      elif (disc_req.msg_type == discovery_pb2.TYPE_LOOKUP_ALL_PUBS):
+        # this is a lookup all publishers request
+        timeout = self.upcall_obj.lookup_all_pubs()
 
       else: # anything else is unrecognizable by this object
         # raise an exception here
@@ -274,6 +277,50 @@ class DiscoveryMW ():
       # A way around is to use the CopyFrom method as shown
       disc_resp.lookup_resp.CopyFrom (lookup_resp)
       self.logger.debug ("DiscoveryMW::send_topic_publishers - done building the outer message")
+      
+      # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
+      # a real string
+      buf2send = disc_resp.SerializeToString ()
+
+      # now send this to our discovery service
+      self.rep.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      
+    except Exception as e:
+      raise e
+
+    ########################################
+  # Send list of all publishers 
+  # back to broker
+  ########################################
+  def send_all_publishers (self, topic_pubs):
+    ''' send topic publishers '''
+    try:
+      self.logger.info ("DiscoveryMW::send_all_publishers")
+      
+      # first build a IsReady message
+      self.logger.debug ("DiscoveryMW::send_all_publishers - populate the nested LookupAllPubsResp msg")
+      lookup_resp = discovery_pb2.LookupAllPubsResp ()  # allocate 
+
+      for p in topic_pubs:
+        message_publisher = lookup_resp.publishers.add()
+        message_publisher.id = p.name
+        message_publisher.addr = p.address
+        message_publisher.port = p.port
+        self.logger.debug ("tcp://{}:{}".format(message_publisher.addr, message_publisher.port))
+
+      self.logger.debug ("DiscoveryMW::send_all_publishers - done prepping message publishers")
+
+      # actually, there is nothing inside that msg declaration.
+      self.logger.debug ("DiscoveryMW::send_all_publishers - done populating nested LookupAllPubsResp msg")
+
+      # Build the outer layer Discovery Message
+      self.logger.debug ("DiscoveryMW::send_all_publishers - build the outer DiscoveryResp message")
+      disc_resp = discovery_pb2.DiscoveryResp ()
+      disc_resp.msg_type = discovery_pb2.TYPE_LOOKUP_ALL_PUBS
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_resp.lookup_resp.CopyFrom (lookup_resp)
+      self.logger.debug ("DiscoveryMW::send_all_publishers - done building the outer message")
       
       # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
       # a real string

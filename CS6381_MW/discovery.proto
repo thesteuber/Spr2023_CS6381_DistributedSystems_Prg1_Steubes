@@ -77,7 +77,6 @@ message IsReadyResp
     bool status = 1; // yes or no
 }
 
-// TO-DO
 // define more message types. For example, a subscriber middleware may want to know
 // all the publishers that publish the topic that subscriber is interested in. In that case,
 // a request will be a single topic or list of topics, and the response will be list of
@@ -90,10 +89,21 @@ message LookupPubByTopicReq
     repeated string topiclist = 1; // modify this appropriately
 }
 
-// TO-DO
-// Have a corresponding response to the lookupPubByTopic request
+// lookupPubByTopic request
 // accordingly there will be a response to the above message
 message LookupPubByTopicResp
+{
+    repeated RegistrantInfo publishers = 1;
+}
+
+// For broker use to have the discovery service send all the publishers to it.
+// No body needed
+message LookupAllPubsReq
+{
+
+}
+
+message LookupAllPubsResp
 {
     repeated RegistrantInfo publishers = 1;
 }

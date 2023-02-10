@@ -243,7 +243,7 @@ class DiscoveryAppln ():
 
 
   ########################################
-  # handle isready request method called as part of upcall
+  # handle lookup_by_topic_request request method called as part of upcall
   #
   # Also a part of upcall handled by application logic
   ########################################
@@ -265,6 +265,28 @@ class DiscoveryAppln ():
     
     except Exception as e:
       raise e
+
+    ########################################
+  # handle lookup_all_pubs request method called as part of upcall
+  #
+  # Also a part of upcall handled by application logic
+  ########################################
+  def lookup_all_pubs (self):
+    ''' handle isready request '''
+
+    try:
+      self.logger.info ("DiscoveryAppln::lookup_all_pubs")
+
+      # use middleware to serialize and send the is ready status
+      self.mw_obj.send_all_publishers(self.discovery_ledger.publishers)
+
+      # return timeout of 0 so event loop calls us back in the invoke_operation
+      # method, where we take action based on what state we are in.
+      return 0
+    
+    except Exception as e:
+      raise e
+
 
   ########################################
   # dump the contents of the object 
