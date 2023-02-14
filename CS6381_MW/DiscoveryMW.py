@@ -174,7 +174,7 @@ class DiscoveryMW ():
       # first build a IsReady message
       self.logger.debug ("DiscoveryMW::send_register_status - populate the nested Register Response msg")
       reg_resp = discovery_pb2.RegisterResp ()  # allocate 
-      reg_resp.status = discovery_pb2.Status.STATUS_SUCCESS if success else discovery_pb2.Status.STATUS_FAILURE
+      reg_resp.status = discovery_pb2.STATUS_SUCCESS if success else discovery_pb2.STATUS_FAILURE
       reg_resp.reason = reason
       
       # actually, there is nothing inside that msg declaration.

@@ -1,0 +1,1503 @@
+2023-02-14 02:24:27,722 - root - INFO - Main - acquire a child logger and then log messages in the child
+2023-02-14 02:24:27,722 - SubscriberAppln - DEBUG - Main: parse command line arguments
+2023-02-14 02:24:27,723 - SubscriberAppln - DEBUG - Main: resetting log level to 10
+2023-02-14 02:24:27,723 - SubscriberAppln - DEBUG - Main: effective log level is 10
+2023-02-14 02:24:27,723 - SubscriberAppln - DEBUG - Main: obtain the publisher appln object
+2023-02-14 02:24:27,723 - SubscriberAppln - DEBUG - Main: configure the publisher appln object
+2023-02-14 02:24:27,723 - SubscriberAppln - INFO - SubscriberAppln::configure
+2023-02-14 02:24:27,724 - SubscriberAppln - DEBUG - SubscriberAppln::configure - parsing config.ini
+2023-02-14 02:24:27,751 - SubscriberAppln - DEBUG - SubscriberAppln::configure - selecting our topic list
+2023-02-14 02:24:27,752 - SubscriberAppln - DEBUG - SubscriberAppln::configure - initialize the middleware object
+2023-02-14 02:24:27,752 - SubscriberAppln - INFO - SubscriberMW::configure
+2023-02-14 02:24:27,752 - SubscriberAppln - DEBUG - SubscriberMW::configure - obtain ZMQ context
+2023-02-14 02:24:27,752 - SubscriberAppln - DEBUG - SubscriberMW::configure - obtain the poller
+2023-02-14 02:24:27,752 - SubscriberAppln - DEBUG - SubscriberMW::configure - obtain REQ and SUB sockets
+2023-02-14 02:24:27,752 - SubscriberAppln - DEBUG - SubscriberMW::configure - register the REQ socket for incoming replies
+2023-02-14 02:24:27,752 - SubscriberAppln - DEBUG - SubscriberMW::configure - connect to Discovery service
+2023-02-14 02:24:27,753 - SubscriberAppln - INFO - SubscriberMW::configure completed
+2023-02-14 02:24:27,753 - SubscriberAppln - INFO - SubscriberAppln::configure - configuration complete
+2023-02-14 02:24:27,753 - SubscriberAppln - DEBUG - Main: invoke the publisher appln driver
+2023-02-14 02:24:27,753 - SubscriberAppln - INFO - SubscriberAppln::driver
+2023-02-14 02:24:27,753 - SubscriberAppln - INFO - **********************************
+2023-02-14 02:24:27,753 - SubscriberAppln - INFO - SubscriberAppln::dump
+2023-02-14 02:24:27,754 - SubscriberAppln - INFO - ------------------------------
+2023-02-14 02:24:27,754 - SubscriberAppln - INFO -      Name: sub2
+2023-02-14 02:24:27,754 - SubscriberAppln - INFO -      Lookup: Centralized
+2023-02-14 02:24:27,754 - SubscriberAppln - INFO -      Dissemination: Broker
+2023-02-14 02:24:27,754 - SubscriberAppln - INFO -      Num Topics: 2
+2023-02-14 02:24:27,754 - SubscriberAppln - INFO -      TopicList: ['pressure', 'humidity']
+2023-02-14 02:24:27,754 - SubscriberAppln - INFO -      Iterations: 1000
+2023-02-14 02:24:27,754 - SubscriberAppln - INFO -      Frequency: 1
+2023-02-14 02:24:27,754 - SubscriberAppln - INFO - **********************************
+2023-02-14 02:24:27,754 - SubscriberAppln - DEBUG - SubscriberAppln::driver - upcall handle
+2023-02-14 02:24:27,754 - SubscriberAppln - INFO - SubscriberMW::event_loop - run the event loop
+2023-02-14 02:24:27,754 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:27,754 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - register with the discovery service
+2023-02-14 02:24:27,754 - SubscriberAppln - INFO - SubscriberMW::register
+2023-02-14 02:24:27,754 - SubscriberAppln - DEBUG - SubscriberMW::register - populate the Registrant Info
+2023-02-14 02:24:27,754 - SubscriberAppln - DEBUG - SubscriberMW::register - done populating the Registrant Info
+2023-02-14 02:24:27,754 - SubscriberAppln - DEBUG - SubscriberMW::register - populate the nested register req
+2023-02-14 02:24:27,754 - SubscriberAppln - DEBUG - SubscriberMW::register - done populating nested RegisterReq
+2023-02-14 02:24:27,754 - SubscriberAppln - DEBUG - SubscriberMW::register - build the outer DiscoveryReq message
+2023-02-14 02:24:27,754 - SubscriberAppln - DEBUG - SubscriberMW::register - done building the outer message
+2023-02-14 02:24:27,754 - SubscriberAppln - DEBUG - Stringified serialized buf = b'\x08\x01\x12\x1e\x08\x02\x12\x06\n\x04sub2\x1a\x08pressure\x1a\x08humidity'
+2023-02-14 02:24:27,754 - SubscriberAppln - DEBUG - SubscriberMW::register - send stringified buffer to Discovery service
+2023-02-14 02:24:27,754 - SubscriberAppln - INFO - SubscriberMW::register - sent register message and now now wait for reply
+2023-02-14 02:24:27,785 - SubscriberAppln - INFO - SubscriberMW::handle_reply
+2023-02-14 02:24:27,785 - SubscriberAppln - INFO - SubscriberAppln::register_response
+2023-02-14 02:24:27,785 - SubscriberAppln - DEBUG - SubscriberAppln::register_response - registration is a success
+2023-02-14 02:24:27,785 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:27,785 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - check if are ready to go
+2023-02-14 02:24:27,785 - SubscriberAppln - INFO - SubscriberMW::is_ready
+2023-02-14 02:24:27,785 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - populate the nested IsReady msg
+2023-02-14 02:24:27,785 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - done populating nested IsReady msg
+2023-02-14 02:24:27,785 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - build the outer DiscoveryReq message
+2023-02-14 02:24:27,785 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - done building the outer message
+2023-02-14 02:24:27,785 - SubscriberAppln - DEBUG - Stringified serialized buf = b'\x08\x02\x1a\x00'
+2023-02-14 02:24:27,785 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - send stringified buffer to Discovery service
+2023-02-14 02:24:27,785 - SubscriberAppln - INFO - SubscriberMW::is_ready - request sent and now wait for reply
+2023-02-14 02:24:27,786 - SubscriberAppln - INFO - SubscriberMW::handle_reply
+2023-02-14 02:24:27,786 - SubscriberAppln - INFO - SubscriberAppln::isready_response
+2023-02-14 02:24:27,786 - SubscriberAppln - DEBUG - SubscriberAppln::driver - Not ready yet; check again
+2023-02-14 02:24:37,795 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:37,795 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - check if are ready to go
+2023-02-14 02:24:37,795 - SubscriberAppln - INFO - SubscriberMW::is_ready
+2023-02-14 02:24:37,795 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - populate the nested IsReady msg
+2023-02-14 02:24:37,795 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - done populating nested IsReady msg
+2023-02-14 02:24:37,795 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - build the outer DiscoveryReq message
+2023-02-14 02:24:37,795 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - done building the outer message
+2023-02-14 02:24:37,795 - SubscriberAppln - DEBUG - Stringified serialized buf = b'\x08\x02\x1a\x00'
+2023-02-14 02:24:37,795 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - send stringified buffer to Discovery service
+2023-02-14 02:24:37,795 - SubscriberAppln - INFO - SubscriberMW::is_ready - request sent and now wait for reply
+2023-02-14 02:24:37,810 - SubscriberAppln - INFO - SubscriberMW::handle_reply
+2023-02-14 02:24:37,811 - SubscriberAppln - INFO - SubscriberAppln::isready_response
+2023-02-14 02:24:37,811 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:37,811 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start LookUp by Topics
+2023-02-14 02:24:37,811 - SubscriberAppln - INFO - SubscriberMW::lookup_by_topic
+2023-02-14 02:24:37,811 - SubscriberAppln - DEBUG - SubscriberMW::lookup_by_topic - populate the nested LookupPubByTopicReq msg
+2023-02-14 02:24:37,811 - SubscriberAppln - DEBUG - SubscriberMW::lookup_by_topic - done populating nested LookupPubByTopicReq msg
+2023-02-14 02:24:37,811 - SubscriberAppln - DEBUG - SubscriberMW::lookup_by_topic - build the outer DiscoveryReq message
+2023-02-14 02:24:37,811 - SubscriberAppln - DEBUG - SubscriberMW::lookup_by_topic - done building the outer message
+2023-02-14 02:24:37,811 - SubscriberAppln - DEBUG - Stringified serialized buf = b'\x08\x03"\x14\n\x08pressure\n\x08humidity'
+2023-02-14 02:24:37,811 - SubscriberAppln - DEBUG - SubscriberMW::lookup_by_topic - send stringified buffer to Discovery service
+2023-02-14 02:24:37,811 - SubscriberAppln - INFO - SubscriberMW::lookup_by_topic - request sent and now wait for reply
+2023-02-14 02:24:37,811 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation completed
+2023-02-14 02:24:37,817 - SubscriberAppln - INFO - SubscriberMW::handle_reply
+2023-02-14 02:24:37,817 - SubscriberAppln - INFO - SubscriberAppln::lookup_by_topic_response
+2023-02-14 02:24:37,817 - SubscriberAppln - DEBUG - tcp://10.0.0.6:5579
+2023-02-14 02:24:37,817 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher broker
+2023-02-14 02:24:37,817 - SubscriberAppln - DEBUG - tcp://10.0.0.6:5579
+2023-02-14 02:24:37,817 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher subscribe to topic: pressure
+2023-02-14 02:24:37,817 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher subscribe to topic: humidity
+2023-02-14 02:24:37,817 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher complete
+2023-02-14 02:24:37,817 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:37,817 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:37,817 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:37,890 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:37,890 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 527.884ms
+2023-02-14 02:24:37,890 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:37,890 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "942", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:37,890 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:37,892 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:37,892 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:37,892 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:37,893 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:37,893 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 530.784ms
+2023-02-14 02:24:37,893 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:37,893 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "83.69967619932105", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:37,893 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:37,895 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:37,895 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:37,895 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:38,811 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:38,811 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 436.437ms
+2023-02-14 02:24:38,811 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:38,811 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1084", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:38,811 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:38,814 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:38,814 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:38,814 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:38,836 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:38,836 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 461.909ms
+2023-02-14 02:24:38,836 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:38,836 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "33.44268462160399", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:38,836 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:38,845 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:38,846 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:38,846 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:38,940 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:38,941 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 692.54ms
+2023-02-14 02:24:38,941 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:38,941 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1027", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:38,941 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:38,947 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:38,947 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:38,947 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:39,298 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:39,298 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 50.362ms
+2023-02-14 02:24:39,298 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:39,298 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "85.97708225916757", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:39,298 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:39,305 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:39,305 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:39,306 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:39,323 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:39,323 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 960.337ms
+2023-02-14 02:24:39,323 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:39,323 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1048", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:39,323 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:39,326 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:39,326 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:39,326 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:39,330 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:39,330 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 942.619ms
+2023-02-14 02:24:39,331 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:39,331 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1003", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:39,331 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:39,332 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:39,332 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:39,332 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:39,333 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:39,333 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 970.272ms
+2023-02-14 02:24:39,333 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:39,333 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "83.73843043804675", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:39,333 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:39,337 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:39,338 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:39,338 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:39,377 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:39,377 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 989.321ms
+2023-02-14 02:24:39,377 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:39,377 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "17.653706312636015", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:39,377 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:39,379 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:39,379 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:39,379 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:39,800 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:39,800 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 425.943ms
+2023-02-14 02:24:39,800 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:39,800 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1014", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:39,800 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:39,805 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:39,806 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:39,806 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:39,814 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:39,815 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 440.145ms
+2023-02-14 02:24:39,815 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:39,815 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "46.92008549822516", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:39,815 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:39,818 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:39,818 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:39,818 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:39,843 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:39,843 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 595.243ms
+2023-02-14 02:24:39,843 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:39,843 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "950", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:39,843 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:39,845 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:39,845 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:39,845 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:39,910 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:39,910 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 662.157ms
+2023-02-14 02:24:39,910 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:39,910 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "52.865139869289216", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:39,910 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:39,915 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:39,915 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:39,916 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:39,948 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:39,949 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 586.325ms
+2023-02-14 02:24:39,949 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:39,949 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1076", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:39,949 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:39,955 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:39,956 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:39,956 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:39,956 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:39,956 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 593.94ms
+2023-02-14 02:24:39,956 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:39,956 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "56.21919167973921", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:39,956 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:39,961 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:39,961 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:39,961 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:40,002 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:40,002 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 614.518ms
+2023-02-14 02:24:40,002 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:40,002 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1070", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:40,003 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:40,010 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:40,011 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:40,011 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:40,033 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:40,033 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 644.803ms
+2023-02-14 02:24:40,033 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:40,033 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "59.064209035589165", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:40,033 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:40,038 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:40,038 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:40,038 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:40,803 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:40,803 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 428.761ms
+2023-02-14 02:24:40,803 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:40,803 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "884", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:40,803 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:40,806 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:40,806 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:40,806 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:40,816 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:40,816 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 442.095ms
+2023-02-14 02:24:40,817 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:40,817 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "46.319216144233515", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:40,817 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:40,819 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:40,819 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:40,819 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:40,851 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:40,851 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 603.076ms
+2023-02-14 02:24:40,851 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:40,851 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1022", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:40,851 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:40,855 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:40,855 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:40,855 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:40,898 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:40,898 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 650.039ms
+2023-02-14 02:24:40,898 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:40,898 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "86.25069404634502", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:40,898 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:40,900 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:40,900 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:40,900 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:41,022 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:41,022 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 659.93ms
+2023-02-14 02:24:41,022 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:41,022 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "977", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:41,022 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:41,024 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:41,024 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:41,024 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:41,024 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:41,024 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 636.326ms
+2023-02-14 02:24:41,024 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:41,024 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "975", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:41,024 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:41,026 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:41,026 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:41,026 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:41,026 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:41,026 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 663.615ms
+2023-02-14 02:24:41,026 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:41,026 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "53.114556939737184", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:41,026 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:41,028 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:41,028 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:41,028 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:41,062 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:41,062 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 674.146ms
+2023-02-14 02:24:41,062 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:41,062 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "46.492064891862874", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:41,062 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:41,065 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:41,065 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:41,065 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:41,834 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:41,834 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 459.392ms
+2023-02-14 02:24:41,834 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:41,834 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1015", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:41,834 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:41,869 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:41,869 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:41,869 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:41,874 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:41,874 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 499.559ms
+2023-02-14 02:24:41,874 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:41,874 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "80.60833955287828", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:41,874 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:41,877 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:41,878 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:41,878 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:41,941 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:41,941 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 693.466ms
+2023-02-14 02:24:41,941 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:41,942 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1036", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:41,942 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:42,348 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:42,348 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:42,348 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:42,378 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:42,378 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 130.239ms
+2023-02-14 02:24:42,378 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:42,378 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "73.76794975377828", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:42,378 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:42,384 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:42,384 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:42,384 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:42,418 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:42,418 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 55.348ms
+2023-02-14 02:24:42,418 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:42,418 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1041", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:42,418 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:42,424 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:42,424 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:42,424 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:42,426 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:42,426 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 38.336ms
+2023-02-14 02:24:42,426 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:42,426 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "969", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:42,426 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:42,429 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:42,429 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:42,429 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:42,429 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:42,429 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 67.144ms
+2023-02-14 02:24:42,430 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:42,430 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "26.47740067748377", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:42,430 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:42,432 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:42,432 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:42,432 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:42,456 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:42,457 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 68.647ms
+2023-02-14 02:24:42,457 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:42,457 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "82.161774044461", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:42,457 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:42,460 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:42,460 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:42,460 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:42,850 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:42,850 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 475.968ms
+2023-02-14 02:24:42,850 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:42,850 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "874", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:42,850 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:42,852 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:42,852 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:42,852 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:42,858 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:42,858 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 484.019ms
+2023-02-14 02:24:42,858 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:42,858 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "83.81348609566759", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:42,858 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:42,935 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:42,935 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:42,935 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:42,954 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:42,954 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 705.772ms
+2023-02-14 02:24:42,954 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:42,954 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "889", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:42,954 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:42,957 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:42,957 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:42,957 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:42,987 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:42,987 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 738.793ms
+2023-02-14 02:24:42,987 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:42,987 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "83.30925826476437", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:42,987 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:42,989 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:42,989 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:42,989 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:43,760 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:43,760 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 397.577ms
+2023-02-14 02:24:43,760 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:43,760 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1057", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:43,760 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:43,766 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:43,766 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:43,766 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:43,766 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:43,766 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 378.482ms
+2023-02-14 02:24:43,766 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:43,766 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1082", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:43,766 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:43,773 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:43,773 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:43,773 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:43,773 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:43,774 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 411.187ms
+2023-02-14 02:24:43,774 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:43,774 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "55.38213904537886", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:43,774 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:43,782 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:43,782 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:43,782 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:43,810 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:43,810 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 421.744ms
+2023-02-14 02:24:43,810 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:43,810 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "75.02264910545182", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:43,810 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:43,813 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:43,814 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:43,814 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:43,852 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:43,852 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 477.338ms
+2023-02-14 02:24:43,852 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:43,852 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1013", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:43,852 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:43,858 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:43,858 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:43,858 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:43,869 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:43,869 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 494.489ms
+2023-02-14 02:24:43,869 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:43,869 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "38.230701825400885", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:43,869 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:43,873 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:43,873 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:43,873 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:43,952 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:43,952 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 703.809ms
+2023-02-14 02:24:43,952 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:43,952 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1028", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:43,952 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:44,165 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:44,165 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:44,165 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:44,196 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:44,196 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 947.901ms
+2023-02-14 02:24:44,196 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:44,196 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "25.853157774163474", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:44,196 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:44,200 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:44,200 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:44,200 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:45,014 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:45,014 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 765.699ms
+2023-02-14 02:24:45,014 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:45,014 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "917", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:45,014 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:45,023 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:45,023 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:45,023 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:45,023 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:45,023 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 648.684ms
+2023-02-14 02:24:45,023 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:45,023 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "907", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:45,023 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:45,029 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:45,029 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:45,029 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:45,029 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:45,030 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 667.201ms
+2023-02-14 02:24:45,030 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:45,030 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "877", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:45,030 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:45,032 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:45,032 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:45,032 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:45,032 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:45,032 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 644.296ms
+2023-02-14 02:24:45,032 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:45,032 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1002", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:45,032 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:45,040 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:45,040 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:45,040 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:45,045 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:45,046 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 683.159ms
+2023-02-14 02:24:45,046 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:45,046 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "57.66651022694999", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:45,046 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:45,053 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:45,053 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:45,053 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:45,131 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:45,131 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 756.927ms
+2023-02-14 02:24:45,131 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:45,131 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "36.5606219140234", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:45,131 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:45,137 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:45,137 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:45,137 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:45,152 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:45,152 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 764.406ms
+2023-02-14 02:24:45,152 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:45,152 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "67.4038199825252", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:45,152 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:45,163 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:45,163 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:45,163 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:45,198 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:45,198 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 949.76ms
+2023-02-14 02:24:45,198 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:45,198 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "56.948911832588315", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:45,198 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:45,206 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:45,206 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:45,206 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:45,986 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:45,986 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 737.739ms
+2023-02-14 02:24:45,986 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:45,986 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "941", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:45,986 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:45,996 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:45,996 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:45,996 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:45,996 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:45,996 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 633.851ms
+2023-02-14 02:24:45,996 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:45,996 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1079", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:45,996 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:46,004 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:46,005 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:46,005 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:46,005 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:46,005 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 616.771ms
+2023-02-14 02:24:46,005 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:46,005 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1050", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:46,005 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:46,006 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:46,006 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:46,006 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:46,006 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:46,006 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 632.025ms
+2023-02-14 02:24:46,007 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:46,007 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1026", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:46,007 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:46,011 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:46,011 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:46,012 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:46,012 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:46,012 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 649.815ms
+2023-02-14 02:24:46,012 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:46,012 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "25.816831183902213", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:46,012 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:46,014 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:46,015 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:46,015 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:46,051 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:46,052 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 677.14ms
+2023-02-14 02:24:46,052 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:46,052 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "70.17919425713055", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:46,052 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:46,054 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:46,054 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:46,054 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:46,068 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:46,068 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 679.883ms
+2023-02-14 02:24:46,068 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:46,068 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "92.55981371441761", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:46,068 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:46,936 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:46,937 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:46,937 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:47,941 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:47,941 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 692.779ms
+2023-02-14 02:24:47,941 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:47,941 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "99.24062631434879", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:47,941 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:47,950 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:47,950 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:47,950 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:47,985 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:47,985 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 737.521ms
+2023-02-14 02:24:47,986 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:47,986 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "892", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:47,986 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:47,991 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:47,991 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:47,991 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:47,991 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:47,991 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 629.098ms
+2023-02-14 02:24:47,991 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:47,992 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "893", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:47,992 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:47,993 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:47,994 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:47,994 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:47,994 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:47,994 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 605.941ms
+2023-02-14 02:24:47,994 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:47,994 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "926", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:47,994 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:47,996 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:47,997 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:47,997 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:47,997 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:47,997 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 622.42ms
+2023-02-14 02:24:47,997 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:47,997 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1052", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:47,997 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:48,004 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:48,004 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:48,004 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:48,009 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:48,009 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 646.458ms
+2023-02-14 02:24:48,009 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:48,009 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "65.62879679729579", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:48,009 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:48,014 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:48,014 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:48,014 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:48,089 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:48,089 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 714.918ms
+2023-02-14 02:24:48,089 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:48,089 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "64.45375931678842", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:48,089 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:48,092 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:48,092 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:48,092 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:48,106 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:48,107 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 718.708ms
+2023-02-14 02:24:48,107 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:48,107 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "48.66083729048926", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:48,107 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:48,110 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:48,110 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:48,110 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:48,167 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:48,167 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 919.388ms
+2023-02-14 02:24:48,167 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:48,167 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "83.15402162239486", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:48,167 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:48,170 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:48,170 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:48,170 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:48,207 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:48,208 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 959.614ms
+2023-02-14 02:24:48,208 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:48,208 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "967", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:48,208 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:48,212 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:48,212 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:48,212 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:48,213 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:48,213 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 850.282ms
+2023-02-14 02:24:48,213 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:48,213 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "870", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:48,213 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:48,218 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:48,219 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:48,219 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:48,219 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:48,219 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 830.92ms
+2023-02-14 02:24:48,219 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:48,219 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1056", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:48,219 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:48,229 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:48,229 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:48,229 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:48,229 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:48,229 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 854.446ms
+2023-02-14 02:24:48,229 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:48,229 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "932", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:48,229 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:48,240 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:48,240 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:48,240 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:48,245 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:48,245 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 882.294ms
+2023-02-14 02:24:48,245 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:48,245 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "32.454357933203795", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:48,245 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:48,254 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:48,254 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:48,254 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:48,287 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:48,287 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 912.788ms
+2023-02-14 02:24:48,287 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:48,287 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "47.46662205273483", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:48,287 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:48,293 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:48,293 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:48,293 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:48,298 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:48,298 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 909.803ms
+2023-02-14 02:24:48,298 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:48,298 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "47.52318539298837", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:48,298 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:48,304 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:48,304 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:48,304 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:48,586 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:48,586 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 337.969ms
+2023-02-14 02:24:48,586 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:48,586 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "23.879622409515214", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:48,586 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:48,592 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:48,593 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:48,593 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:48,989 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:48,989 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 626.414ms
+2023-02-14 02:24:48,989 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:48,989 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1070", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:48,989 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:48,991 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:48,991 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:48,991 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:48,991 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:48,991 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 628.654ms
+2023-02-14 02:24:48,991 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:48,991 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "82.77804958239363", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:48,991 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:49,000 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:49,000 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:49,001 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:49,056 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:49,056 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 808.263ms
+2023-02-14 02:24:49,056 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:49,056 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "885", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:49,056 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:49,060 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:49,060 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:49,060 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:49,060 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:49,060 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 672.065ms
+2023-02-14 02:24:49,060 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:49,060 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "969", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:49,060 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:49,063 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:49,063 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:49,063 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:49,063 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:49,063 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 688.622ms
+2023-02-14 02:24:49,063 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:49,063 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1039", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:49,063 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:49,075 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:49,075 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:49,075 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:49,108 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:49,108 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 733.321ms
+2023-02-14 02:24:49,108 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:49,108 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "21.531427512781768", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:49,108 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:49,110 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:49,110 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:49,110 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:49,115 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:49,115 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 727.57ms
+2023-02-14 02:24:49,115 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:49,116 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "94.1271583686156", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:49,116 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:49,118 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:49,118 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:49,118 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:49,149 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:49,149 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 900.91ms
+2023-02-14 02:24:49,149 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:49,149 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "99.98062891452821", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:49,149 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:49,154 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:49,154 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:49,154 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:50,835 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:50,835 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 587.119ms
+2023-02-14 02:24:50,835 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:50,835 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "879", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:50,835 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:50,842 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:50,842 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:50,842 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:50,842 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:50,843 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 480.166ms
+2023-02-14 02:24:50,843 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:50,843 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "919", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:50,843 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:50,845 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:50,845 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:50,845 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:50,845 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:50,845 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 457.146ms
+2023-02-14 02:24:50,845 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:50,845 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1030", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:50,845 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:50,850 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:50,850 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:50,850 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:50,851 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:50,851 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 476.206ms
+2023-02-14 02:24:50,851 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:50,851 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "950", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:50,851 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:50,853 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:50,853 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:50,853 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:50,854 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:50,854 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 491.527ms
+2023-02-14 02:24:50,854 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:50,854 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "13.643969736015013", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:50,854 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:50,858 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:50,859 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:50,859 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:50,895 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:50,895 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 520.971ms
+2023-02-14 02:24:50,895 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:50,895 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "99.93934493600966", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:50,895 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:50,898 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:50,899 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:50,899 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:50,909 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:50,909 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 520.987ms
+2023-02-14 02:24:50,909 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:50,909 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "28.550169047293075", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:50,909 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:50,914 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:50,914 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:50,914 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:50,955 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:50,955 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 707.055ms
+2023-02-14 02:24:50,955 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:50,955 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "12.203530132920815", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:50,955 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:50,958 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:50,958 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:50,958 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:51,843 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:51,844 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 595.599ms
+2023-02-14 02:24:51,844 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:51,844 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "946", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:51,844 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:51,846 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:51,846 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:51,846 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:51,846 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:51,846 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 483.612ms
+2023-02-14 02:24:51,846 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:51,846 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1009", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:51,846 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:51,851 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:51,851 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:51,851 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:51,851 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:51,851 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 463.375ms
+2023-02-14 02:24:51,851 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:51,851 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1077", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:51,851 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:51,858 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:51,858 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:51,858 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:51,858 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:51,858 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 483.872ms
+2023-02-14 02:24:51,858 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:51,858 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "977", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:51,858 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:51,866 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:51,866 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:51,866 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:51,867 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:51,867 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 504.345ms
+2023-02-14 02:24:51,867 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:51,867 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "29.740704036460393", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:51,867 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:51,874 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:51,874 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:51,874 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:51,937 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:51,937 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 562.413ms
+2023-02-14 02:24:51,937 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:51,937 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "46.181890361591826", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:51,937 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:51,946 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:51,946 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:51,946 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:51,952 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:51,952 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 564.589ms
+2023-02-14 02:24:51,952 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:51,953 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "81.63076722628736", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:51,953 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:51,964 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:51,964 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:51,964 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:52,002 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:52,002 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 753.769ms
+2023-02-14 02:24:52,002 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:52,002 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "30.742201859275568", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:52,002 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:52,006 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:52,006 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:52,006 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:52,870 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:52,870 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 508.084ms
+2023-02-14 02:24:52,870 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:52,871 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "936", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:52,871 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:52,882 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:52,882 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:52,882 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:52,882 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:52,882 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 519.663ms
+2023-02-14 02:24:52,882 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:52,882 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "11.951170676390952", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:52,882 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:52,884 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:52,884 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:52,884 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:52,940 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:52,940 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 691.946ms
+2023-02-14 02:24:52,940 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:52,940 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "887", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:52,940 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:52,943 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:52,943 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:52,943 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:52,956 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:52,956 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 582.1ms
+2023-02-14 02:24:52,957 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:52,957 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "940", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:52,957 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:52,960 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:52,960 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:52,960 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:52,960 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:52,961 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 572.673ms
+2023-02-14 02:24:52,961 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:52,961 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1083", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:52,961 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:52,966 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:52,966 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:52,966 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:53,003 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:53,003 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 628.755ms
+2023-02-14 02:24:53,003 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:53,003 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "74.32105907500363", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:53,003 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:53,006 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:53,006 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:53,006 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:53,019 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:53,019 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 631.445ms
+2023-02-14 02:24:53,019 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:53,019 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "42.40722730493149", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:53,019 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:53,022 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:53,022 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:53,022 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:53,032 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:53,032 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 784.174ms
+2023-02-14 02:24:53,032 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:53,032 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "89.07209815984594", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:53,032 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:53,038 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:53,038 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:53,038 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:53,944 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:53,945 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 696.572ms
+2023-02-14 02:24:53,945 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:53,945 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "932", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:53,945 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:53,968 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:53,968 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:53,968 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:53,999 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:53,999 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 751.142ms
+2023-02-14 02:24:53,999 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:53,999 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "87.5999694064801", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:53,999 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:54,005 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:54,005 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:54,006 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:54,045 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:54,045 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 682.67ms
+2023-02-14 02:24:54,045 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:54,045 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1010", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:54,045 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:54,052 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:54,052 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:54,052 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:54,052 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:54,052 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 664.417ms
+2023-02-14 02:24:54,052 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:54,052 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "922", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:54,052 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:54,084 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:54,084 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:54,084 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:54,084 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:54,084 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 709.979ms
+2023-02-14 02:24:54,084 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:54,085 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "878", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:54,085 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:54,088 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:54,088 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:54,088 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:54,088 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:54,088 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 725.366ms
+2023-02-14 02:24:54,088 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:54,088 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "74.08096159188622", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:54,088 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:54,091 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:54,091 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:54,091 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:54,162 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:54,162 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 787.881ms
+2023-02-14 02:24:54,162 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:54,162 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "91.86369537340804", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:54,162 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:54,168 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:54,168 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:54,168 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:54,172 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:54,172 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 784.005ms
+2023-02-14 02:24:54,172 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:54,172 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "60.638621797371506", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:54,172 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:54,186 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:54,186 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:54,186 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:54,971 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:54,972 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 723.752ms
+2023-02-14 02:24:54,972 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:54,972 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "978", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:54,972 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:54,974 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:54,974 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:54,974 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:54,990 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:54,990 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 627.936ms
+2023-02-14 02:24:54,990 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:54,990 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1014", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:54,990 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:55,002 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:55,003 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:55,003 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:55,004 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:55,004 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 616.266ms
+2023-02-14 02:24:55,004 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:55,004 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1075", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:55,004 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:55,006 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:55,006 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:55,006 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:55,007 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:55,007 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 633.036ms
+2023-02-14 02:24:55,007 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:55,007 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1082", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:55,007 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:55,010 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:55,010 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:55,010 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:55,010 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:55,010 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 648.034ms
+2023-02-14 02:24:55,010 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:55,010 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "82.91951537105835", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:55,010 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:55,015 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:55,015 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:55,015 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:55,054 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:55,054 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 679.758ms
+2023-02-14 02:24:55,054 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:55,054 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "82.60496368720634", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:55,054 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:55,249 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:55,249 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:55,249 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:55,255 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:55,255 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 867.118ms
+2023-02-14 02:24:55,255 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:55,255 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "31.47384560262453", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:55,255 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:55,257 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:55,258 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:55,258 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:55,292 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:55,293 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 44.648ms
+2023-02-14 02:24:55,293 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:55,293 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "13.035259177192046", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:55,293 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:55,306 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:55,306 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:55,306 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:55,986 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:55,986 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 738.236ms
+2023-02-14 02:24:55,986 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:55,986 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "988", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:55,986 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:55,995 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:55,995 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:55,995 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:56,012 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:56,012 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 650.037ms
+2023-02-14 02:24:56,012 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:56,012 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1073", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:56,012 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:56,015 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:56,015 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:56,015 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:56,015 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:56,015 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 627.343ms
+2023-02-14 02:24:56,015 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:56,015 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "943", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:56,015 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:56,018 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:56,018 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:56,018 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:56,019 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:56,019 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 644.214ms
+2023-02-14 02:24:56,019 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:56,019 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "923", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:56,019 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:56,020 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:56,020 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:56,020 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:56,022 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:56,023 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 660.174ms
+2023-02-14 02:24:56,023 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:56,023 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "72.53485429793966", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:56,023 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:56,028 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:56,028 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:56,028 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:56,073 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:56,073 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 698.504ms
+2023-02-14 02:24:56,073 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:56,073 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "23.235600395773552", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:56,073 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:56,075 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:56,075 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:56,075 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:56,082 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:56,082 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 694.08ms
+2023-02-14 02:24:56,082 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:56,082 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "59.60433417788131", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:56,082 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:56,093 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:56,093 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:56,093 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:56,116 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:56,116 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 868.329ms
+2023-02-14 02:24:56,116 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:56,116 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "52.25578196913096", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:56,116 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:56,119 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:56,119 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:56,119 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:56,983 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:56,983 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 595.228ms
+2023-02-14 02:24:56,983 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:56,983 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "995", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:56,983 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:56,986 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:56,986 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:56,986 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:56,986 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:56,986 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 611.538ms
+2023-02-14 02:24:56,986 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:56,986 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1007", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:56,986 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:56,989 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:56,989 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:56,989 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:57,016 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:57,016 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 642.038ms
+2023-02-14 02:24:57,016 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:57,016 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "34.2845445499939", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:57,016 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:57,022 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:57,022 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:57,022 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:57,029 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:57,030 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 641.7ms
+2023-02-14 02:24:57,030 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:57,030 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "14.532374683081965", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:57,030 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:57,031 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:57,031 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:57,031 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:57,077 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:57,077 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 828.806ms
+2023-02-14 02:24:57,077 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:57,077 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "998", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:57,077 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:57,079 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:57,079 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:57,079 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:57,080 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:57,080 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 717.614ms
+2023-02-14 02:24:57,080 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:57,080 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1024", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:57,080 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:57,081 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:57,081 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:57,081 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:57,082 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:57,082 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 719.294ms
+2023-02-14 02:24:57,082 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:57,082 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "88.68049665339828", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:57,082 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:57,083 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:57,083 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:57,083 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:57,145 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:57,145 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 897.506ms
+2023-02-14 02:24:57,146 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:57,146 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "26.62360675378581", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:57,146 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:57,155 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:57,155 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:57,155 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:58,026 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:58,026 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 777.879ms
+2023-02-14 02:24:58,026 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:58,026 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "977", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:58,026 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:58,036 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:58,036 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:58,036 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:58,058 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:58,058 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 670.436ms
+2023-02-14 02:24:58,058 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:58,058 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "922", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:58,058 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:58,060 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:58,060 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:58,060 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:58,062 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:58,062 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 687.817ms
+2023-02-14 02:24:58,062 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:58,062 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "958", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:58,062 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:58,068 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:58,069 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:58,073 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:58,074 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:58,074 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 711.202ms
+2023-02-14 02:24:58,074 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:58,074 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1006", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:58,074 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:58,080 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:58,080 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:58,080 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:58,088 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:58,088 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 726.043ms
+2023-02-14 02:24:58,088 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:58,089 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "17.963572920959365", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:58,089 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:58,090 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:58,090 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:58,090 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:58,122 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:58,122 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 747.962ms
+2023-02-14 02:24:58,122 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:58,122 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "15.583525811249416", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:58,122 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:58,131 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:58,131 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:58,131 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:58,135 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:58,135 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 747.533ms
+2023-02-14 02:24:58,135 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:58,136 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "92.10495425075338", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:58,136 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:58,139 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:58,139 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:58,139 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:58,179 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:58,179 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 931.121ms
+2023-02-14 02:24:58,179 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:58,179 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "26.529694184409955", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:58,179 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:58,186 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:58,186 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:58,186 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:59,048 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:59,048 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 800.417ms
+2023-02-14 02:24:59,048 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:59,048 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "937", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:59,048 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:59,050 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:59,051 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:59,051 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:59,062 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:59,062 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 673.857ms
+2023-02-14 02:24:59,062 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:59,062 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1058", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:59,062 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:59,066 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:59,066 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:59,066 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:59,066 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:59,066 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 691.713ms
+2023-02-14 02:24:59,066 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:59,066 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "871", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:59,066 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:59,072 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:59,072 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:59,072 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:59,072 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:59,072 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 709.715ms
+2023-02-14 02:24:59,072 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:59,072 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "986", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:59,072 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:59,075 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:59,075 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:59,075 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:59,098 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:59,098 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 736.042ms
+2023-02-14 02:24:59,098 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:59,098 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "10.186625889803254", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:24:59,099 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:24:59,106 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:59,106 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:59,106 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:59,120 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:59,120 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 745.607ms
+2023-02-14 02:24:59,120 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:59,120 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "55.296187163088206", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:24:59,120 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:24:59,122 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:59,122 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:59,122 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:59,130 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:59,131 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 742.658ms
+2023-02-14 02:24:59,131 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:59,131 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "32.44605926434345", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:24:59,131 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:24:59,135 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:59,135 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:59,135 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:24:59,164 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:24:59,165 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 916.59ms
+2023-02-14 02:24:59,165 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:24:59,165 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "96.03519227287956", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:24:59,165 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:24:59,174 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:24:59,174 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:24:59,174 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:00,941 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:00,941 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 692.691ms
+2023-02-14 02:25:00,941 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:00,941 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "879", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:25:00,941 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:25:00,943 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:00,943 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:00,943 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:00,955 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:00,956 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 707.594ms
+2023-02-14 02:25:00,956 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:00,956 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "24.289276896646726", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:25:00,956 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:25:00,958 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:00,958 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:00,958 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:00,985 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:00,985 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 610.773ms
+2023-02-14 02:25:00,985 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:00,985 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "902", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:25:00,985 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:25:00,988 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:00,988 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:00,988 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:00,988 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:00,988 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 625.918ms
+2023-02-14 02:25:00,988 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:00,988 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "942", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:25:00,988 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:25:00,997 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:00,997 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:00,997 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:00,997 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:00,997 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 608.826ms
+2023-02-14 02:25:00,997 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:00,997 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "925", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:25:00,997 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:25:01,007 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:01,007 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:01,007 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:01,008 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:01,008 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 645.74ms
+2023-02-14 02:25:01,008 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:01,008 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "12.672922405644345", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:25:01,008 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:25:01,011 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:01,011 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:01,011 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:01,028 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:01,028 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 653.665ms
+2023-02-14 02:25:01,028 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:01,028 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "17.83968462826997", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:25:01,028 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:25:01,034 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:01,034 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:01,035 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:01,059 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:01,059 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 671.582ms
+2023-02-14 02:25:01,059 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:01,060 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "14.110544507538805", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:25:01,060 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:25:01,067 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:01,067 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:01,067 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:01,953 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:01,953 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 705.174ms
+2023-02-14 02:25:01,953 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:01,953 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "988", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:25:01,953 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:25:01,961 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:01,961 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:01,961 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:01,964 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:01,964 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 590.075ms
+2023-02-14 02:25:01,964 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:01,965 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1011", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:25:01,965 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:25:01,974 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:01,974 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:01,974 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:02,044 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:02,044 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 669.551ms
+2023-02-14 02:25:02,044 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:02,044 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "69.70767528037916", "publisher": "pub3", "sent_at": "2023-02-14 02:24:27.374843"}
+2023-02-14 02:25:02,044 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.374843
+2023-02-14 02:25:02,047 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:02,047 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:02,047 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:02,085 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:02,086 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 837.937ms
+2023-02-14 02:25:02,086 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:02,086 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "96.81024143693547", "publisher": "pub2", "sent_at": "2023-02-14 02:24:27.248453"}
+2023-02-14 02:25:02,086 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.248453
+2023-02-14 02:25:02,092 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:02,092 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:02,092 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:02,115 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:02,115 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 752.764ms
+2023-02-14 02:25:02,115 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:02,115 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "956", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:25:02,115 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:25:02,117 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:02,117 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:02,117 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:02,117 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:02,117 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 729.441ms
+2023-02-14 02:25:02,117 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:02,117 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "1074", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:25:02,117 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:25:02,120 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:02,120 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:02,120 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:02,120 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:02,120 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 757.61ms
+2023-02-14 02:25:02,120 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:02,120 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "93.93208924250825", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:25:02,120 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:25:02,122 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:02,122 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:02,122 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:02,178 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:02,178 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 790.308ms
+2023-02-14 02:25:02,178 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:02,178 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "56.47562247904474", "publisher": "pub1", "sent_at": "2023-02-14 02:24:27.388352"}
+2023-02-14 02:25:02,178 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.388352
+2023-02-14 02:25:02,182 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:02,182 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:02,182 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:02,954 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:02,954 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 591.702ms
+2023-02-14 02:25:02,954 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:02,954 - SubscriberAppln - DEBUG - pressure:{"topic": "pressure", "data": "937", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:25:02,954 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:25:02,957 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:02,957 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:02,957 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 02:25:02,957 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 02:25:02,957 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 595.134ms
+2023-02-14 02:25:02,958 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 02:25:02,958 - SubscriberAppln - DEBUG - humidity:{"topic": "humidity", "data": "54.820798055300564", "publisher": "pub4", "sent_at": "2023-02-14 02:24:27.362839"}
+2023-02-14 02:25:02,958 - SubscriberAppln - DEBUG - 2023-02-14 02:24:27.362839
+2023-02-14 02:25:02,959 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 02:25:02,959 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 02:25:02,959 - SubscriberAppln - DEBUG - SubscriberMW::collect

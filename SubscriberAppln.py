@@ -359,10 +359,11 @@ class SubscriberAppln ():
   # append entry to metric file
   ########################################
   def write_latency_row(self, parcel):
-    f = open(self.metric_file, "a+")
+    f = open(self.metric_file, "a")
     received_at = datetime.datetime.now().isoformat(sep=" ")
     latency = (datetime.datetime.fromisoformat(received_at) - datetime.datetime.fromisoformat(parcel.sent_at)).microseconds / 1000
     f.write(parcel.publisher + "," + self.name + "," + parcel.sent_at + "," + received_at + "," + str(latency) + "\n")
+    f.close()
 
   ########################################
   # dump the contents of the object 

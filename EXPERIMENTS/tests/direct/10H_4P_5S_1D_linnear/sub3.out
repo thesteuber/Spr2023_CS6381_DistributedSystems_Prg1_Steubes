@@ -1,0 +1,1269 @@
+2023-02-14 01:29:23,835 - root - INFO - Main - acquire a child logger and then log messages in the child
+2023-02-14 01:29:24,071 - SubscriberAppln - DEBUG - Main: parse command line arguments
+2023-02-14 01:29:24,072 - SubscriberAppln - DEBUG - Main: resetting log level to 10
+2023-02-14 01:29:24,072 - SubscriberAppln - DEBUG - Main: effective log level is 10
+2023-02-14 01:29:24,072 - SubscriberAppln - DEBUG - Main: obtain the publisher appln object
+2023-02-14 01:29:24,072 - SubscriberAppln - DEBUG - Main: configure the publisher appln object
+2023-02-14 01:29:24,072 - SubscriberAppln - INFO - SubscriberAppln::configure
+2023-02-14 01:29:24,073 - SubscriberAppln - DEBUG - SubscriberAppln::configure - parsing config.ini
+2023-02-14 01:29:24,074 - SubscriberAppln - DEBUG - SubscriberAppln::configure - selecting our topic list
+2023-02-14 01:29:24,074 - SubscriberAppln - DEBUG - SubscriberAppln::configure - initialize the middleware object
+2023-02-14 01:29:24,074 - SubscriberAppln - INFO - SubscriberMW::configure
+2023-02-14 01:29:24,074 - SubscriberAppln - DEBUG - SubscriberMW::configure - obtain ZMQ context
+2023-02-14 01:29:24,075 - SubscriberAppln - DEBUG - SubscriberMW::configure - obtain the poller
+2023-02-14 01:29:24,075 - SubscriberAppln - DEBUG - SubscriberMW::configure - obtain REQ and SUB sockets
+2023-02-14 01:29:24,075 - SubscriberAppln - DEBUG - SubscriberMW::configure - register the REQ socket for incoming replies
+2023-02-14 01:29:24,075 - SubscriberAppln - DEBUG - SubscriberMW::configure - connect to Discovery service
+2023-02-14 01:29:24,075 - SubscriberAppln - INFO - SubscriberMW::configure completed
+2023-02-14 01:29:24,075 - SubscriberAppln - INFO - SubscriberAppln::configure - configuration complete
+2023-02-14 01:29:24,075 - SubscriberAppln - DEBUG - Main: invoke the publisher appln driver
+2023-02-14 01:29:24,075 - SubscriberAppln - INFO - SubscriberAppln::driver
+2023-02-14 01:29:24,075 - SubscriberAppln - INFO - **********************************
+2023-02-14 01:29:24,075 - SubscriberAppln - INFO - SubscriberAppln::dump
+2023-02-14 01:29:24,075 - SubscriberAppln - INFO - ------------------------------
+2023-02-14 01:29:24,075 - SubscriberAppln - INFO -      Name: sub3
+2023-02-14 01:29:24,075 - SubscriberAppln - INFO -      Lookup: Centralized
+2023-02-14 01:29:24,076 - SubscriberAppln - INFO -      Dissemination: Direct
+2023-02-14 01:29:24,076 - SubscriberAppln - INFO -      Num Topics: 3
+2023-02-14 01:29:24,076 - SubscriberAppln - INFO -      TopicList: ['altitude', 'location', 'temperature']
+2023-02-14 01:29:24,076 - SubscriberAppln - INFO -      Iterations: 1000
+2023-02-14 01:29:24,076 - SubscriberAppln - INFO -      Frequency: 1
+2023-02-14 01:29:24,076 - SubscriberAppln - INFO - **********************************
+2023-02-14 01:29:24,076 - SubscriberAppln - DEBUG - SubscriberAppln::driver - upcall handle
+2023-02-14 01:29:24,076 - SubscriberAppln - INFO - SubscriberMW::event_loop - run the event loop
+2023-02-14 01:29:24,076 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:24,076 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - register with the discovery service
+2023-02-14 01:29:24,076 - SubscriberAppln - INFO - SubscriberMW::register
+2023-02-14 01:29:24,076 - SubscriberAppln - DEBUG - SubscriberMW::register - populate the Registrant Info
+2023-02-14 01:29:24,076 - SubscriberAppln - DEBUG - SubscriberMW::register - done populating the Registrant Info
+2023-02-14 01:29:24,076 - SubscriberAppln - DEBUG - SubscriberMW::register - populate the nested register req
+2023-02-14 01:29:24,076 - SubscriberAppln - DEBUG - SubscriberMW::register - done populating nested RegisterReq
+2023-02-14 01:29:24,076 - SubscriberAppln - DEBUG - SubscriberMW::register - build the outer DiscoveryReq message
+2023-02-14 01:29:24,076 - SubscriberAppln - DEBUG - SubscriberMW::register - done building the outer message
+2023-02-14 01:29:24,076 - SubscriberAppln - DEBUG - Stringified serialized buf = b'\x08\x01\x12+\x08\x02\x12\x06\n\x04sub3\x1a\x08altitude\x1a\x08location\x1a\x0btemperature'
+2023-02-14 01:29:24,076 - SubscriberAppln - DEBUG - SubscriberMW::register - send stringified buffer to Discovery service
+2023-02-14 01:29:24,076 - SubscriberAppln - INFO - SubscriberMW::register - sent register message and now now wait for reply
+2023-02-14 01:29:24,152 - SubscriberAppln - INFO - SubscriberMW::handle_reply
+2023-02-14 01:29:24,153 - SubscriberAppln - INFO - SubscriberAppln::register_response
+2023-02-14 01:29:24,153 - SubscriberAppln - DEBUG - SubscriberAppln::register_response - registration is a success
+2023-02-14 01:29:24,153 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:24,153 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - check if are ready to go
+2023-02-14 01:29:24,153 - SubscriberAppln - INFO - SubscriberMW::is_ready
+2023-02-14 01:29:24,153 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - populate the nested IsReady msg
+2023-02-14 01:29:24,153 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - done populating nested IsReady msg
+2023-02-14 01:29:24,153 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - build the outer DiscoveryReq message
+2023-02-14 01:29:24,153 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - done building the outer message
+2023-02-14 01:29:24,153 - SubscriberAppln - DEBUG - Stringified serialized buf = b'\x08\x02\x1a\x00'
+2023-02-14 01:29:24,153 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - send stringified buffer to Discovery service
+2023-02-14 01:29:24,153 - SubscriberAppln - INFO - SubscriberMW::is_ready - request sent and now wait for reply
+2023-02-14 01:29:24,159 - SubscriberAppln - INFO - SubscriberMW::handle_reply
+2023-02-14 01:29:24,159 - SubscriberAppln - INFO - SubscriberAppln::isready_response
+2023-02-14 01:29:24,159 - SubscriberAppln - DEBUG - SubscriberAppln::driver - Not ready yet; check again
+2023-02-14 01:29:35,020 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:35,020 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - check if are ready to go
+2023-02-14 01:29:35,020 - SubscriberAppln - INFO - SubscriberMW::is_ready
+2023-02-14 01:29:35,020 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - populate the nested IsReady msg
+2023-02-14 01:29:35,020 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - done populating nested IsReady msg
+2023-02-14 01:29:35,020 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - build the outer DiscoveryReq message
+2023-02-14 01:29:35,020 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - done building the outer message
+2023-02-14 01:29:35,020 - SubscriberAppln - DEBUG - Stringified serialized buf = b'\x08\x02\x1a\x00'
+2023-02-14 01:29:35,020 - SubscriberAppln - DEBUG - SubscriberMW::is_ready - send stringified buffer to Discovery service
+2023-02-14 01:29:35,020 - SubscriberAppln - INFO - SubscriberMW::is_ready - request sent and now wait for reply
+2023-02-14 01:29:35,042 - SubscriberAppln - INFO - SubscriberMW::handle_reply
+2023-02-14 01:29:35,042 - SubscriberAppln - INFO - SubscriberAppln::isready_response
+2023-02-14 01:29:35,042 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:35,042 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start LookUp by Topics
+2023-02-14 01:29:35,042 - SubscriberAppln - INFO - SubscriberMW::lookup_by_topic
+2023-02-14 01:29:35,042 - SubscriberAppln - DEBUG - SubscriberMW::lookup_by_topic - populate the nested LookupPubByTopicReq msg
+2023-02-14 01:29:35,042 - SubscriberAppln - DEBUG - SubscriberMW::lookup_by_topic - done populating nested LookupPubByTopicReq msg
+2023-02-14 01:29:35,042 - SubscriberAppln - DEBUG - SubscriberMW::lookup_by_topic - build the outer DiscoveryReq message
+2023-02-14 01:29:35,042 - SubscriberAppln - DEBUG - SubscriberMW::lookup_by_topic - done building the outer message
+2023-02-14 01:29:35,042 - SubscriberAppln - DEBUG - Stringified serialized buf = b'\x08\x03"!\n\x08altitude\n\x08location\n\x0btemperature'
+2023-02-14 01:29:35,042 - SubscriberAppln - DEBUG - SubscriberMW::lookup_by_topic - send stringified buffer to Discovery service
+2023-02-14 01:29:35,042 - SubscriberAppln - INFO - SubscriberMW::lookup_by_topic - request sent and now wait for reply
+2023-02-14 01:29:35,042 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation completed
+2023-02-14 01:29:35,045 - SubscriberAppln - INFO - SubscriberMW::handle_reply
+2023-02-14 01:29:35,045 - SubscriberAppln - INFO - SubscriberAppln::lookup_by_topic_response
+2023-02-14 01:29:35,045 - SubscriberAppln - DEBUG - tcp://10.0.0.2:5577
+2023-02-14 01:29:35,045 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher pub1
+2023-02-14 01:29:35,045 - SubscriberAppln - DEBUG - tcp://10.0.0.2:5577
+2023-02-14 01:29:35,045 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher subscribe to topic: altitude
+2023-02-14 01:29:35,045 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher subscribe to topic: location
+2023-02-14 01:29:35,045 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher subscribe to topic: temperature
+2023-02-14 01:29:35,045 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher complete
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - tcp://10.0.0.4:5577
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher pub3
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - tcp://10.0.0.4:5577
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher subscribe to topic: altitude
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher subscribe to topic: location
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher subscribe to topic: temperature
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher complete
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - tcp://10.0.0.3:5577
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher pub2
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - tcp://10.0.0.3:5577
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher subscribe to topic: altitude
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher subscribe to topic: location
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher subscribe to topic: temperature
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher complete
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - tcp://10.0.0.5:5577
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher pub4
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - tcp://10.0.0.5:5577
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher subscribe to topic: altitude
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher subscribe to topic: location
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher subscribe to topic: temperature
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::connect_to_publisher complete
+2023-02-14 01:29:35,046 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:35,046 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:37,108 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:37,108 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 530.027ms
+2023-02-14 01:29:37,108 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:37,108 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "11121", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:37,108 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:37,117 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:37,118 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:37,118 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:37,118 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:37,118 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 539.996ms
+2023-02-14 01:29:37,118 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:37,118 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Asia", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:37,118 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:37,130 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:37,130 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:37,130 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:37,130 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:37,130 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 552.326ms
+2023-02-14 01:29:37,130 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:37,130 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-70", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:37,130 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:37,134 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:37,134 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:37,135 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:37,135 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:37,135 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 337.053ms
+2023-02-14 01:29:37,135 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:37,135 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-88", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:37,135 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:37,138 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:37,138 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:37,138 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:37,138 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:37,138 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 274.929ms
+2023-02-14 01:29:37,139 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:37,139 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "23719", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:37,139 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:37,141 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:37,141 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:37,142 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:37,142 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:37,142 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 127.166ms
+2023-02-14 01:29:37,142 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:37,142 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Asia", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:37,142 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:37,151 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:37,152 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:37,152 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:37,152 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:37,152 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 354.309ms
+2023-02-14 01:29:37,152 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:37,152 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Asia", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:37,152 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:37,155 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:37,156 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:37,156 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:37,156 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:37,156 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 292.507ms
+2023-02-14 01:29:37,156 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:37,156 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "29", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:37,156 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:37,158 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:37,158 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:37,158 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:37,158 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:37,159 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 144.098ms
+2023-02-14 01:29:37,159 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:37,159 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "28366", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:37,159 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:37,160 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:37,160 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:37,160 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:37,160 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:37,161 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 362.974ms
+2023-02-14 01:29:37,161 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:37,161 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "10384", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:37,161 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:37,163 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:37,163 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:37,163 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:37,163 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:37,163 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 299.833ms
+2023-02-14 01:29:37,163 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:37,163 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "America", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:37,163 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:37,174 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:37,174 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:37,174 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:37,174 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:37,174 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 159.854ms
+2023-02-14 01:29:37,174 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:37,174 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "8", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:37,174 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:37,186 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:37,186 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:37,186 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:38,134 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:38,134 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 270.621ms
+2023-02-14 01:29:38,134 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:38,134 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "24486", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:38,134 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:38,136 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:38,136 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:38,136 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:38,136 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:38,136 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 557.89ms
+2023-02-14 01:29:38,136 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:38,136 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "22868", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:38,136 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:38,138 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:38,138 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:38,138 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:38,139 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:38,139 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 124.135ms
+2023-02-14 01:29:38,139 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:38,139 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Europe", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:38,139 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:38,144 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:38,144 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:38,144 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:38,144 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:38,144 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 346.692ms
+2023-02-14 01:29:38,144 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:38,144 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "5", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:38,144 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:38,153 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:38,153 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:38,153 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:38,153 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:38,153 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 289.712ms
+2023-02-14 01:29:38,153 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:38,153 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-71", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:38,153 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:38,159 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:38,159 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:38,159 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:38,159 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:38,159 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 581.319ms
+2023-02-14 01:29:38,159 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:38,159 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Asia", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:38,159 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:38,163 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:38,163 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:38,163 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:38,163 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:38,163 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 148.834ms
+2023-02-14 01:29:38,163 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:38,163 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "6558", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:38,163 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:38,168 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:38,168 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:38,168 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:38,168 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:38,168 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 370.468ms
+2023-02-14 01:29:38,168 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:38,168 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Asia", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:38,168 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:38,177 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:38,177 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:38,177 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:38,177 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:38,177 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 313.864ms
+2023-02-14 01:29:38,177 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:38,177 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Africa", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:38,177 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:38,179 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:38,179 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:38,179 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:38,179 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:38,179 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 601.001ms
+2023-02-14 01:29:38,179 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:38,179 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "68", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:38,179 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:38,185 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:38,185 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:38,185 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:38,185 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:38,185 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 170.268ms
+2023-02-14 01:29:38,185 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:38,185 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-21", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:38,185 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:38,192 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:38,192 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:38,192 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:38,192 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:38,192 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 394.487ms
+2023-02-14 01:29:38,192 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:38,192 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "29729", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:38,192 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:38,198 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:38,198 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:38,198 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:39,128 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:39,128 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 264.737ms
+2023-02-14 01:29:39,128 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:39,128 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "12500", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:39,128 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:39,129 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:39,130 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:39,130 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:39,130 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:39,130 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 266.314ms
+2023-02-14 01:29:39,130 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:39,130 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-4", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:39,130 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:39,135 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:39,135 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:39,135 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:39,135 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:39,135 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 557.201ms
+2023-02-14 01:29:39,135 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:39,135 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "25715", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:39,135 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:39,140 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:39,140 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:39,140 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:39,140 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:39,140 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 125.287ms
+2023-02-14 01:29:39,140 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:39,140 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "America", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:39,140 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:39,142 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:39,142 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:39,142 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:39,143 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:39,143 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 345.004ms
+2023-02-14 01:29:39,143 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:39,143 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-72", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:39,143 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:39,144 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:39,144 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:39,144 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:39,144 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:39,144 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 566.223ms
+2023-02-14 01:29:39,144 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:39,144 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Europe", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:39,144 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:39,150 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:39,151 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:39,151 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:39,151 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:39,151 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 136.489ms
+2023-02-14 01:29:39,151 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:39,151 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "20449", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:39,151 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:39,153 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:39,153 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:39,153 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:39,153 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:39,153 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 355.761ms
+2023-02-14 01:29:39,153 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:39,153 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Europe", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:39,153 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:39,157 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:39,157 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:39,157 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:39,157 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:39,157 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 579.094ms
+2023-02-14 01:29:39,157 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:39,157 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-96", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:39,157 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:39,161 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:39,161 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:39,161 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:39,161 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:39,161 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 146.65ms
+2023-02-14 01:29:39,161 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:39,161 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-67", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:39,161 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:39,163 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:39,163 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:39,163 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:39,163 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:39,163 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 365.541ms
+2023-02-14 01:29:39,163 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:39,163 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "25783", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:39,163 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:39,166 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:39,166 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:39,166 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:39,166 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:39,166 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 302.622ms
+2023-02-14 01:29:39,166 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:39,166 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "America", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:39,166 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:39,168 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:39,168 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:39,168 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:40,434 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:40,434 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 419.537ms
+2023-02-14 01:29:40,434 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:40,434 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Asia", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:40,434 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:40,437 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:40,437 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:40,438 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:40,438 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:40,438 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 859.621ms
+2023-02-14 01:29:40,438 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:40,438 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "18205", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:40,438 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:40,446 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:40,446 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:40,446 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:40,446 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:40,446 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 582.871ms
+2023-02-14 01:29:40,446 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:40,446 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "7946", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:40,446 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:40,453 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:40,453 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:40,453 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:40,453 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:40,453 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 874.838ms
+2023-02-14 01:29:40,453 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:40,453 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Europe", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:40,453 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:40,460 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:40,460 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:40,460 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:40,460 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:40,460 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 597.05ms
+2023-02-14 01:29:40,460 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:40,460 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-49", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:40,460 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:40,462 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:40,462 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:40,462 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:40,462 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:40,462 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 884.09ms
+2023-02-14 01:29:40,462 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:40,462 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "56", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:40,462 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:40,485 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:40,485 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:40,485 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:40,485 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:40,486 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 622.233ms
+2023-02-14 01:29:40,486 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:40,486 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Africa", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:40,486 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:40,487 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:40,487 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:40,487 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:40,487 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:40,487 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 472.962ms
+2023-02-14 01:29:40,487 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:40,488 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "3708", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:40,488 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:40,489 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:40,489 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:40,489 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:40,489 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:40,489 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 691.95ms
+2023-02-14 01:29:40,490 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:40,490 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "50", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:40,490 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:40,491 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:40,491 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:40,491 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:40,491 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:40,491 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 476.938ms
+2023-02-14 01:29:40,491 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:40,491 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "99", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:40,492 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:40,494 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:40,495 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:40,495 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:40,495 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:40,495 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 697.097ms
+2023-02-14 01:29:40,495 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:40,495 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Europe", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:40,495 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:40,497 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:40,497 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:40,498 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:40,498 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:40,498 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 700.032ms
+2023-02-14 01:29:40,498 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:40,498 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "14680", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:40,498 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:40,499 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:40,499 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:40,499 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:41,438 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:41,438 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 859.728ms
+2023-02-14 01:29:41,438 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:41,438 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "24637", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:41,438 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:41,441 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:41,441 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:41,441 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:41,441 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:41,441 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 862.767ms
+2023-02-14 01:29:41,441 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:41,441 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Australia", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:41,441 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:41,444 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:41,444 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:41,444 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:41,444 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:41,444 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 580.423ms
+2023-02-14 01:29:41,444 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:41,444 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "36174", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:41,444 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:41,446 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:41,446 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:41,446 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:41,446 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:41,447 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 432.05ms
+2023-02-14 01:29:41,447 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:41,447 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Australia", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:41,447 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:41,453 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:41,453 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:41,453 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:41,453 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:41,453 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 590.023ms
+2023-02-14 01:29:41,453 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:41,454 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-44", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:41,454 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:41,460 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:41,461 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:41,461 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:41,461 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:41,461 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 446.302ms
+2023-02-14 01:29:41,461 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:41,461 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "37675", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:41,461 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:41,465 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:41,467 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:41,467 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:41,467 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:41,467 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 604.213ms
+2023-02-14 01:29:41,468 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:41,468 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "America", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:41,468 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:41,490 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:41,490 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:41,490 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:41,490 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:41,490 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 475.402ms
+2023-02-14 01:29:41,490 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:41,490 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "61", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:41,490 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:41,492 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:41,492 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:41,492 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:41,492 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:41,492 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 914.124ms
+2023-02-14 01:29:41,492 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:41,492 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-46", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:41,492 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:41,494 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:41,494 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:41,494 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:41,494 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:41,494 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 696.875ms
+2023-02-14 01:29:41,494 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:41,494 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-56", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:41,495 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:41,497 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:41,497 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:41,497 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:41,497 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:41,497 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 699.796ms
+2023-02-14 01:29:41,497 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:41,497 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "America", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:41,497 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:41,499 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:41,499 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:41,499 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:41,499 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:41,499 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 701.615ms
+2023-02-14 01:29:41,499 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:41,499 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "11555", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:41,499 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:41,503 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:41,504 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:41,504 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:42,515 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:42,515 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 937.027ms
+2023-02-14 01:29:42,515 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:42,515 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "24200", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:42,515 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:42,518 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:42,518 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:42,518 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:42,518 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:42,518 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 939.696ms
+2023-02-14 01:29:42,518 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:42,518 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Australia", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:42,518 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:42,520 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:42,527 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:42,527 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:42,527 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:42,528 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 513.043ms
+2023-02-14 01:29:42,528 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:42,528 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Africa", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:42,528 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:42,530 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:42,530 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:42,530 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:42,530 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:42,530 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 515.889ms
+2023-02-14 01:29:42,530 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:42,530 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "30503", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:42,530 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:42,532 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:42,532 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:42,532 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:42,532 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:42,533 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 518.024ms
+2023-02-14 01:29:42,533 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:42,533 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-22", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:42,533 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:42,535 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:42,535 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:42,535 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:42,535 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:42,535 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 671.766ms
+2023-02-14 01:29:42,535 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:42,535 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "35844", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:42,535 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:42,537 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:42,537 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:42,537 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:42,537 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:42,537 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 739.64ms
+2023-02-14 01:29:42,537 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:42,537 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "60", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:42,537 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:42,540 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:42,540 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:42,540 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:42,540 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:42,540 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 962.019ms
+2023-02-14 01:29:42,540 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:42,540 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-67", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:42,540 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:42,542 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:42,542 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:42,543 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:42,543 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:42,543 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 679.306ms
+2023-02-14 01:29:42,543 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:42,543 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-100", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:42,543 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:42,547 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:42,547 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:42,547 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:42,547 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:42,547 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 749.262ms
+2023-02-14 01:29:42,547 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:42,547 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Asia", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:42,547 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:42,548 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:42,548 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:42,548 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:42,548 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:42,548 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 685.191ms
+2023-02-14 01:29:42,548 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:42,549 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Africa", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:42,549 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:42,554 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:42,554 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:42,554 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:42,554 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:42,554 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 756.693ms
+2023-02-14 01:29:42,554 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:42,554 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "33809", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:42,554 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:42,565 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:42,565 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:42,565 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:43,522 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:43,522 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 507.564ms
+2023-02-14 01:29:43,522 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:43,522 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "America", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:43,522 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:43,525 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:43,525 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:43,525 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:43,525 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:43,526 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 511.058ms
+2023-02-14 01:29:43,526 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:43,526 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "13404", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:43,526 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:43,530 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:43,530 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:43,530 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:43,530 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:43,530 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 515.362ms
+2023-02-14 01:29:43,530 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:43,530 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-31", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:43,530 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:43,537 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:43,537 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:43,537 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:43,545 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:43,545 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 747.452ms
+2023-02-14 01:29:43,545 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:43,545 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-83", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:43,545 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:43,550 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:43,550 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:43,550 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:43,550 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:43,550 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 752.899ms
+2023-02-14 01:29:43,550 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:43,551 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Europe", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:43,551 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:43,554 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:43,554 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:43,554 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:43,554 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:43,554 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 756.46ms
+2023-02-14 01:29:43,554 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:43,554 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "33922", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:43,554 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:43,561 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:43,561 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:43,561 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:43,561 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:43,562 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 698.335ms
+2023-02-14 01:29:43,562 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:43,562 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "1882", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:43,562 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:43,566 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:43,566 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:43,566 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:43,566 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:43,566 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 702.991ms
+2023-02-14 01:29:43,566 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:43,566 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "75", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:43,566 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:43,574 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:43,574 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:43,574 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:43,574 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:43,574 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 710.512ms
+2023-02-14 01:29:43,574 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:43,574 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Europe", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:43,574 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:43,579 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:43,579 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:43,579 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:43,579 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:43,579 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 1.288ms
+2023-02-14 01:29:43,579 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:43,579 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "36118", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:43,579 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:43,581 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:43,581 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:43,581 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:43,581 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:43,581 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 2.999ms
+2023-02-14 01:29:43,581 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:43,581 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Europe", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:43,581 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:43,584 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:43,585 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:43,585 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:43,585 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:43,585 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 6.588ms
+2023-02-14 01:29:43,585 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:43,585 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "38", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:43,585 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:43,591 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:43,591 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:43,591 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:44,531 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:44,532 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 517.962ms
+2023-02-14 01:29:44,533 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:44,533 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Europe", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:44,533 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:44,537 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:44,537 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:44,537 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:44,537 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:44,537 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 522.59ms
+2023-02-14 01:29:44,537 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:44,537 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "32252", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:44,537 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:44,538 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:44,538 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:44,538 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:44,539 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:44,539 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 524.446ms
+2023-02-14 01:29:44,539 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:44,539 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "56", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:44,539 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:44,545 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:44,545 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:44,545 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:44,555 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:44,555 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 757.065ms
+2023-02-14 01:29:44,555 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:44,555 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-60", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:44,555 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:44,557 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:44,557 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:44,557 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:44,557 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:44,557 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 693.528ms
+2023-02-14 01:29:44,557 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:44,557 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "39640", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:44,557 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:44,560 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:44,561 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:44,561 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:44,561 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:44,561 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 697.544ms
+2023-02-14 01:29:44,561 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:44,561 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "19", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:44,561 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:44,570 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:44,570 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:44,570 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:44,570 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:44,570 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 706.955ms
+2023-02-14 01:29:44,570 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:44,570 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Africa", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:44,570 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:44,574 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:44,574 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:44,574 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:44,574 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:44,574 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 776.386ms
+2023-02-14 01:29:44,574 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:44,574 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Africa", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:44,574 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:44,578 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:44,578 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:44,578 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:44,578 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:44,579 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 0.445ms
+2023-02-14 01:29:44,579 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:44,579 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "14294", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:44,579 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:44,593 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:44,593 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:44,593 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:44,593 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:44,593 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 795.863ms
+2023-02-14 01:29:44,593 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:44,593 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "5417", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:44,594 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:44,597 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:44,597 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:44,597 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:44,597 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:44,597 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 18.755ms
+2023-02-14 01:29:44,597 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:44,597 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Australia", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:44,597 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:44,599 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:44,599 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:44,599 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:44,599 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:44,599 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 20.815ms
+2023-02-14 01:29:44,599 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:44,599 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "62", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:44,599 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:44,603 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:44,603 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:44,603 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:45,539 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:45,540 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 525.095ms
+2023-02-14 01:29:45,540 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:45,540 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Europe", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:45,540 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:45,541 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:45,541 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:45,541 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:45,541 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:45,541 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 526.878ms
+2023-02-14 01:29:45,541 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:45,541 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "4967", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:45,541 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:45,544 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:45,544 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:45,544 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:45,544 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:45,544 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 529.357ms
+2023-02-14 01:29:45,544 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:45,544 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-37", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:45,544 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:45,599 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:45,599 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:45,599 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:45,606 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:45,606 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 28.087ms
+2023-02-14 01:29:45,606 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:45,606 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "28592", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:45,606 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:45,609 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:45,609 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:45,609 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:45,610 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:45,610 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 31.459ms
+2023-02-14 01:29:45,610 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:45,610 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Asia", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:45,610 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:45,619 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:45,619 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:45,619 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:45,619 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:45,619 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 41.368ms
+2023-02-14 01:29:45,619 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:45,620 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-79", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:45,620 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:45,624 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:45,624 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:45,624 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:45,625 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:45,625 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 761.327ms
+2023-02-14 01:29:45,625 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:45,625 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "20014", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:45,625 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:45,629 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:45,629 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:45,629 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:45,629 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:45,629 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 831.429ms
+2023-02-14 01:29:45,629 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:45,629 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-55", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:45,629 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:45,641 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:45,641 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:45,641 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:45,641 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:45,641 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 778.004ms
+2023-02-14 01:29:45,641 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:45,641 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-21", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:45,641 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:45,643 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:45,643 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:45,643 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:45,643 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:45,643 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 845.396ms
+2023-02-14 01:29:45,643 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:45,643 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Africa", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:45,643 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:45,645 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:45,645 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:45,645 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:45,645 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:45,645 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 781.789ms
+2023-02-14 01:29:45,645 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:45,645 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Europe", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:45,645 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:45,653 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:45,654 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:45,654 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:45,654 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:45,654 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 856.188ms
+2023-02-14 01:29:45,654 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:45,654 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "30802", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:45,654 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:45,656 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:45,656 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:45,656 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:46,546 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:46,546 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 531.269ms
+2023-02-14 01:29:46,546 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:46,546 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "America", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:46,546 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:46,547 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:46,548 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:46,548 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:46,548 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:46,548 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 533.572ms
+2023-02-14 01:29:46,548 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:46,548 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "31148", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:46,548 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:46,554 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:46,554 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:46,554 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:46,555 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:46,555 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 540.068ms
+2023-02-14 01:29:46,555 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:46,555 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "56", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:46,555 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:46,562 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:46,562 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:46,562 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:46,610 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:46,610 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 32.355ms
+2023-02-14 01:29:46,610 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:46,611 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "25278", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:46,611 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:46,616 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:46,616 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:46,616 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:46,616 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:46,616 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 38.053ms
+2023-02-14 01:29:46,616 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:46,616 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Europe", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:46,616 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:46,618 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:46,618 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:46,618 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:46,618 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:46,618 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 820.233ms
+2023-02-14 01:29:46,618 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:46,618 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-19", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:46,618 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:46,620 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:46,620 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:46,620 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:46,620 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:46,620 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 756.54ms
+2023-02-14 01:29:46,620 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:46,620 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "19984", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:46,620 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:46,622 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:46,622 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:46,622 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:46,622 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:46,622 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 758.872ms
+2023-02-14 01:29:46,622 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:46,622 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "58", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:46,622 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:46,625 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:46,625 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:46,625 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:46,625 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:46,625 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 761.678ms
+2023-02-14 01:29:46,625 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:46,625 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Africa", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:46,625 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:46,631 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:46,631 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:46,631 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:46,631 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:46,631 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 53.373ms
+2023-02-14 01:29:46,632 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:46,632 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-90", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:46,632 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:46,634 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:46,634 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:46,634 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:46,634 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:46,634 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 836.812ms
+2023-02-14 01:29:46,634 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:46,634 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Australia", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:46,634 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:46,636 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:46,636 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:46,636 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:46,637 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:46,637 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 839.008ms
+2023-02-14 01:29:46,637 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:46,637 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "12459", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:46,637 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:46,644 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:46,644 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:46,644 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:47,912 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:47,912 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 897.923ms
+2023-02-14 01:29:47,912 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:47,912 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "America", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:47,913 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:47,917 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:47,917 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:47,917 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:47,917 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:47,917 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 902.54ms
+2023-02-14 01:29:47,917 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:47,917 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "4542", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:47,917 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:47,920 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:47,920 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:47,920 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:47,920 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:47,920 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 341.97ms
+2023-02-14 01:29:47,920 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:47,920 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "25866", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:47,920 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:47,925 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:47,925 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:47,925 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:47,925 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:47,925 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 127.253ms
+2023-02-14 01:29:47,925 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:47,925 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "28", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:47,925 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:47,928 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:47,928 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:47,928 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:47,928 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:47,928 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 64.591ms
+2023-02-14 01:29:47,928 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:47,928 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "7293", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:47,928 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:47,950 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:47,950 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:47,950 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:47,950 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:47,950 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 371.938ms
+2023-02-14 01:29:47,950 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:47,950 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Europe", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:47,950 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:47,955 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:47,955 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:47,955 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:47,955 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:47,955 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 157.415ms
+2023-02-14 01:29:47,955 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:47,955 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Australia", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:47,955 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:47,958 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:47,958 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:47,958 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:47,958 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:47,958 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 94.964ms
+2023-02-14 01:29:47,958 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:47,958 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "15", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:47,958 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:47,975 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:47,977 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:47,977 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:47,977 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:47,977 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 398.762ms
+2023-02-14 01:29:47,977 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:47,977 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "10", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:47,977 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:47,979 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:47,979 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:47,979 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:47,979 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:47,979 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 181.652ms
+2023-02-14 01:29:47,979 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:47,979 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "16799", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:47,979 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:47,995 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:47,996 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:47,996 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:47,996 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:47,996 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 132.938ms
+2023-02-14 01:29:47,996 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:47,996 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "America", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:47,996 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:47,998 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:47,998 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:47,998 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:47,998 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:47,999 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 984.744ms
+2023-02-14 01:29:47,999 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:47,999 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-5", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:47,999 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:48,002 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:48,002 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:48,002 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:49,015 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:49,015 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 436.854ms
+2023-02-14 01:29:49,015 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:49,015 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "2062", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:49,015 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:49,018 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:49,018 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:49,019 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:49,019 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:49,019 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 440.494ms
+2023-02-14 01:29:49,019 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:49,019 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Asia", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:49,019 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:49,022 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:49,022 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:49,023 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:49,023 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:49,023 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 445.163ms
+2023-02-14 01:29:49,023 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:49,023 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-68", "publisher": "pub1", "sent_at": "2023-02-14 01:29:23.578584"}
+2023-02-14 01:29:49,023 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.578584
+2023-02-14 01:29:49,032 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:49,033 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:49,033 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:49,033 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:49,033 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 18.208ms
+2023-02-14 01:29:49,033 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:49,033 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "Australia", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:49,033 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:49,055 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:49,055 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:49,055 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:49,055 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:49,056 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 257.977ms
+2023-02-14 01:29:49,056 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:49,056 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "-12", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:49,056 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:49,068 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:49,068 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:49,069 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:49,069 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:49,069 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 205.486ms
+2023-02-14 01:29:49,069 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:49,069 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "28384", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:49,069 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:49,070 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:49,070 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:49,070 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:49,071 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:49,071 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 56.382ms
+2023-02-14 01:29:49,071 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:49,071 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "22283", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:49,071 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:49,073 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:49,073 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:49,073 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:49,073 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:49,073 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 275.732ms
+2023-02-14 01:29:49,073 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:49,073 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "America", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:49,073 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:49,085 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:49,085 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:49,085 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:49,085 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:49,086 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 222.236ms
+2023-02-14 01:29:49,086 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:49,086 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "57", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:49,086 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:49,090 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:49,090 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:49,090 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:49,090 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:49,090 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 75.499ms
+2023-02-14 01:29:49,090 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:49,090 - SubscriberAppln - DEBUG - temperature:{"topic": "temperature", "data": "43", "publisher": "pub3", "sent_at": "2023-02-14 01:29:24.014980"}
+2023-02-14 01:29:49,090 - SubscriberAppln - DEBUG - 2023-02-14 01:29:24.014980
+2023-02-14 01:29:49,097 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:49,097 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:49,097 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:49,097 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:49,097 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 299.558ms
+2023-02-14 01:29:49,097 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:49,097 - SubscriberAppln - DEBUG - altitude:{"topic": "altitude", "data": "25694", "publisher": "pub4", "sent_at": "2023-02-14 01:29:23.798040"}
+2023-02-14 01:29:49,097 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.798040
+2023-02-14 01:29:49,114 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:49,114 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:49,114 - SubscriberAppln - DEBUG - SubscriberMW::collect
+2023-02-14 01:29:49,114 - SubscriberAppln - DEBUG - SubscriberMW::collect complete
+2023-02-14 01:29:49,114 - SubscriberAppln - DEBUG - SubscriberMW::collect latency of message: 251.178ms
+2023-02-14 01:29:49,114 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - collecting completed
+2023-02-14 01:29:49,115 - SubscriberAppln - DEBUG - location:{"topic": "location", "data": "America", "publisher": "pub2", "sent_at": "2023-02-14 01:29:23.863775"}
+2023-02-14 01:29:49,115 - SubscriberAppln - DEBUG - 2023-02-14 01:29:23.863775
+2023-02-14 01:29:49,117 - SubscriberAppln - INFO - SubscriberAppln::invoke_operation
+2023-02-14 01:29:49,117 - SubscriberAppln - DEBUG - SubscriberAppln::invoke_operation - start collecting
+2023-02-14 01:29:49,117 - SubscriberAppln - DEBUG - SubscriberMW::collect

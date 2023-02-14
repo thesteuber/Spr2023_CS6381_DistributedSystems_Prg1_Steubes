@@ -1,0 +1,77 @@
+2023-02-13 23:53:09,014 - root - INFO - Main - acquire a child logger and then log messages in the child
+2023-02-13 23:53:09,017 - DiscoveryAppln - DEBUG - Main: parse command line arguments
+2023-02-13 23:53:09,018 - DiscoveryAppln - DEBUG - Main: resetting log level to 10
+2023-02-13 23:53:09,018 - DiscoveryAppln - DEBUG - Main: effective log level is 10
+2023-02-13 23:53:09,018 - DiscoveryAppln - DEBUG - Main: obtain the publisher appln object
+2023-02-13 23:53:09,018 - DiscoveryAppln - DEBUG - Main: configure the publisher appln object
+2023-02-13 23:53:09,018 - DiscoveryAppln - INFO - DiscoveryAppln::configure
+2023-02-13 23:53:09,018 - DiscoveryAppln - DEBUG - DiscoveryAppln::configure - parsing config.ini
+2023-02-13 23:53:09,018 - DiscoveryAppln - DEBUG - DiscoveryAppln::configure - selecting our topic list
+2023-02-13 23:53:09,018 - DiscoveryAppln - DEBUG - DiscoveryAppln::configure - initialize the middleware object
+2023-02-13 23:53:09,018 - DiscoveryAppln - INFO - DiscoveryMW::configure
+2023-02-13 23:53:09,018 - DiscoveryAppln - DEBUG - DiscoveryMW::configure - obtain ZMQ context
+2023-02-13 23:53:09,019 - DiscoveryAppln - DEBUG - DiscoveryMW::configure - obtain the poller
+2023-02-13 23:53:09,019 - DiscoveryAppln - DEBUG - DiscoveryMW::configure - obtain REP sockets
+2023-02-13 23:53:09,019 - DiscoveryAppln - DEBUG - DiscoveryMW::configure - register the REP socket for incoming replies
+2023-02-13 23:53:09,019 - DiscoveryAppln - INFO - DiscoveryMW::configure completed
+2023-02-13 23:53:09,019 - DiscoveryAppln - INFO - DiscoveryAppln::configure - configuration complete
+2023-02-13 23:53:09,019 - DiscoveryAppln - DEBUG - Main: invoke the publisher appln driver
+2023-02-13 23:53:09,019 - DiscoveryAppln - INFO - DiscoveryAppln::driver
+2023-02-13 23:53:09,019 - DiscoveryAppln - INFO - **********************************
+2023-02-13 23:53:09,019 - DiscoveryAppln - INFO - DiscoveryAppln::dump
+2023-02-13 23:53:09,019 - DiscoveryAppln - INFO - ------------------------------
+2023-02-13 23:53:09,019 - DiscoveryAppln - INFO -      Name: disc
+2023-02-13 23:53:09,019 - DiscoveryAppln - INFO -      Lookup: Centralized
+2023-02-13 23:53:09,019 - DiscoveryAppln - INFO -      Num Topics: 1
+2023-02-13 23:53:09,019 - DiscoveryAppln - INFO -      Iterations: 1000
+2023-02-13 23:53:09,019 - DiscoveryAppln - INFO -      Frequency: 1
+2023-02-13 23:53:09,019 - DiscoveryAppln - INFO - **********************************
+2023-02-13 23:53:09,019 - DiscoveryAppln - DEBUG - DiscoveryAppln::driver - upcall handle
+2023-02-13 23:53:09,019 - DiscoveryAppln - INFO - DiscoveryMW::event_loop - run the event loop
+2023-02-13 23:53:09,091 - DiscoveryAppln - INFO - DiscoveryMW::handle_reply
+2023-02-13 23:53:09,091 - DiscoveryAppln - INFO - DiscoveryAppln::register_request
+2023-02-13 23:53:09,091 - DiscoveryAppln - INFO - DiscoveryMW::send_register_status
+2023-02-13 23:53:09,091 - DiscoveryAppln - DEBUG - DiscoveryMW::send_register_status - populate the nested Register Response msg
+2023-02-13 23:53:09,091 - DiscoveryAppln - DEBUG - DiscoveryMW::send_register_status - done populating nested Register Response msg
+2023-02-13 23:53:09,091 - DiscoveryAppln - DEBUG - DiscoveryMW::send_register_status - build the outer Register Response message
+2023-02-13 23:53:09,091 - DiscoveryAppln - DEBUG - DiscoveryMW::send_register_status - done building the outer message
+2023-02-13 23:53:09,093 - DiscoveryAppln - INFO - DiscoveryMW::handle_reply
+2023-02-13 23:53:09,093 - DiscoveryAppln - INFO - DiscoveryAppln::isready_request
+2023-02-13 23:53:09,093 - DiscoveryAppln - INFO - DiscoveryMW::send_is_ready
+2023-02-13 23:53:09,093 - DiscoveryAppln - DEBUG - DiscoveryMW::send_is_ready - populate the nested IsReady msg
+2023-02-13 23:53:09,093 - DiscoveryAppln - DEBUG - DiscoveryMW::send_is_ready - done populating nested IsReady msg
+2023-02-13 23:53:09,093 - DiscoveryAppln - DEBUG - DiscoveryMW::send_is_ready - build the outer DiscoveryResp message
+2023-02-13 23:53:09,093 - DiscoveryAppln - DEBUG - DiscoveryMW::send_is_ready - done building the outer message
+2023-02-13 23:53:09,093 - DiscoveryAppln - INFO - DiscoveryMW::send_is_ready - request sent and now wait for reply
+2023-02-13 23:53:09,142 - DiscoveryAppln - INFO - DiscoveryMW::handle_reply
+2023-02-13 23:53:09,142 - DiscoveryAppln - INFO - DiscoveryAppln::register_request
+2023-02-13 23:53:09,142 - DiscoveryAppln - INFO - DiscoveryMW::send_register_status
+2023-02-13 23:53:09,142 - DiscoveryAppln - DEBUG - DiscoveryMW::send_register_status - populate the nested Register Response msg
+2023-02-13 23:53:09,142 - DiscoveryAppln - DEBUG - DiscoveryMW::send_register_status - done populating nested Register Response msg
+2023-02-13 23:53:09,142 - DiscoveryAppln - DEBUG - DiscoveryMW::send_register_status - build the outer Register Response message
+2023-02-13 23:53:09,142 - DiscoveryAppln - DEBUG - DiscoveryMW::send_register_status - done building the outer message
+2023-02-13 23:53:09,143 - DiscoveryAppln - INFO - DiscoveryMW::handle_reply
+2023-02-13 23:53:09,143 - DiscoveryAppln - INFO - DiscoveryAppln::isready_request
+2023-02-13 23:53:09,143 - DiscoveryAppln - INFO - DiscoveryMW::send_is_ready
+2023-02-13 23:53:09,143 - DiscoveryAppln - DEBUG - DiscoveryMW::send_is_ready - populate the nested IsReady msg
+2023-02-13 23:53:09,143 - DiscoveryAppln - DEBUG - DiscoveryMW::send_is_ready - done populating nested IsReady msg
+2023-02-13 23:53:09,143 - DiscoveryAppln - DEBUG - DiscoveryMW::send_is_ready - build the outer DiscoveryResp message
+2023-02-13 23:53:09,144 - DiscoveryAppln - DEBUG - DiscoveryMW::send_is_ready - done building the outer message
+2023-02-13 23:53:09,144 - DiscoveryAppln - INFO - DiscoveryMW::send_is_ready - request sent and now wait for reply
+2023-02-13 23:53:19,106 - DiscoveryAppln - INFO - DiscoveryMW::handle_reply
+2023-02-13 23:53:19,106 - DiscoveryAppln - INFO - DiscoveryAppln::isready_request
+2023-02-13 23:53:19,106 - DiscoveryAppln - INFO - DiscoveryMW::send_is_ready
+2023-02-13 23:53:19,106 - DiscoveryAppln - DEBUG - DiscoveryMW::send_is_ready - populate the nested IsReady msg
+2023-02-13 23:53:19,106 - DiscoveryAppln - DEBUG - DiscoveryMW::send_is_ready - done populating nested IsReady msg
+2023-02-13 23:53:19,106 - DiscoveryAppln - DEBUG - DiscoveryMW::send_is_ready - build the outer DiscoveryResp message
+2023-02-13 23:53:19,106 - DiscoveryAppln - DEBUG - DiscoveryMW::send_is_ready - done building the outer message
+2023-02-13 23:53:19,106 - DiscoveryAppln - INFO - DiscoveryMW::send_is_ready - request sent and now wait for reply
+2023-02-13 23:53:19,107 - DiscoveryAppln - INFO - DiscoveryMW::handle_reply
+2023-02-13 23:53:19,107 - DiscoveryAppln - INFO - DiscoveryAppln::lookup_by_topic_request
+2023-02-13 23:53:19,107 - DiscoveryAppln - INFO - DiscoveryMW::send_topic_publishers
+2023-02-13 23:53:19,107 - DiscoveryAppln - DEBUG - DiscoveryMW::send_topic_publishers - populate the nested LookupPubByTopicResp msg
+2023-02-13 23:53:19,107 - DiscoveryAppln - DEBUG - tcp://10.0.0.2:5577
+2023-02-13 23:53:19,107 - DiscoveryAppln - DEBUG - DiscoveryMW::send_topic_publishers - done prepping message publishers
+2023-02-13 23:53:19,107 - DiscoveryAppln - DEBUG - DiscoveryMW::send_topic_publishers - done populating nested LookupPubByTopicResp msg
+2023-02-13 23:53:19,107 - DiscoveryAppln - DEBUG - DiscoveryMW::send_topic_publishers - build the outer DiscoveryResp message
+2023-02-13 23:53:19,107 - DiscoveryAppln - DEBUG - DiscoveryMW::send_topic_publishers - done building the outer message

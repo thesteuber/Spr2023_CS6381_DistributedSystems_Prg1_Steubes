@@ -420,6 +420,7 @@ class BrokerMW ():
       self.logger.debug ("BrokerMW::disseminate")
       
       self.logger.debug ("BrokerMW::disseminate - {}".format (message))
+      self.logger.debug ("BrokerMW::disseminate - " + str(self.addr) + ":" + str(self.port))
 
       # send the info as bytes. See how we are providing an encoding of utf-8
       self.pub.send (bytes(message, "utf-8"))

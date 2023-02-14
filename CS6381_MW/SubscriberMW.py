@@ -426,6 +426,7 @@ class SubscriberMW ():
       # connect the publisher to the SUB ZMQ Socket
       self.sub.connect("tcp://{}:{}".format(publisher.addr, publisher.port))
       for t in topiclist:
+        self.logger.debug ("SubscriberMW::connect_to_publisher subscribe to topic: " + t)
         self.sub.subscribe(t)
       
       self.logger.debug ("SubscriberMW::connect_to_publisher complete")
@@ -450,7 +451,7 @@ class SubscriberMW ():
       self.logger.debug ("SubscriberMW::collect")
 
       # receive the info as bytes. See how we are providing an encoding of utf-8
-      message = self.sub.recv_string()
+      message = self.sub.recv_string(encoding="utf-8")
 
       self.logger.debug ("SubscriberMW::collect complete")
       resultParcel = Common.TopicParcel.fromMessage(message)
