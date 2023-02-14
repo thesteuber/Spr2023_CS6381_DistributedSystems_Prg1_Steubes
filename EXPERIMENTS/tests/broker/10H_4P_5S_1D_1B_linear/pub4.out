@@ -5933,3 +5933,597 @@
 2023-02-14 02:33:04,898 - PublisherAppln - DEBUG - PublisherMW::disseminate
 2023-02-14 02:33:04,898 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "-74", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
 2023-02-14 02:33:04,898 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:05,936 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:05,936 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Australia", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:05,936 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "29109", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "88", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "poor", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "902", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "icy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "1100", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "74.34129735930586", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "59", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:05,937 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:06,941 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:06,941 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Australia", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:06,941 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:06,941 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:06,941 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "37319", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:06,941 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:06,941 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:06,941 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "92", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:06,941 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "good", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "994", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "sunny", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "1600", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "73.05582863070464", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "1", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:06,942 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:07,945 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:07,945 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Australia", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:07,945 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:07,945 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:07,945 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "27881", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:07,945 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:07,945 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:07,945 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "77", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:07,945 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:07,945 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:07,945 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "smog", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:07,945 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:07,945 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:07,945 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "960", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:07,946 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:07,946 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:07,946 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "cloudy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:07,946 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:07,946 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:07,946 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "450", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:07,946 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:07,946 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:07,946 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "65.00861758025866", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:07,946 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:07,946 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:07,946 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "45", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:07,946 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:08,950 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:08,950 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Asia", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:08,950 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:08,950 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:08,950 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "272", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "67", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "smog", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "1056", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "sunny", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "450", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "45.59154109980855", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "28", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:08,951 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:09,957 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:09,957 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Asia", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:09,957 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:09,957 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:09,957 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "5570", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:09,957 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:09,957 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:09,957 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "41", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:09,958 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:09,958 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:09,958 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "smog", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:09,958 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:09,958 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:09,958 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "1024", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:09,958 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:09,958 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:09,958 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "rainy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:09,959 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:09,959 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:09,959 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "1100", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:09,959 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:09,959 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:09,961 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "29.642985989589487", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:09,962 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:09,962 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:09,962 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "-63", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:09,962 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:10,965 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:10,966 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Australia", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:10,966 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:10,966 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:10,966 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "13926", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:10,966 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:10,966 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:10,966 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "70", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:10,966 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:10,966 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:10,966 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "poor", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "1016", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "cloudy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "450", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "48.61805725091085", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:10,967 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "-72", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:10,968 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:11,970 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:11,970 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Australia", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "25644", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "89", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "smog", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "1028", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "foggy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:11,971 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "1600", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:11,972 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:11,972 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:11,972 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "96.89035597542137", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:11,972 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:11,972 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:11,972 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "19", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:11,972 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:12,980 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:12,980 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Africa", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:12,980 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:12,980 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:12,980 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "794", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:12,980 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:12,980 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:12,980 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "31", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:12,980 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "poor", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "988", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "rainy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "1600", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "37.65809102410991", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "-94", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:12,981 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Europe", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "3374", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "43", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "smog", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "923", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "sunny", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "450", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:13,991 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:13,992 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "47.82818811857936", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:13,992 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:13,992 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:13,992 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "-92", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:13,992 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:14,996 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:14,996 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Europe", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:14,996 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:14,996 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:14,996 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "6446", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:14,996 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:14,996 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "86", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "good", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "899", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "rainy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "1100", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "38.97427752602704", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "-55", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:14,997 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Australia", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "30299", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "51", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "smog", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "988", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "foggy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "1600", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:16,001 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "48.4331088863043", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:16,002 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:16,002 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:16,002 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "-72", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:16,002 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:17,074 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:17,074 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "America", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:17,074 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:17,074 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "6034", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "40", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "smog", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "1050", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "icy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "1100", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "28.658875500504664", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "61", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:17,075 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:18,240 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:18,240 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Europe", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:18,240 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:18,240 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "33819", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "44", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "poor", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "951", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "cloudy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "450", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "74.49646772372245", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "-56", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:18,241 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:19,309 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:19,309 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Europe", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "8375", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "83", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "good", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "987", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "cloudy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "1600", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "13.130606395538244", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "-21", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:19,310 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:20,312 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:20,312 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Europe", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:20,312 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:20,312 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:20,312 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "14024", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:20,312 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:20,312 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:20,312 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "73", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "poor", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "1031", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "foggy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "450", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "99.66494064546774", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "98", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:20,313 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:21,502 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "America", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "32274", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "81", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "poor", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "881", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "cloudy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "800", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:21,503 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:21,504 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:21,504 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "71.78747498553625", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:21,504 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:21,504 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:21,504 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "-39", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:21,504 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:22,506 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:22,506 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Asia", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:22,506 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:22,506 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:22,506 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "39855", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:22,506 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:22,506 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:22,506 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "89", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:22,506 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:22,506 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:22,506 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "poor", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:22,506 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "999", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "foggy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "1600", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "82.29496630789363", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "65", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:22,507 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:23,512 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:23,512 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Australia", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:23,512 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:23,512 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:23,512 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "22071", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:23,512 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:23,512 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:23,512 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "41", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:23,512 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:23,512 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:23,512 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "good", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "923", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "rainy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "800", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "21.995596497428508", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "42", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:23,513 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:24,516 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:24,516 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Africa", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:24,516 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:24,516 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:24,516 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "4199", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:24,516 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:24,516 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:24,516 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "73", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:24,516 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:24,516 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "smog", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "996", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "sunny", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "800", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "63.09465563683266", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "81", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:24,517 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:25,524 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:25,524 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "America", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:25,524 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "10728", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "81", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "smog", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "1071", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "cloudy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "450", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "81.82012534610571", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "-5", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:25,525 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "America", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "2193", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "88", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "good", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "1038", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:26,528 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "cloudy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:26,529 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:26,529 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:26,529 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "800", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:26,529 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:26,529 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:26,529 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "69.46028008136273", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:26,529 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:26,529 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:26,529 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "7", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:26,529 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:27,604 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:27,604 - PublisherAppln - DEBUG - PublisherMW::disseminate - location:{"topic": "location", "data": "Africa", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:27,604 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:27,604 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:27,604 - PublisherAppln - DEBUG - PublisherMW::disseminate - altitude:{"topic": "altitude", "data": "20628", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:27,604 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:27,604 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:27,604 - PublisherAppln - DEBUG - PublisherMW::disseminate - sound:{"topic": "sound", "data": "90", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:27,604 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:27,604 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:27,604 - PublisherAppln - DEBUG - PublisherMW::disseminate - airquality:{"topic": "airquality", "data": "poor", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate - pressure:{"topic": "pressure", "data": "952", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate - weather:{"topic": "weather", "data": "rainy", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate - light:{"topic": "light", "data": "1100", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate - humidity:{"topic": "humidity", "data": "28.04500186115858", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate - temperature:{"topic": "temperature", "data": "-94", "publisher": "pub4", "sent_at": "2023-02-14 02:28:56.162399"}
+2023-02-14 02:33:27,605 - PublisherAppln - DEBUG - PublisherMW::disseminate complete
