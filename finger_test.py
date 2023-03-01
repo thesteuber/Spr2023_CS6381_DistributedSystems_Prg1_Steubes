@@ -34,6 +34,7 @@ class FingerTester ():
     # if same hash val for another id => collision
     self.dht_nodes = []
     self.perspective = None
+    self.bits_hash = None
     self.logger = logger
 
   #################
@@ -44,9 +45,30 @@ class FingerTester ():
     self.logger.debug ("FingerTester::configure")
 
     self.perspective = args.perspective
+    self.bits_hash = args.bits_hash
 
     self.logger.debug ("FingerTester::Dump")
     self.logger.debug ("\Perspective Hash = {}".format (self.perspective))
+
+  def create_finger_table(self, node, nodes):
+    m = self.bits_hash
+    finger_table = []
+    max_hash = nodes[-1]['hash']
+    for i in range(m):
+        id = (node['hash'] + 2**i) % max_hash
+        self.logger.debug ("\id = {}".format (str(id)))
+        finger = self.find_successor(id, nodes)
+        finger_table.append(finger)
+    return finger_table
+
+  def find_successor(self, id, nodes):
+    m = self.bits_hash
+    for i in range(m):
+        if nodes[i]['hash'] >= id:
+            return nodes[i]
+    return nodes[0]
+
+  
 
   #################
   # Driver program
@@ -56,10 +78,10 @@ class FingerTester ():
 
     # load the dht file into a dictionary object
     with open('dht.json') as json_file:
-        self.dht_nodes = json.load(json_file)
+        self.dht_nodes = json.load(json_file).get('dht')
 
     # sort the dict by hash value asc
-    self.dht_nodes = sorted(self.dht_nodes, key=lambda d: d['hash']) 
+    self.dht_nodes = sorted(self.dht_nodes, key=lambda d: d.get('hash', None)) 
 
     # get the max hash to know what to modulus for the ring of hashes
     max_hash = self.dht_nodes[-1]['hash'];
@@ -67,12 +89,25 @@ class FingerTester ():
     # loop powers of 2 on the hash value to pick the m finger entries?
     finger_table = []
     my_index = [i for i, d in enumerate(self.dht_nodes) if d['hash'] == self.perspective][0]
-    for i in range(self.dht_nodes.count()):
-      finger_table.append(self.dht_nodes[self.dht_nodes.count() % (i + my_index)])
-      
-    for finger in finger_table:
-      self.logger.debug ("CollisionTester::driver finger: {}".format(json.dump(finger)))
     
+    finger_table = self.create_finger_table(self.dht_nodes[my_index], self.dht_nodes)
+    # self.logger.debug ("CollisionTester::driver my hash index: {}".format(str(my_index)))
+    # for i in range(len(self.dht_nodes))[1:]:
+    #   next_index = i + my_index
+    #   if next_index >= len(self.dht_nodes):
+    #     next_index = next_index - len(self.dht_nodes) 
+      
+    #   self.logger.debug ("CollisionTester::driver next index: {}".format(str(next_index)))
+    #   finger_table.append(self.dht_nodes[next_index])
+    self.logger.debug ("Sorted Nodes")
+    for node in self.dht_nodes:
+      self.logger.debug ("{}".format(node))
+
+    self.logger.debug ("Finger Table")
+    for finger in finger_table:
+      self.logger.debug ("{}".format(finger))
+    
+
       
 ###################################
 #
@@ -87,8 +122,8 @@ def parseCmdLineArgs ():
   #
   # Specify number of bits of hash to test
 
-  parser.add_argument ("-p", "--perspective", default="215846852735421", help="Number of iterations, default 1 million")
-
+  parser.add_argument ("-p", "--perspective", type=int, default=215846852735421, help="perspective hash to build finger table")
+  parser.add_argument ("-b", "--bits_hash", type=int, choices=[8,16,24,32,40,48,56,64], default=48, help="Number of bits of hash value to test for collision: allowable values between 6 and 64 in increments of 8 bytes, default 48")
   parser.add_argument ("-l", "--loglevel", type=int, default=logging.DEBUG, choices=[logging.DEBUG,logging.INFO,logging.WARNING,logging.ERROR,logging.CRITICAL], help="logging level, choices 10,20,30,40,50: default 10=logging.DEBUG")
   
   return parser.parse_args()
