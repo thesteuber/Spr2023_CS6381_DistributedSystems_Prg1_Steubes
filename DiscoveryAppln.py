@@ -50,6 +50,7 @@ from CS6381_MW import discovery_pb2
 # import any other packages you need.
 from enum import Enum  # for an enumeration we are using to describe what state we are in
 from DiscoveryLedger import DiscoveryLedger, Registrant
+import json
 
 ##################################
 #       DiscoveryAppln class
@@ -84,6 +85,14 @@ class DiscoveryAppln ():
     self.is_ready = False
     self.discovery_ledger = None
     self.dissemination = None # Method by which messages are disseminated: ViaBroker or Direct
+    self.dht_nodes = [] # For all DHT nodes in dht.json file
+    self.node_hash = None # Hash value of this DHT Node
+    self.previous_node_hash = None # Hash value of the DHT node that precedes this one
+    self.bits_hash = None # num bits for the hashing
+    self.finger_table = None # Finger table of nearby nodes if lookup is Chord
+    self.dht_json = None # Location of dht nodes json file for Chord
+    self.distributed_topics = [] # list of topics that this DHT node will store in Chord
+
 
   ########################################
   # configure/initialize
@@ -105,6 +114,8 @@ class DiscoveryAppln ():
       self.num_topics = args.num_topics  # total num of topics we publish
       self.subs = args.subs
       self.pubs = args.pubs
+      self.bits_hash = args.bits_hash
+      self.dht_json = args.dht_json
       self.discovery_ledger = DiscoveryLedger()
       
       # Now, get the configuration object
@@ -113,7 +124,12 @@ class DiscoveryAppln ():
       config.read (args.config)
       self.lookup = config["Discovery"]["Strategy"]
       self.dissemination = config["Dissemination"]["Strategy"]
-    
+      
+      # load the dht file into a dictionary object
+      if (self.lookup == "Chord"):
+        #configure the discovery app for chord
+        self.configure_chord()
+
       # Now get our topic list of interest
       self.logger.debug ("DiscoveryAppln::configure - selecting our topic list")
       # Now setup up our underlying middleware object to which we delegate
@@ -126,6 +142,53 @@ class DiscoveryAppln ():
       
     except Exception as e:
       raise e
+
+  def configure_chord(self):
+    # load in DHT Nodes from json file
+    with open(self.dht_json) as json_file:
+        self.dht_nodes = json.load(json_file).get('dht')
+
+    # sort the dict by hash value asc
+    self.dht_nodes = sorted(self.dht_nodes, key=lambda d: d.get('hash', None))
+
+    # get index of this DHT node
+    # TODO: make the hash a utility function of sorts somewhere to use here definitely
+    my_index = [i for i, d in enumerate(self.dht_nodes) if d['hash'] == self.perspective][0]
+
+    # set this DHT hash and the predecessor
+    self.node_hash = self.dht_nodes[my_index]['hash']
+    prev_index = my_index - 1
+    if prev_index < 0:
+      prev_index = -1
+    self.previous_node_hash = self.dht_nodes[prev_index]['hash']
+
+    # create and store the finger table for this DHT node
+    self.finger_table = self.create_finger_table(self.dht_nodes[my_index], self.dht_nodes)
+
+    # initialize distributed_topics
+    hashed_topics = TopicSelector.get_hashed_pairs(self.bits_hash)
+    for hash in hashed_topics:
+      if self.previous_node_hash < hash['key'] <= self.node_hash:
+        self.distributed_topics.append(hash['value'])
+
+
+  def create_finger_table(self, node, nodes):
+    m = self.bits_hash
+    finger_table = []
+    max_hash = nodes[-1]['hash']
+    for i in range(m):
+        id = (node['hash'] + 2**i) % max_hash
+        self.logger.debug ("\id = {}".format (str(id)))
+        finger = self.find_successor(id, nodes)
+        finger_table.append(finger)
+    return finger_table
+
+  def find_successor(self, id, nodes):
+    m = self.bits_hash
+    for i in range(m):
+        if nodes[i]['hash'] >= id:
+            return nodes[i]
+    return nodes[0]
 
   ########################################
   # driver program
@@ -349,7 +412,10 @@ def parseCmdLineArgs ():
 
   parser.add_argument ("-P", "--pubs", type=int, default=1, help="number of needed publishers to be ready (default: 1)")
 
-
+  parser.add_argument ("-b", "--bits_hash", type=int, choices=[8,16,24,32,40,48,56,64], default=48, help="Number of bits of hash value to test for collision: allowable values between 6 and 64 in increments of 8 bytes, default 48")
+  
+  parser.add_argument ("-j", "--dht_json", default="dht.json", help="Location of dht nodes json file.")
+  
   return parser.parse_args()
 
 

@@ -17,6 +17,7 @@
 # since we are going to publish or subscribe to a random sampling of topics,
 # we need this package
 import random
+import hashlib  # for the secure hash library
 
 # define a helper class to hold all the topics that we support in our system
 class TopicSelector ():
@@ -37,6 +38,24 @@ class TopicSelector ():
     # here we just randomly create a subset from this list and return it
     #return random.sample (self.topiclist, random.randint (1, len (self.topiclist)))
     return random.sample (self.topiclist, num)
+
+  def hash_func(self, value, bits_hash):
+    # first get the digest from hashlib and then take the desired number of bytes from the
+    # lower end of the 256 bits hash. Big or little endian does not matter.
+    hash_digest = hashlib.sha256 (bytes (value, "utf-8")).digest ()  # this is how we get the digest or hash value
+    # figure out how many bytes to retrieve
+    num_bytes = int(bits_hash/8)  # otherwise we get float which we cannot use below
+    hash_val = int.from_bytes (hash_digest[:num_bytes], "big")  # take lower N number of bytes
+
+    return hash_val
+
+  def get_hashed_pairs(self, bits_hash):
+    hashed_topics = []
+
+    for topic in self.topiclist:
+      hashed_topics.append({"key" : self.hash_func(topic, bits_hash), "value" : topic})
+
+    return hashed_topics
 
   # generate a publication on a given topic
   def gen_publication (self, topic):
