@@ -41,6 +41,7 @@ enum MsgTypes {
      INC_REG_SUBS = 6;
      CHORD_TYPE_LOOKUP_PUB_BY_TOPIC = 7; 
      CHORD_TYPE_LOOKUP_ALL_PUBS = 8; 
+     CHORD_SET_BROKER = 9; 
      // anything more
 }
 
@@ -129,6 +130,12 @@ message IncrementRegisteredSubsReq
     string sender_hash = 1;
 }
 
+// For chord discovery, the broker will register and be set on all DHT Nodes
+message ChordSetBrokerReq
+{
+    string sender_hash = 1;
+    RegistrantInfo info = 2;
+}
 
 // For broker use to have the discovery service send all the publishers to it.
 // No body needed
@@ -165,6 +172,7 @@ message DiscoveryReq
               IncrementRegisteredSubsReq incregsubs_req = 7;
               ChordLookupPubByTopicReq chord_lookup_req = 8;
               ChordLookupAllPubsReq chord_allpubs_req = 9;
+              ChordSetBrokerReq chord_setbroker_req = 10;
         }
 }
 

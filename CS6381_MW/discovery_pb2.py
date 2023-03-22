@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0f\x64iscovery.proto\"8\n\x0eRegistrantInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04\x61\x64\x64r\x18\x02 \x01(\t\x12\x0c\n\x04port\x18\x03 \x01(\r\"T\n\x0bRegisterReq\x12\x13\n\x04role\x18\x01 \x01(\x0e\x32\x05.Role\x12\x1d\n\x04info\x18\x02 \x01(\x0b\x32\x0f.RegistrantInfo\x12\x11\n\ttopiclist\x18\x03 \x03(\t\"7\n\x0cRegisterResp\x12\x17\n\x06status\x18\x01 \x01(\x0e\x32\x07.Status\x12\x0e\n\x06reason\x18\x02 \x01(\t\"\x0c\n\nIsReadyReq\"\x1d\n\x0bIsReadyResp\x12\x0e\n\x06status\x18\x01 \x01(\x08\"(\n\x13LookupPubByTopicReq\x12\x11\n\ttopiclist\x18\x01 \x03(\t\"\x93\x01\n\x18\x43hordLookupPubByTopicReq\x12\x11\n\ttopiclist\x18\x01 \x03(\t\x12#\n\npublishers\x18\x02 \x03(\x0b\x32\x0f.RegistrantInfo\x12\x17\n\x0f\x66irst_node_hash\x18\x03 \x01(\t\x12\x11\n\tsender_ip\x18\x04 \x01(\t\x12\x13\n\x0bsender_port\x18\x05 \x01(\t\";\n\x14LookupPubByTopicResp\x12#\n\npublishers\x18\x01 \x03(\x0b\x32\x0f.RegistrantInfo\"1\n\x1aIncrementRegisteredPubsReq\x12\x13\n\x0bsender_hash\x18\x01 \x01(\t\"1\n\x1aIncrementRegisteredSubsReq\x12\x13\n\x0bsender_hash\x18\x01 \x01(\t\"\x12\n\x10LookupAllPubsReq\"}\n\x15\x43hordLookupAllPubsReq\x12#\n\npublishers\x18\x01 \x03(\x0b\x32\x0f.RegistrantInfo\x12\x17\n\x0f\x66irst_node_hash\x18\x02 \x01(\t\x12\x11\n\tsender_ip\x18\x03 \x01(\t\x12\x13\n\x0bsender_port\x18\x04 \x01(\t\"8\n\x11LookupAllPubsResp\x12#\n\npublishers\x18\x01 \x03(\x0b\x32\x0f.RegistrantInfo\"\xb0\x03\n\x0c\x44iscoveryReq\x12\x1b\n\x08msg_type\x18\x01 \x01(\x0e\x32\t.MsgTypes\x12$\n\x0cregister_req\x18\x02 \x01(\x0b\x32\x0c.RegisterReqH\x00\x12\"\n\x0bisready_req\x18\x03 \x01(\x0b\x32\x0b.IsReadyReqH\x00\x12*\n\nlookup_req\x18\x04 \x01(\x0b\x32\x14.LookupPubByTopicReqH\x00\x12(\n\x0b\x61llpubs_req\x18\x05 \x01(\x0b\x32\x11.LookupAllPubsReqH\x00\x12\x35\n\x0eincregpubs_req\x18\x06 \x01(\x0b\x32\x1b.IncrementRegisteredPubsReqH\x00\x12\x35\n\x0eincregsubs_req\x18\x07 \x01(\x0b\x32\x1b.IncrementRegisteredSubsReqH\x00\x12\x35\n\x10\x63hord_lookup_req\x18\x08 \x01(\x0b\x32\x19.ChordLookupPubByTopicReqH\x00\x12\x33\n\x11\x63hord_allpubs_req\x18\t \x01(\x0b\x32\x16.ChordLookupAllPubsReqH\x00\x42\t\n\x07\x43ontent\"\xdf\x01\n\rDiscoveryResp\x12\x1b\n\x08msg_type\x18\x01 \x01(\x0e\x32\t.MsgTypes\x12&\n\rregister_resp\x18\x02 \x01(\x0b\x32\r.RegisterRespH\x00\x12$\n\x0cisready_resp\x18\x03 \x01(\x0b\x32\x0c.IsReadyRespH\x00\x12,\n\x0blookup_resp\x18\x04 \x01(\x0b\x32\x15.LookupPubByTopicRespH\x00\x12*\n\x0c\x61llpubs_resp\x18\x05 \x01(\x0b\x32\x12.LookupAllPubsRespH\x00\x42\t\n\x07\x43ontent*P\n\x04Role\x12\x10\n\x0cROLE_UNKNOWN\x10\x00\x12\x12\n\x0eROLE_PUBLISHER\x10\x01\x12\x13\n\x0fROLE_SUBSCRIBER\x10\x02\x12\r\n\tROLE_BOTH\x10\x03*\\\n\x06Status\x12\x12\n\x0eSTATUS_UNKNOWN\x10\x00\x12\x12\n\x0eSTATUS_SUCCESS\x10\x01\x12\x12\n\x0eSTATUS_FAILURE\x10\x02\x12\x16\n\x12STATUS_CHECK_AGAIN\x10\x03*\xe1\x01\n\x08MsgTypes\x12\x10\n\x0cTYPE_UNKNOWN\x10\x00\x12\x11\n\rTYPE_REGISTER\x10\x01\x12\x10\n\x0cTYPE_ISREADY\x10\x02\x12\x1c\n\x18TYPE_LOOKUP_PUB_BY_TOPIC\x10\x03\x12\x18\n\x14TYPE_LOOKUP_ALL_PUBS\x10\x04\x12\x10\n\x0cINC_REG_PUBS\x10\x05\x12\x10\n\x0cINC_REG_SUBS\x10\x06\x12\"\n\x1e\x43HORD_TYPE_LOOKUP_PUB_BY_TOPIC\x10\x07\x12\x1e\n\x1a\x43HORD_TYPE_LOOKUP_ALL_PUBS\x10\x08\x62\x06proto3')
+  serialized_pb=_b('\n\x0f\x64iscovery.proto\"8\n\x0eRegistrantInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04\x61\x64\x64r\x18\x02 \x01(\t\x12\x0c\n\x04port\x18\x03 \x01(\r\"T\n\x0bRegisterReq\x12\x13\n\x04role\x18\x01 \x01(\x0e\x32\x05.Role\x12\x1d\n\x04info\x18\x02 \x01(\x0b\x32\x0f.RegistrantInfo\x12\x11\n\ttopiclist\x18\x03 \x03(\t\"7\n\x0cRegisterResp\x12\x17\n\x06status\x18\x01 \x01(\x0e\x32\x07.Status\x12\x0e\n\x06reason\x18\x02 \x01(\t\"\x0c\n\nIsReadyReq\"\x1d\n\x0bIsReadyResp\x12\x0e\n\x06status\x18\x01 \x01(\x08\"(\n\x13LookupPubByTopicReq\x12\x11\n\ttopiclist\x18\x01 \x03(\t\"\x93\x01\n\x18\x43hordLookupPubByTopicReq\x12\x11\n\ttopiclist\x18\x01 \x03(\t\x12#\n\npublishers\x18\x02 \x03(\x0b\x32\x0f.RegistrantInfo\x12\x17\n\x0f\x66irst_node_hash\x18\x03 \x01(\t\x12\x11\n\tsender_ip\x18\x04 \x01(\t\x12\x13\n\x0bsender_port\x18\x05 \x01(\t\";\n\x14LookupPubByTopicResp\x12#\n\npublishers\x18\x01 \x03(\x0b\x32\x0f.RegistrantInfo\"1\n\x1aIncrementRegisteredPubsReq\x12\x13\n\x0bsender_hash\x18\x01 \x01(\t\"1\n\x1aIncrementRegisteredSubsReq\x12\x13\n\x0bsender_hash\x18\x01 \x01(\t\"G\n\x11\x43hordSetBrokerReq\x12\x13\n\x0bsender_hash\x18\x01 \x01(\t\x12\x1d\n\x04info\x18\x02 \x01(\x0b\x32\x0f.RegistrantInfo\"\x12\n\x10LookupAllPubsReq\"}\n\x15\x43hordLookupAllPubsReq\x12#\n\npublishers\x18\x01 \x03(\x0b\x32\x0f.RegistrantInfo\x12\x17\n\x0f\x66irst_node_hash\x18\x02 \x01(\t\x12\x11\n\tsender_ip\x18\x03 \x01(\t\x12\x13\n\x0bsender_port\x18\x04 \x01(\t\"8\n\x11LookupAllPubsResp\x12#\n\npublishers\x18\x01 \x03(\x0b\x32\x0f.RegistrantInfo\"\xe3\x03\n\x0c\x44iscoveryReq\x12\x1b\n\x08msg_type\x18\x01 \x01(\x0e\x32\t.MsgTypes\x12$\n\x0cregister_req\x18\x02 \x01(\x0b\x32\x0c.RegisterReqH\x00\x12\"\n\x0bisready_req\x18\x03 \x01(\x0b\x32\x0b.IsReadyReqH\x00\x12*\n\nlookup_req\x18\x04 \x01(\x0b\x32\x14.LookupPubByTopicReqH\x00\x12(\n\x0b\x61llpubs_req\x18\x05 \x01(\x0b\x32\x11.LookupAllPubsReqH\x00\x12\x35\n\x0eincregpubs_req\x18\x06 \x01(\x0b\x32\x1b.IncrementRegisteredPubsReqH\x00\x12\x35\n\x0eincregsubs_req\x18\x07 \x01(\x0b\x32\x1b.IncrementRegisteredSubsReqH\x00\x12\x35\n\x10\x63hord_lookup_req\x18\x08 \x01(\x0b\x32\x19.ChordLookupPubByTopicReqH\x00\x12\x33\n\x11\x63hord_allpubs_req\x18\t \x01(\x0b\x32\x16.ChordLookupAllPubsReqH\x00\x12\x31\n\x13\x63hord_setbroker_req\x18\n \x01(\x0b\x32\x12.ChordSetBrokerReqH\x00\x42\t\n\x07\x43ontent\"\xdf\x01\n\rDiscoveryResp\x12\x1b\n\x08msg_type\x18\x01 \x01(\x0e\x32\t.MsgTypes\x12&\n\rregister_resp\x18\x02 \x01(\x0b\x32\r.RegisterRespH\x00\x12$\n\x0cisready_resp\x18\x03 \x01(\x0b\x32\x0c.IsReadyRespH\x00\x12,\n\x0blookup_resp\x18\x04 \x01(\x0b\x32\x15.LookupPubByTopicRespH\x00\x12*\n\x0c\x61llpubs_resp\x18\x05 \x01(\x0b\x32\x12.LookupAllPubsRespH\x00\x42\t\n\x07\x43ontent*P\n\x04Role\x12\x10\n\x0cROLE_UNKNOWN\x10\x00\x12\x12\n\x0eROLE_PUBLISHER\x10\x01\x12\x13\n\x0fROLE_SUBSCRIBER\x10\x02\x12\r\n\tROLE_BOTH\x10\x03*\\\n\x06Status\x12\x12\n\x0eSTATUS_UNKNOWN\x10\x00\x12\x12\n\x0eSTATUS_SUCCESS\x10\x01\x12\x12\n\x0eSTATUS_FAILURE\x10\x02\x12\x16\n\x12STATUS_CHECK_AGAIN\x10\x03*\xf7\x01\n\x08MsgTypes\x12\x10\n\x0cTYPE_UNKNOWN\x10\x00\x12\x11\n\rTYPE_REGISTER\x10\x01\x12\x10\n\x0cTYPE_ISREADY\x10\x02\x12\x1c\n\x18TYPE_LOOKUP_PUB_BY_TOPIC\x10\x03\x12\x18\n\x14TYPE_LOOKUP_ALL_PUBS\x10\x04\x12\x10\n\x0cINC_REG_PUBS\x10\x05\x12\x10\n\x0cINC_REG_SUBS\x10\x06\x12\"\n\x1e\x43HORD_TYPE_LOOKUP_PUB_BY_TOPIC\x10\x07\x12\x1e\n\x1a\x43HORD_TYPE_LOOKUP_ALL_PUBS\x10\x08\x12\x14\n\x10\x43HORD_SET_BROKER\x10\tb\x06proto3')
 )
 
 _ROLE = _descriptor.EnumDescriptor(
@@ -48,8 +48,8 @@ _ROLE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1486,
-  serialized_end=1566,
+  serialized_start=1610,
+  serialized_end=1690,
 )
 _sym_db.RegisterEnumDescriptor(_ROLE)
 
@@ -79,8 +79,8 @@ _STATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1568,
-  serialized_end=1660,
+  serialized_start=1692,
+  serialized_end=1784,
 )
 _sym_db.RegisterEnumDescriptor(_STATUS)
 
@@ -127,11 +127,15 @@ _MSGTYPES = _descriptor.EnumDescriptor(
       name='CHORD_TYPE_LOOKUP_ALL_PUBS', index=8, number=8,
       serialized_options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='CHORD_SET_BROKER', index=9, number=9,
+      serialized_options=None,
+      type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1663,
-  serialized_end=1888,
+  serialized_start=1787,
+  serialized_end=2034,
 )
 _sym_db.RegisterEnumDescriptor(_MSGTYPES)
 
@@ -153,6 +157,7 @@ INC_REG_PUBS = 5
 INC_REG_SUBS = 6
 CHORD_TYPE_LOOKUP_PUB_BY_TOPIC = 7
 CHORD_TYPE_LOOKUP_ALL_PUBS = 8
+CHORD_SET_BROKER = 9
 
 
 
@@ -522,6 +527,44 @@ _INCREMENTREGISTEREDSUBSREQ = _descriptor.Descriptor(
 )
 
 
+_CHORDSETBROKERREQ = _descriptor.Descriptor(
+  name='ChordSetBrokerReq',
+  full_name='ChordSetBrokerReq',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='sender_hash', full_name='ChordSetBrokerReq.sender_hash', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='info', full_name='ChordSetBrokerReq.info', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=620,
+  serialized_end=691,
+)
+
+
 _LOOKUPALLPUBSREQ = _descriptor.Descriptor(
   name='LookupAllPubsReq',
   full_name='LookupAllPubsReq',
@@ -541,8 +584,8 @@ _LOOKUPALLPUBSREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=620,
-  serialized_end=638,
+  serialized_start=693,
+  serialized_end=711,
 )
 
 
@@ -593,8 +636,8 @@ _CHORDLOOKUPALLPUBSREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=640,
-  serialized_end=765,
+  serialized_start=713,
+  serialized_end=838,
 )
 
 
@@ -624,8 +667,8 @@ _LOOKUPALLPUBSRESP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=767,
-  serialized_end=823,
+  serialized_start=840,
+  serialized_end=896,
 )
 
 
@@ -699,6 +742,13 @@ _DISCOVERYREQ = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='chord_setbroker_req', full_name='DiscoveryReq.chord_setbroker_req', index=9,
+      number=10, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -714,8 +764,8 @@ _DISCOVERYREQ = _descriptor.Descriptor(
       name='Content', full_name='DiscoveryReq.Content',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=826,
-  serialized_end=1258,
+  serialized_start=899,
+  serialized_end=1382,
 )
 
 
@@ -776,8 +826,8 @@ _DISCOVERYRESP = _descriptor.Descriptor(
       name='Content', full_name='DiscoveryResp.Content',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=1261,
-  serialized_end=1484,
+  serialized_start=1385,
+  serialized_end=1608,
 )
 
 _REGISTERREQ.fields_by_name['role'].enum_type = _ROLE
@@ -785,6 +835,7 @@ _REGISTERREQ.fields_by_name['info'].message_type = _REGISTRANTINFO
 _REGISTERRESP.fields_by_name['status'].enum_type = _STATUS
 _CHORDLOOKUPPUBBYTOPICREQ.fields_by_name['publishers'].message_type = _REGISTRANTINFO
 _LOOKUPPUBBYTOPICRESP.fields_by_name['publishers'].message_type = _REGISTRANTINFO
+_CHORDSETBROKERREQ.fields_by_name['info'].message_type = _REGISTRANTINFO
 _CHORDLOOKUPALLPUBSREQ.fields_by_name['publishers'].message_type = _REGISTRANTINFO
 _LOOKUPALLPUBSRESP.fields_by_name['publishers'].message_type = _REGISTRANTINFO
 _DISCOVERYREQ.fields_by_name['msg_type'].enum_type = _MSGTYPES
@@ -796,6 +847,7 @@ _DISCOVERYREQ.fields_by_name['incregpubs_req'].message_type = _INCREMENTREGISTER
 _DISCOVERYREQ.fields_by_name['incregsubs_req'].message_type = _INCREMENTREGISTEREDSUBSREQ
 _DISCOVERYREQ.fields_by_name['chord_lookup_req'].message_type = _CHORDLOOKUPPUBBYTOPICREQ
 _DISCOVERYREQ.fields_by_name['chord_allpubs_req'].message_type = _CHORDLOOKUPALLPUBSREQ
+_DISCOVERYREQ.fields_by_name['chord_setbroker_req'].message_type = _CHORDSETBROKERREQ
 _DISCOVERYREQ.oneofs_by_name['Content'].fields.append(
   _DISCOVERYREQ.fields_by_name['register_req'])
 _DISCOVERYREQ.fields_by_name['register_req'].containing_oneof = _DISCOVERYREQ.oneofs_by_name['Content']
@@ -820,6 +872,9 @@ _DISCOVERYREQ.fields_by_name['chord_lookup_req'].containing_oneof = _DISCOVERYRE
 _DISCOVERYREQ.oneofs_by_name['Content'].fields.append(
   _DISCOVERYREQ.fields_by_name['chord_allpubs_req'])
 _DISCOVERYREQ.fields_by_name['chord_allpubs_req'].containing_oneof = _DISCOVERYREQ.oneofs_by_name['Content']
+_DISCOVERYREQ.oneofs_by_name['Content'].fields.append(
+  _DISCOVERYREQ.fields_by_name['chord_setbroker_req'])
+_DISCOVERYREQ.fields_by_name['chord_setbroker_req'].containing_oneof = _DISCOVERYREQ.oneofs_by_name['Content']
 _DISCOVERYRESP.fields_by_name['msg_type'].enum_type = _MSGTYPES
 _DISCOVERYRESP.fields_by_name['register_resp'].message_type = _REGISTERRESP
 _DISCOVERYRESP.fields_by_name['isready_resp'].message_type = _ISREADYRESP
@@ -847,6 +902,7 @@ DESCRIPTOR.message_types_by_name['ChordLookupPubByTopicReq'] = _CHORDLOOKUPPUBBY
 DESCRIPTOR.message_types_by_name['LookupPubByTopicResp'] = _LOOKUPPUBBYTOPICRESP
 DESCRIPTOR.message_types_by_name['IncrementRegisteredPubsReq'] = _INCREMENTREGISTEREDPUBSREQ
 DESCRIPTOR.message_types_by_name['IncrementRegisteredSubsReq'] = _INCREMENTREGISTEREDSUBSREQ
+DESCRIPTOR.message_types_by_name['ChordSetBrokerReq'] = _CHORDSETBROKERREQ
 DESCRIPTOR.message_types_by_name['LookupAllPubsReq'] = _LOOKUPALLPUBSREQ
 DESCRIPTOR.message_types_by_name['ChordLookupAllPubsReq'] = _CHORDLOOKUPALLPUBSREQ
 DESCRIPTOR.message_types_by_name['LookupAllPubsResp'] = _LOOKUPALLPUBSRESP
@@ -926,6 +982,13 @@ IncrementRegisteredSubsReq = _reflection.GeneratedProtocolMessageType('Increment
   # @@protoc_insertion_point(class_scope:IncrementRegisteredSubsReq)
   ))
 _sym_db.RegisterMessage(IncrementRegisteredSubsReq)
+
+ChordSetBrokerReq = _reflection.GeneratedProtocolMessageType('ChordSetBrokerReq', (_message.Message,), dict(
+  DESCRIPTOR = _CHORDSETBROKERREQ,
+  __module__ = 'discovery_pb2'
+  # @@protoc_insertion_point(class_scope:ChordSetBrokerReq)
+  ))
+_sym_db.RegisterMessage(ChordSetBrokerReq)
 
 LookupAllPubsReq = _reflection.GeneratedProtocolMessageType('LookupAllPubsReq', (_message.Message,), dict(
   DESCRIPTOR = _LOOKUPALLPUBSREQ,
