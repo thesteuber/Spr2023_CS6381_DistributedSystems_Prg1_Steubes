@@ -36,6 +36,8 @@ from CS6381_MW import discovery_pb2
 
 # import any other packages you need.
 from CS6381_MW import Common
+import json
+import random
 
 ##################################
 #       Publisher Middleware class
@@ -47,18 +49,22 @@ class PublisherMW ():
   ########################################
   def __init__ (self, logger):
     self.logger = logger  # internal logger for print statements
+    self.name = None # Name of publisher
     self.req = None # will be a ZMQ REQ socket to talk to Discovery service
     self.pub = None # will be a ZMQ PUB socket for dissemination
+    self.router = None # will be a ZMQ ROUTER socket to talk to Discovery service
     self.poller = None # used to wait on incoming replies
     self.addr = None # our advertised IP address
     self.port = None # port num where we are going to publish our topics
     self.upcall_obj = None # handle to appln obj to handle appln-specific data
     self.handle_events = True # in general we keep going thru the event loop
+    self.lookup = "" # lookup method for the system
+    self.dht_nodes = None # list of all DHT Nodes in system
 
   ########################################
   # configure/initialize
   ########################################
-  def configure (self, args):
+  def configure (self, args, lookup):
     ''' Initialize the object '''
 
     try:
@@ -68,6 +74,9 @@ class PublisherMW ():
       # First retrieve our advertised IP addr and the publication port num
       self.port = args.port
       self.addr = args.addr
+
+      self.lookup = lookup
+      self.name = args.name
       
       # Next get the ZMQ context
       self.logger.debug ("PublisherMW::configure - obtain ZMQ context")
@@ -81,23 +90,31 @@ class PublisherMW ():
       # REQ is needed because we are the client of the Discovery service
       # PUB is needed because we publish topic data
       self.logger.debug ("PublisherMW::configure - obtain REQ and PUB sockets")
-      self.req = context.socket (zmq.REQ)
       self.pub = context.socket (zmq.PUB)
 
-      # Since are using the event loop approach, register the REQ socket for incoming events
-      # Note that nothing ever will be received on the PUB socket and so it does not make
-      # any sense to register it with the poller for an incoming message.
-      self.logger.debug ("PublisherMW::configure - register the REQ socket for incoming replies")
-      self.poller.register (self.req, zmq.POLLIN)
+      if (self.lookup == "Chord"):
+        self.router = context.socket(zmq.ROUTER)
+        self.router.bind("tcp://*:{}".format(self.port))
+
+        # load in DHT Nodes from json file
+        with open(args.dht_json) as json_file:
+            self.dht_nodes = json.load(json_file).get('dht')
+      else:
+        self.req = context.socket (zmq.REQ)
+        # Since are using the event loop approach, register the REQ socket for incoming events
+        # Note that nothing ever will be received on the PUB socket and so it does not make
+        # any sense to register it with the poller for an incoming message.
+        self.logger.debug ("SubscriberMW::configure - register the REQ socket for incoming replies")
+        self.poller.register (self.req, zmq.POLLIN)
       
-      # Now connect ourselves to the discovery service. Recall that the IP/port were
-      # supplied in our argument parsing. Best practices of ZQM suggest that the
-      # one who maintains the REQ socket should do the "connect"
-      self.logger.debug ("PublisherMW::configure - connect to Discovery service")
-      # For our assignments we will use TCP. The connect string is made up of
-      # tcp:// followed by IP addr:port number.
-      connect_str = "tcp://" + args.discovery
-      self.req.connect (connect_str)
+        # Now connect ourselves to the discovery service. Recall that the IP/port were
+        # supplied in our argument parsing. Best practices of ZQM suggest that the
+        # one who maintains the REQ socket should do the "connect"
+        self.logger.debug ("PublisherMW::configure - connect to Discovery service")
+        # For our assignments we will use TCP. The connect string is made up of
+        # tcp:// followed by IP addr:port number.
+        connect_str = "tcp://" + args.discovery
+        self.req.connect (connect_str)
       
       # Since we are the publisher, the best practice as suggested in ZMQ is for us to
       # "bind" the PUB socket
@@ -164,7 +181,11 @@ class PublisherMW ():
       self.logger.info ("PublisherMW::handle_reply")
 
       # let us first receive all the bytes
-      bytesRcvd = self.req.recv ()
+      bytesRcvd = None
+      if (self.lookup == "Chord"):
+        identity, bytesRcvd = self.router.recv_multipart()
+      else:
+        bytesRcvd = self.req.recv ()
 
       # now use protobuf to deserialize the bytes
       # The way to do this is to first allocate the space for the
@@ -194,7 +215,33 @@ class PublisherMW ():
     
     except Exception as e:
       raise e
-            
+  
+  def send_to_discovery_services(self, disc_req):
+    # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
+    # a real string
+    buf2send = disc_req.SerializeToString ()
+    self.logger.debug ("Stringified serialized buf = {}".format (buf2send))
+
+    if (self.lookup == "Chord"):
+      self.logger.debug ("SubscriberMW::send_to_discovery_services - CHORD send to random Discovery service")
+      #create ZMQ req socket for successor
+      req_context = zmq.Context ()  # returns a singleton object
+      tmp_req = req_context.socket (zmq.REQ)
+
+      random_discovery_node = random.choice(self.dht_nodes)
+
+      connect_str = "tcp://" + random_discovery_node['IP'] + ":" + random_discovery_node['port']
+      tmp_req.connect (connect_str)
+      self.logger.info ("DiscoveryMW::send_to_ip_port successor connected to {}".format(connect_str))
+
+      # now send this to our discovery service
+      tmp_req.send_multipart (self.name, buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      tmp_req.close()
+    else:
+      # now send this to our discovery service
+      self.logger.debug ("SubscriberMW::send_to_discovery_services - send stringified buffer to Discovery service")
+      self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+
   ########################################
   # register with the discovery service
   #
@@ -244,14 +291,7 @@ class PublisherMW ():
       disc_req.register_req.CopyFrom (register_req)
       self.logger.debug ("PublisherMW::register - done building the outer message")
       
-      # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
-      # a real string
-      buf2send = disc_req.SerializeToString ()
-      self.logger.debug ("Stringified serialized buf = {}".format (buf2send))
-
-      # now send this to our discovery service
-      self.logger.debug ("PublisherMW::register - send stringified buffer to Discovery service")
-      self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      self.send_to_discovery_services(disc_req)
 
       # now go to our event loop to receive a response to this request
       self.logger.info ("PublisherMW::register - sent register message and now now wait for reply")
@@ -294,14 +334,7 @@ class PublisherMW ():
       disc_req.isready_req.CopyFrom (isready_req)
       self.logger.debug ("PublisherMW::is_ready - done building the outer message")
       
-      # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
-      # a real string
-      buf2send = disc_req.SerializeToString ()
-      self.logger.debug ("Stringified serialized buf = {}".format (buf2send))
-
-      # now send this to our discovery service
-      self.logger.debug ("PublisherMW::is_ready - send stringified buffer to Discovery service")
-      self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      self.send_to_discovery_services(disc_req)
       
       # now go to our event loop to receive a response to this request
       self.logger.info ("PublisherMW::is_ready - request sent and now wait for reply")

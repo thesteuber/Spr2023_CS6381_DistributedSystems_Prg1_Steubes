@@ -128,7 +128,7 @@ class PublisherAppln ():
       # everything
       self.logger.debug ("PublisherAppln::configure - initialize the middleware object")
       self.mw_obj = PublisherMW (self.logger)
-      self.mw_obj.configure (args) # pass remainder of the args to the m/w object
+      self.mw_obj.configure (args, self.lookup) # pass remainder of the args to the m/w object
       
       self.logger.info ("PublisherAppln::configure - configuration complete")
       
