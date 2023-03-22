@@ -37,6 +37,8 @@ enum MsgTypes {
      TYPE_ISREADY = 2;    // needed by publisher to know if it can proceed
      TYPE_LOOKUP_PUB_BY_TOPIC = 3;  // needed by a subscriber
      TYPE_LOOKUP_ALL_PUBS = 4;   // probably needed by broker
+     INC_REG_PUBS = 5;
+     INC_REG_SUBS = 6;
      // anything more
 }
 

@@ -191,16 +191,25 @@ class DiscoveryAppln ():
             return self.finger_table[i]
     return self.finger_table[0]
 
-  def hash_func (self, id):
-    self.logger.debug ("ExperimentGenerator::hash_func")
+  def hash_func (self, id, ip, port):
+    self.logger.debug ("DiscoveryAppln::hash_func")
+
+    key = ""
+    if port:
+      key = id + ":" + ip + ":" + str (port)  # will be the case for disc and pubs
+    else:
+      key = id + ":" + ip  # will be the case for subscribers
+
+    self.logger.debug ("DiscoveryAppln::hash_func key to hash: {}".format(key))
 
     # first get the digest from hashlib and then take the desired number of bytes from the
     # lower end of the 256 bits hash. Big or little endian does not matter.
-    hash_digest = hashlib.sha256 (bytes (id, "utf-8")).digest ()  # this is how we get the digest or hash value
+    hash_digest = hashlib.sha256 (bytes (key, "utf-8")).digest ()  # this is how we get the digest or hash value
     # figure out how many bytes to retrieve
     num_bytes = int(self.bits_hash/8)  # otherwise we get float which we cannot use below
     hash_val = int.from_bytes (hash_digest[:num_bytes], "big")  # take lower N number of bytes
 
+    self.logger.debug ("DiscoveryAppln::hash_func hash to return: {}".format(hash_val))
     return hash_val
 
   ########################################
@@ -238,7 +247,83 @@ class DiscoveryAppln ():
     except Exception as e:
       raise e
 
+  def reg_single_publisher(self, reg_req):
+    success = False
+    reason = ""
+    if (not any(p.name == reg_req.info.id for p in self.discovery_ledger.publishers)):
+        self.discovery_ledger.publishers.append(Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, reg_req.topiclist))
+        success = True
+    else:
+        reason = "Publisher names must be unique."
+    
+    return success, reason
   
+  def reg_single_subscriber(self, reg_req):
+    success = False
+    reason = ""
+    if (not any(s.name == reg_req.info.id for s in self.discovery_ledger.subscribers)):
+        self.discovery_ledger.subscribers.append(Registrant(reg_req.info.id, None, None, None))
+        success = True
+    else:
+        reason = "Subscriber names must be unique."
+    
+    return success, reason
+
+  def chord_forward_publisher_register_req(self, reg_req, pub_hash):
+    self.logger.info ("DiscoveryAppln::chord_forward_publisher_register_req")
+    #get the hash for the DHT node to send the register req to
+    send_to_node = None
+    for finger in self.finger_table:
+      if finger['hash'] > pub_hash:
+        break
+      else:
+        send_to_node = finger # tracking the predecessor
+
+    self.logger.info ("DiscoveryAppln::chord_forward_publisher_register_req send to node {}".format(send_to_node['id']))
+    self.mw_obj.forward_pub_register_req_to_node(reg_req, send_to_node)
+
+    self.logger.info ("DiscoveryAppln::chord_forward_publisher_register_req done")
+    
+
+  def chord_register_publisher(self, reg_req):
+    self.logger.info ("DiscoveryAppln::chord_register_publisher")
+
+    # get publisher hash
+    self.logger.info ("DiscoveryAppln::chord_register_publisher gathering hashes")
+    pub_hash = self.hash_func(reg_req.info.id, reg_req.info.addr, reg_req.info.port)
+    my_hash = self.node_hash
+    next_hash = self.finger_table[0]['hash']
+
+    success = False
+    reason = ""
+
+    # if the pubs hash is greater than mine and I am the last node in the ring
+    # ie the next_hash is less than my hash, then register the publisher with me
+    if (pub_hash > my_hash and my_hash > next_hash):
+      self.logger.info ("DiscoveryAppln::chord_register_publisher register with me the last node in the dht ring.")
+      success, reason = self.reg_single_publisher(reg_req)
+    
+    # if pub_hash is greater than my hash but less than the next hash, register with me
+    elif (pub_hash > my_hash and pub_hash <= next_hash):
+      self.logger.info ("DiscoveryAppln::chord_register_publisher register with me.")
+      success, reason = self.reg_single_publisher(reg_req)
+
+    # Not registering the publisher with me, must send the register request forward to the next 
+    # finger in my finger table that is the predecessor of the first finger with a higher hash
+    else:
+      self.logger.info ("DiscoveryAppln::chord_register_publisher pass the register request forward.")
+      self.chord_forward_publisher_register_req(reg_req, pub_hash)
+
+    if success:
+      self.mw_obj.send_register_status(success, reason)
+      disc_req_for_incrementing = self.mw_obj.get_increment_pub_req(my_hash)
+      self.increment_registered_pubs(disc_req_for_incrementing)
+
+    return success, reason
+    
+
+
+
   ########################################
   # handle register request method called as part of upcall
   #
@@ -258,24 +343,16 @@ class DiscoveryAppln ():
       # if publisher, check if publisher is already registered, if not, add to ledger.
       if (reg_req.role == discovery_pb2.ROLE_PUBLISHER):
         if (self.lookup == "Chord"):
-          self.logger.info ("DiscoveryAppln::register_request CHORD NOT IMPLEMENTED YET!")
+          success, reason = self.chord_register_publisher(reg_req)
         else:
-          if (not any(p.name == reg_req.info.id for p in self.discovery_ledger.publishers)):
-              self.discovery_ledger.publishers.append(Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, reg_req.topiclist))
-              success = True
-          else:
-              reason = "Publisher names must be unique."
+          success, reason = self.reg_single_publisher(reg_req)
     
       # if subscriber, check if subscriber is already registered, if not, add to ledger.
       elif (reg_req.role == discovery_pb2.ROLE_SUBSCRIBER):
         if (self.lookup == "Chord"):
           self.logger.info ("DiscoveryAppln::register_request CHORD NOT IMPLEMENTED YET!")
         else:
-          if (not any(s.name == reg_req.info.id for s in self.discovery_ledger.subscribers)):
-              self.discovery_ledger.subscribers.append(Registrant(reg_req.info.id, None, None, None))
-              success = True
-          else:
-              reason = "Publisher names must be unique."
+          success, reason = self.reg_single_subscriber(reg_req)
 
       # if broker, check if broker is already registered, if not, add to ledger.
       elif (reg_req.role == discovery_pb2.ROLE_BOTH):
@@ -293,13 +370,14 @@ class DiscoveryAppln ():
         raise Exception ("Unknown event after poll")
 
       if (self.lookup == "Chord"):
-        self.logger.info ("DiscoveryAppln::register_request CHORD NOT IMPLEMENTED YET!")
+        self.logger.info ("DiscoveryAppln::register_request incrementing for chord happens in chord_register_publisher and chord_register_subscriber")
       else:
         if (len(self.discovery_ledger.publishers) >= self.pubs and len(self.discovery_ledger.subscribers) >= self.subs):
           if (self.dissemination == "Direct" or (self.dissemination == "Broker" and self.discovery_ledger.broker != None)):
             self.is_ready = True
     
-      self.mw_obj.send_register_status(success, reason)
+      if (self.lookup != "Chord"):
+        self.mw_obj.send_register_status(success, reason)
 
       # return a timeout of zero so that the event loop in its next iteration will immediately make
       # an upcall to us

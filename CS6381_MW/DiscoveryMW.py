@@ -206,6 +206,46 @@ class DiscoveryMW ():
       raise e
 
 
+  def forward_pub_register_req_to_node(self, reg_req, node):
+    try:
+      self.logger.info ("DiscoverlyMw::forward_pub_register_req_to_node")
+      
+      self.logger.info ("DiscoverlyMw::forward_pub_register_req_to_node get wrapped in discovery request")
+      disc_req = discovery_pb2.DiscoveryReq ()  # allocate
+      disc_req.msg_type = discovery_pb2.RegisterReq  # set message type
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_req.register_req.CopyFrom (reg_req)
+      self.logger.debug ("DiscoverlyMw::forward_pub_register_req_to_node - done building the disc_req")
+
+      self.pass_to_successor(disc_req, node)
+
+    except Exception as e:
+      raise e
+
+  def get_increment_pub_req (self, sender_hash):
+    try:
+      self.logger.info ("DiscoverlyMw::get_increment_pub_req")
+
+      # Next build a IncrementRegisteredPubsReq message
+      self.logger.debug ("DiscoverlyMw::get_increment_pub_req - Create the request")
+      incregpubs_req = discovery_pb2.IncrementRegisteredPubsReq ()  # allocate 
+      incregpubs_req.sender_hash = sender_hash
+
+      # Finally, build the outer layer DiscoveryReq Message
+      self.logger.debug ("DiscoverlyMw::get_increment_pub_req - build the outer DiscoveryReq message")
+      disc_req = discovery_pb2.DiscoveryReq ()  # allocate
+      disc_req.msg_type = discovery_pb2.INC_REG_PUBS  # set message type
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_req.incregpubs_req.CopyFrom (incregpubs_req)
+      self.logger.debug ("DiscoverlyMw::get_increment_pub_req - done building the outer message")
+      
+      return disc_req
+    
+    except Exception as e:
+      raise e
+
   def pass_to_successor(self, disc_req, successor):
     try: 
       self.logger.info ("DiscoveryMW::pass_to_successor")
@@ -224,7 +264,7 @@ class DiscoveryMW ():
 
       self.logger.info ("DiscoveryMW::pass_to_successor sending message to successor {}".format(successor[id]))
       # now send this to our discovery service
-      self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      tmp_req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
 
     except Exception as e:
       raise e
