@@ -124,7 +124,7 @@ class SubscriberAppln ():
       config.read (args.config)
       self.lookup = config["Discovery"]["Strategy"]
       self.dissemination = config["Dissemination"]["Strategy"]
-    
+
       # Now get our topic list of interest
       self.logger.debug ("SubscriberAppln::configure - selecting our topic list")
       ts = TopicSelector ()
@@ -134,8 +134,8 @@ class SubscriberAppln ():
       # everything
       self.logger.debug ("SubscriberAppln::configure - initialize the middleware object")
       self.mw_obj = SubscriberMW (self.logger)
-      self.mw_obj.configure (args) # pass remainder of the args to the m/w object
-      
+      self.mw_obj.configure (args, self.lookup) # pass remainder of the args to the m/w object
+
       self.logger.info ("SubscriberAppln::configure - configuration complete")
       
     except Exception as e:
