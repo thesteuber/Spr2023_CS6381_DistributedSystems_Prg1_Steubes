@@ -105,7 +105,7 @@ class BrokerAppln ():
       # everything
       self.logger.debug ("BrokerAppln::configure - initialize the middleware object")
       self.mw_obj = BrokerMW (self.logger)
-      self.mw_obj.configure (args) # pass remainder of the args to the m/w object
+      self.mw_obj.configure (args, self.lookup) # pass remainder of the args to the m/w object
       
       self.logger.info ("BrokerAppln::configure - configuration complete")
       
