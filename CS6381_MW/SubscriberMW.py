@@ -182,7 +182,11 @@ class SubscriberMW ():
       self.logger.info ("SubscriberMW::handle_reply")
 
       # let us first receive all the bytes
-      bytesRcvd = self.req.recv ()
+      bytesRcvd = None
+      if (self.lookup == "Chord"):
+        identity, bytesRcvd = self.router.recv_multipart()
+      else:
+        bytesRcvd = self.req.recv ()
 
       # now use protobuf to deserialize the bytes
       # The way to do this is to first allocate the space for the
