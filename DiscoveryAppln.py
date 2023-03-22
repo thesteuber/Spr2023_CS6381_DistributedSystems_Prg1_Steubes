@@ -280,9 +280,24 @@ class DiscoveryAppln ():
         send_to_node = finger # tracking the predecessor
 
     self.logger.info ("DiscoveryAppln::chord_forward_publisher_register_req send to node {}".format(send_to_node['id']))
-    self.mw_obj.forward_pub_register_req_to_node(reg_req, send_to_node)
+    self.mw_obj.forward_register_req_to_node(reg_req, send_to_node)
 
     self.logger.info ("DiscoveryAppln::chord_forward_publisher_register_req done")
+
+  def chord_forward_subscriber_register_req(self, reg_req, sub_hash):
+    self.logger.info ("DiscoveryAppln::chord_forward_subscriber_register_req")
+    #get the hash for the DHT node to send the register req to
+    send_to_node = None
+    for finger in self.finger_table:
+      if finger['hash'] > sub_hash:
+        break
+      else:
+        send_to_node = finger # tracking the predecessor
+
+    self.logger.info ("DiscoveryAppln::chord_forward_subscriber_register_req send to node {}".format(send_to_node['id']))
+    self.mw_obj.forward_register_req_to_node(reg_req, send_to_node)
+
+    self.logger.info ("DiscoveryAppln::chord_forward_subscriber_register_req done")
     
 
   def chord_register_publisher(self, reg_req):
@@ -321,10 +336,44 @@ class DiscoveryAppln ():
       self.increment_registered_pubs(disc_req_for_incrementing)
 
     return success, reason
+  
+  def chord_register_subscriber(self, reg_req):
+    self.logger.info ("DiscoveryAppln::chord_register_subscriber")
+
+    # get publisher hash
+    self.logger.info ("DiscoveryAppln::chord_register_subscriber gathering hashes")
+    sub_hash = self.hash_func(reg_req.info.id, reg_req.info.addr, reg_req.info.port)
+    my_hash = self.node_hash
+    next_hash = self.finger_table[0]['hash']
+
+    success = False
+    reason = ""
+
+    # if the subs hash is greater than mine and I am the last node in the ring
+    # ie the next_hash is less than my hash, then register the publisher with me
+    if (sub_hash > my_hash and my_hash > next_hash):
+      self.logger.info ("DiscoveryAppln::chord_register_subscriber register with me the last node in the dht ring.")
+      success, reason = self.reg_single_subscriber(reg_req)
+      self.mw_obj.send_register_status(success, reason)
     
+    # if sub_hash is greater than my hash but less than the next hash, register with me
+    elif (sub_hash > my_hash and sub_hash <= next_hash):
+      self.logger.info ("DiscoveryAppln::chord_register_subscriber register with me.")
+      success, reason = self.reg_single_subscriber(reg_req)
+      self.mw_obj.send_register_status(success, reason)
 
+    # Not registering the publisher with me, must send the register request forward to the next 
+    # finger in my finger table that is the predecessor of the first finger with a higher hash
+    else:
+      self.logger.info ("DiscoveryAppln::chord_register_subscriber pass the register request forward.")
+      self.chord_forward_subscriber_register_req(reg_req, sub_hash)
 
+    if success:
+      disc_req_for_incrementing = self.mw_obj.get_increment_sub_req(my_hash)
+      self.increment_registered_subs(disc_req_for_incrementing)
 
+    return success, reason
+    
   ########################################
   # handle register request method called as part of upcall
   #
@@ -351,7 +400,7 @@ class DiscoveryAppln ():
       # if subscriber, check if subscriber is already registered, if not, add to ledger.
       elif (reg_req.role == discovery_pb2.ROLE_SUBSCRIBER):
         if (self.lookup == "Chord"):
-          self.logger.info ("DiscoveryAppln::register_request CHORD NOT IMPLEMENTED YET!")
+          success, reason = self.chord_register_subscriber(reg_req)
         else:
           success, reason = self.reg_single_subscriber(reg_req)
 
