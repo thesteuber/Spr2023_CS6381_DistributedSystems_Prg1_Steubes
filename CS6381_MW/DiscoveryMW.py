@@ -178,6 +178,9 @@ class DiscoveryMW ():
       elif (disc_req.msg_type == discovery_pb2.INC_REG_SUBS):
         # increment the registered subs count and send the message on
         timeout = self.upcall_obj.increment_registered_subs(disc_req)
+      elif (disc_req.msg_type == discovery_pb2.CHORD_SET_BROKER):
+        # Set Broker Across the Ring
+        timeout = self.upcall_obj.chord_set_broker(disc_req)
 
       else: # anything else is unrecognizable by this object
         # raise an exception here
@@ -298,6 +301,30 @@ class DiscoveryMW ():
 
       self.pass_to_successor(disc_req, node)
 
+    except Exception as e:
+      raise e
+
+  def get_set_broker_req (self, sender_hash, info):
+    try:
+      self.logger.info ("DiscoverlyMw::get_set_broker_req")
+
+      # Next build a IncrementRegisteredPubsReq message
+      self.logger.debug ("DiscoverlyMw::get_set_broker_req - Create the request")
+      chord_setbroker_req = discovery_pb2.ChordSetBrokerReq ()  # allocate 
+      chord_setbroker_req.sender_hash = sender_hash
+      chord_setbroker_req.info = info
+
+      # Finally, build the outer layer DiscoveryReq Message
+      self.logger.debug ("DiscoverlyMw::get_set_broker_req - build the outer DiscoveryReq message")
+      disc_req = discovery_pb2.DiscoveryReq ()  # allocate
+      disc_req.msg_type = discovery_pb2.CHORD_SET_BROKER  # set message type
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_req.chord_setbroker_req.CopyFrom (chord_setbroker_req)
+      self.logger.debug ("DiscoverlyMw::get_set_broker_req - done building the outer message")
+      
+      return disc_req
+    
     except Exception as e:
       raise e
 

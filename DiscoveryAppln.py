@@ -407,7 +407,8 @@ class DiscoveryAppln ():
       # if broker, check if broker is already registered, if not, add to ledger.
       elif (reg_req.role == discovery_pb2.ROLE_BOTH):
         if (self.lookup == "Chord"):
-          self.logger.info ("DiscoveryAppln::register_request CHORD NOT IMPLEMENTED YET!")
+          self.logger.info ("DiscoveryAppln::register_request CHORD")
+          self.chord_set_broker(self.mw_obj.get_set_broker_req(self.node_hash, reg_req.info))
         else:
           if (self.discovery_ledger.broker == None):
             self.discovery_ledger.broker = Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, None)
@@ -605,6 +606,26 @@ class DiscoveryAppln ():
     
     except Exception as e:
       raise e
+
+  def chord_set_broker(self, disc_req):
+    self.logger.info ("DiscoveryAppln::chord_set_broker")
+    
+    if (self.discovery_ledger.broker == None):
+      self.discovery_ledger.broker = Registrant(disc_req.chord_setbroker_req.info.id, 
+                                                disc_req.chord_setbroker_req.info.addr, 
+                                                disc_req.chord_setbroker_req.info.port, 
+                                                None)
+      
+    if (self.finger_table[0]['hash'] == disc_req.chord_setbroker_req.sender_hash):
+      self.mw_obj.send_register_status(True, "", 
+                                       disc_req.chord_setbroker_req.info.addr, 
+                                       disc_req.chord_setbroker_req.info.port)
+      return
+
+    self.logger.info ("DiscoveryAppln::chord_set_broker count incremented")
+
+    self.pass_disc_req_on_until_reaches_sender(disc_req, disc_req.chord_setbroker_req.sender_hash)
+
 
   ########################################
   # dump the contents of the object 
