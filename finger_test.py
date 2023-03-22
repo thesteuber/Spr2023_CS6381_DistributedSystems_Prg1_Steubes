@@ -50,21 +50,21 @@ class FingerTester ():
     self.logger.debug ("FingerTester::Dump")
     self.logger.debug ("\Perspective Hash = {}".format (self.perspective))
 
-  def create_finger_table(self, node, nodes):
+  def create_finger_table(self, my_index, nodes):
     m = self.bits_hash
     finger_table = []
     max_hash = nodes[-1]['hash']
     for i in range(m):
-        id = (node['hash'] + 2**i) % max_hash
-        self.logger.debug ("\id = {}".format (str(id)))
-        finger = self.find_successor(id, nodes)
+        next_index = (my_index + 2**i) % m
+        finger = self.find_successor(next_index, nodes)
         finger_table.append(finger)
     return finger_table
 
-  def find_successor(self, id, nodes):
+  def find_successor(self, index, nodes):
+    hash_at_index = nodes[index]['hash']
     m = self.bits_hash
     for i in range(m):
-        if nodes[i]['hash'] >= id:
+        if nodes[i]['hash'] >= hash_at_index:
             return nodes[i]
     return nodes[0]
 
@@ -105,7 +105,7 @@ class FingerTester ():
     else:
       string = self.dht_nodes[my_index]['id'] + ":" + self.dht_nodes[my_index]['IP']  # will be the case for subscribers
 
-    finger_table = self.create_finger_table(self.dht_nodes[my_index], self.dht_nodes)
+    finger_table = self.create_finger_table(my_index, self.dht_nodes)
 
     # now get the hash value for this string
     hash_val_gen = self.hash_func (string)
@@ -122,7 +122,7 @@ class FingerTester ():
       
     #   self.logger.debug ("CollisionTester::driver next index: {}".format(str(next_index)))
     #   finger_table.append(self.dht_nodes[next_index])
-    
+
     # self.logger.debug ("Sorted Nodes")
     # for node in self.dht_nodes:
     #   self.logger.debug ("{}".format(node))
