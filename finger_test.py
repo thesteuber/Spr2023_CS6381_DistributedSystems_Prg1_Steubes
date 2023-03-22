@@ -68,7 +68,17 @@ class FingerTester ():
             return nodes[i]
     return nodes[0]
 
-  
+  def hash_func (self, id):
+    self.logger.debug ("ExperimentGenerator::hash_func")
+
+    # first get the digest from hashlib and then take the desired number of bytes from the
+    # lower end of the 256 bits hash. Big or little endian does not matter.
+    hash_digest = hashlib.sha256 (bytes (id, "utf-8")).digest ()  # this is how we get the digest or hash value
+    # figure out how many bytes to retrieve
+    num_bytes = int(self.bits_hash/8)  # otherwise we get float which we cannot use below
+    hash_val = int.from_bytes (hash_digest[:num_bytes], "big")  # take lower N number of bytes
+
+    return hash_val
 
   #################
   # Driver program
@@ -90,6 +100,18 @@ class FingerTester ():
     finger_table = []
     my_index = [i for i, d in enumerate(self.dht_nodes) if d['hash'] == self.perspective][0]
     
+    if self.dht_nodes[my_index]['port']:
+      string = self.dht_nodes[my_index]['id'] + ":" + self.dht_nodes[my_index]['ip'] + ":" + str (self.dht_nodes[my_index]['port'])  # will be the case for disc and pubs
+    else:
+      string = self.dht_nodes[my_index]['id'] + ":" + self.dht_nodes[my_index]['ip']  # will be the case for subscribers
+
+    # now get the hash value for this string
+    hash_val_gen = self.hash_func (string)
+    hash_val_already = self.dht_nodes[my_index]['hash']
+
+    self.logger.debug ("My already hash: {}".format(hash_val_already))
+    self.logger.debug ("My generated hash: {}".format(hash_val_gen))
+
     finger_table = self.create_finger_table(self.dht_nodes[my_index], self.dht_nodes)
     # self.logger.debug ("CollisionTester::driver my hash index: {}".format(str(my_index)))
     # for i in range(len(self.dht_nodes))[1:]:
@@ -99,13 +121,14 @@ class FingerTester ():
       
     #   self.logger.debug ("CollisionTester::driver next index: {}".format(str(next_index)))
     #   finger_table.append(self.dht_nodes[next_index])
-    self.logger.debug ("Sorted Nodes")
-    for node in self.dht_nodes:
-      self.logger.debug ("{}".format(node))
+    
+    # self.logger.debug ("Sorted Nodes")
+    # for node in self.dht_nodes:
+    #   self.logger.debug ("{}".format(node))
 
-    self.logger.debug ("Finger Table")
-    for finger in finger_table:
-      self.logger.debug ("{}".format(finger))
+    # self.logger.debug ("Finger Table")
+    # for finger in finger_table:
+    #   self.logger.debug ("{}".format(finger))
     
 
       
