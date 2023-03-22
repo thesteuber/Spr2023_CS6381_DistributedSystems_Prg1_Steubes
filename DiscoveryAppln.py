@@ -139,7 +139,7 @@ class DiscoveryAppln ():
       # everything
       self.logger.debug ("DiscoveryAppln::configure - initialize the middleware object")
       self.mw_obj = DiscoveryMW(self.logger)
-      self.mw_obj.configure (args) # pass remainder of the args to the m/w object
+      self.mw_obj.configure (args, self.lookup) # pass remainder of the args to the m/w object
       
       self.logger.info ("DiscoveryAppln::configure - configuration complete")
       
@@ -317,13 +317,13 @@ class DiscoveryAppln ():
     if (pub_hash > my_hash and my_hash > next_hash):
       self.logger.info ("DiscoveryAppln::chord_register_publisher register with me the last node in the dht ring.")
       success, reason = self.reg_single_publisher(reg_req)
-      self.mw_obj.send_register_status(success, reason)
+      self.mw_obj.send_register_status_to(success, reason, reg_req.info.addr, reg_req.info.port)
     
     # if pub_hash is greater than my hash but less than the next hash, register with me
     elif (pub_hash > my_hash and pub_hash <= next_hash):
       self.logger.info ("DiscoveryAppln::chord_register_publisher register with me.")
       success, reason = self.reg_single_publisher(reg_req)
-      self.mw_obj.send_register_status(success, reason)
+      self.mw_obj.send_register_status_to(success, reason, reg_req.info.addr, reg_req.info.port)
 
     # Not registering the publisher with me, must send the register request forward to the next 
     # finger in my finger table that is the predecessor of the first finger with a higher hash
@@ -354,13 +354,13 @@ class DiscoveryAppln ():
     if (sub_hash > my_hash and my_hash > next_hash):
       self.logger.info ("DiscoveryAppln::chord_register_subscriber register with me the last node in the dht ring.")
       success, reason = self.reg_single_subscriber(reg_req)
-      self.mw_obj.send_register_status(success, reason)
+      self.mw_obj.send_register_status(success, reason, reg_req.info.addr, reg_req.info.port)
     
     # if sub_hash is greater than my hash but less than the next hash, register with me
     elif (sub_hash > my_hash and sub_hash <= next_hash):
       self.logger.info ("DiscoveryAppln::chord_register_subscriber register with me.")
       success, reason = self.reg_single_subscriber(reg_req)
-      self.mw_obj.send_register_status(success, reason)
+      self.mw_obj.send_register_status(success, reason, reg_req.info.addr, reg_req.info.port)
 
     # Not registering the publisher with me, must send the register request forward to the next 
     # finger in my finger table that is the predecessor of the first finger with a higher hash
@@ -382,7 +382,7 @@ class DiscoveryAppln ():
   # of the message and what should be done. So it becomes the job
   # of the application. Hence this upcall is made to us.
   ########################################
-  def register_request (self, reg_req):
+  def register_request (self, reg_req, ip, port):
     ''' handle register request '''
 
     try:
@@ -427,7 +427,7 @@ class DiscoveryAppln ():
             self.is_ready = True
     
       if (self.lookup != "Chord"):
-        self.mw_obj.send_register_status(success, reason)
+        self.mw_obj.send_register_status(success, reason, ip, port)
 
       # return a timeout of zero so that the event loop in its next iteration will immediately make
       # an upcall to us
@@ -442,14 +442,14 @@ class DiscoveryAppln ():
   #
   # Also a part of upcall handled by application logic
   ########################################
-  def isready_request (self):
+  def isready_request (self, ip, port):
     ''' handle isready request '''
 
     try:
       self.logger.info ("DiscoveryAppln::isready_request")
 
       # use middleware to serialize and send the is ready status
-      self.mw_obj.send_is_ready(self.is_ready)
+      self.mw_obj.send_is_ready(self.is_ready, ip, port)
 
       # return timeout of 0 so event loop calls us back in the invoke_operation
       # method, where we take action based on what state we are in.
@@ -492,7 +492,7 @@ class DiscoveryAppln ():
   #
   # Also a part of upcall handled by application logic
   ########################################
-  def lookup_by_topic_request (self, lookup_req):
+  def lookup_by_topic_request (self, lookup_req, sender_ip, sender_port):
     ''' handle isready request '''
 
     try:
@@ -505,8 +505,50 @@ class DiscoveryAppln ():
       else:
         topic_pubs = [p for p in self.discovery_ledger.publishers if any(t in p.topic_list for t in lookup_req.topiclist)]
 
+      if (self.lookup == "Chord"):
+        self.logger.info ("DiscoveryAppln::lookup_by_topic_request chord lookup")
+        self.mw_obj.chord_send_topic_publishers(lookup_req.topiclist, topic_pubs, [], self.node_hash, sender_ip, sender_port, self.finger_table[0])
+      else:
+        self.logger.info ("DiscoveryAppln::lookup_by_topic_request normal lookup")
+        # use middleware to serialize and send the is ready status
+        self.mw_obj.send_topic_publishers(topic_pubs, sender_ip, sender_port)
+
+      # return timeout of 0 so event loop calls us back in the invoke_operation
+      # method, where we take action based on what state we are in.
+      return 0
+    
+    except Exception as e:
+      raise e
+    
+  ########################################
+  # handle lookup_by_topic_request request method called as part of upcall
+  #
+  # Also a part of upcall handled by application logic
+  ########################################
+  def chord_lookup_by_topic_request (self, chord_lookup_req):
+    ''' handle isready request '''
+
+    try:
+      self.logger.info ("DiscoveryAppln::chord_lookup_by_topic_request")
+      
+      # if we have made 1 full rotation around the ring, send the gathered publishers to the subscriber
+      if (chord_lookup_req.first_node_hash == self.node_hash):
+        self.logger.info ("DiscoveryAppln::chord_lookup_by_topic_request sending publishers found on ring to original requester")
+        self.mw_ojb.forward_topic_publishers(chord_lookup_req.publishers, chord_lookup_req.sender_ip, chord_lookup_req.sender_port)
+        return 0
+      
+      # otherwise keep going around the ring
+      # get list of publishers that match up with any topic in the request topic list
+      topic_pubs = None
+      if (self.dissemination == "Broker"):
+        topic_pubs = [self.discovery_ledger.broker] # only send the broker to subs requesting pubs if via broker
+      else:
+        topic_pubs = [p for p in self.discovery_ledger.publishers if any(t in p.topic_list for t in chord_lookup_req.topiclist)]
+
       # use middleware to serialize and send the is ready status
-      self.mw_obj.send_topic_publishers(topic_pubs)
+      self.mw_obj.chord_send_topic_publishers(chord_lookup_req.topiclist, topic_pubs, chord_lookup_req.publishers,
+                                              self.node_hash, chord_lookup_req.sender_ip, 
+                                              chord_lookup_req.sender_port, self.finger_table[0])
 
       # return timeout of 0 so event loop calls us back in the invoke_operation
       # method, where we take action based on what state we are in.
@@ -520,14 +562,14 @@ class DiscoveryAppln ():
   #
   # Also a part of upcall handled by application logic
   ########################################
-  def lookup_all_pubs (self):
+  def lookup_all_pubs (self, ip, port):
     ''' handle isready request '''
 
     try:
       self.logger.info ("DiscoveryAppln::lookup_all_pubs")
 
       # use middleware to serialize and send the is ready status
-      self.mw_obj.send_all_publishers(self.discovery_ledger.publishers)
+      self.mw_obj.send_all_publishers(self.discovery_ledger.publishers, ip, port)
 
       # return timeout of 0 so event loop calls us back in the invoke_operation
       # method, where we take action based on what state we are in.
