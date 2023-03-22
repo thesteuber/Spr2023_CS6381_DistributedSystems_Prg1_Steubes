@@ -51,20 +51,19 @@ class FingerTester ():
     self.logger.debug ("\Perspective Hash = {}".format (self.perspective))
 
   def create_finger_table(self, my_index, nodes):
-    m = self.bits_hash
+    m = len(nodes)
     finger_table = []
     max_hash = nodes[-1]['hash']
     for i in range(m):
         next_index = (my_index + 2**i) % m
-        finger = self.find_successor(next_index, nodes)
+        finger = self.find_successor(nodes[next_index]['hash'], nodes)
         finger_table.append(finger)
     return finger_table
 
-  def find_successor(self, index, nodes):
-    hash_at_index = nodes[index]['hash']
-    m = self.bits_hash
+  def find_successor(self, key_hash, nodes):
+    m = len(nodes)
     for i in range(m):
-        if nodes[i]['hash'] >= hash_at_index:
+        if nodes[i]['hash'] >= key_hash:
             return nodes[i]
     return nodes[0]
 
@@ -123,14 +122,15 @@ class FingerTester ():
     #   self.logger.debug ("CollisionTester::driver next index: {}".format(str(next_index)))
     #   finger_table.append(self.dht_nodes[next_index])
 
-    # self.logger.debug ("Sorted Nodes")
-    # for node in self.dht_nodes:
-    #   self.logger.debug ("{}".format(node))
+    self.logger.debug ("Sorted Nodes")
+    for node in self.dht_nodes:
+      self.logger.debug ("{} - {}".format(node['hash'], node['id']))
 
-    # self.logger.debug ("Finger Table")
-    # for finger in finger_table:
-    #   self.logger.debug ("{}".format(finger))
+    self.logger.debug ("Finger Table")
+    for finger in finger_table:
+      self.logger.debug ("{}".format(finger['id']))
     
+    self.logger.debug ("This is the finger table for : {}".format(self.dht_nodes[my_index]['id']))
 
       
 ###################################
