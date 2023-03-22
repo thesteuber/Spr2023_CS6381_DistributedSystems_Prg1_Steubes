@@ -51,6 +51,7 @@ from CS6381_MW import discovery_pb2
 from enum import Enum  # for an enumeration we are using to describe what state we are in
 from DiscoveryLedger import DiscoveryLedger, Registrant
 import json
+import hashlib  # for the secure hash library
 
 ##################################
 #       DiscoveryAppln class
@@ -152,8 +153,10 @@ class DiscoveryAppln ():
     self.dht_nodes = sorted(self.dht_nodes, key=lambda d: d.get('hash', None))
 
     # get index of this DHT node
-    # TODO: make the hash a utility function of sorts somewhere to use here definitely
     my_index = [i for i, d in enumerate(self.dht_nodes) if d['hash'] == self.perspective][0]
+
+    # create and store the finger table for this DHT node
+    self.finger_table = self.create_finger_table(my_index, self.dht_nodes)
 
     # set this DHT hash and the predecessor
     self.node_hash = self.dht_nodes[my_index]['hash']
@@ -162,33 +165,41 @@ class DiscoveryAppln ():
       prev_index = -1
     self.previous_node_hash = self.dht_nodes[prev_index]['hash']
 
-    # create and store the finger table for this DHT node
-    self.finger_table = self.create_finger_table(self.dht_nodes[my_index], self.dht_nodes)
-
-    # initialize distributed_topics
-    hashed_topics = TopicSelector.get_hashed_pairs(self.bits_hash)
-    for hash in hashed_topics:
-      if self.previous_node_hash < hash['key'] <= self.node_hash:
-        self.distributed_topics.append(hash['value'])
-
-
-  def create_finger_table(self, node, nodes):
-    m = self.bits_hash
+  def create_finger_table(self, my_index, nodes):
+    m = len(nodes)
     finger_table = []
     max_hash = nodes[-1]['hash']
     for i in range(m):
-        id = (node['hash'] + 2**i) % max_hash
-        self.logger.debug ("\id = {}".format (str(id)))
-        finger = self.find_successor(id, nodes)
+        next_index = (my_index + 2**i) % m
+        finger = self.find_successor(nodes[next_index]['hash'], nodes)
         finger_table.append(finger)
     return finger_table
 
-  def find_successor(self, id, nodes):
-    m = self.bits_hash
+  def find_successor(self, key_hash, nodes):
+    m = len(nodes)
     for i in range(m):
-        if nodes[i]['hash'] >= id:
+        if nodes[i]['hash'] >= key_hash:
             return nodes[i]
     return nodes[0]
+  
+  def find_successor_finger(self, key_hash):
+    m = len(self.finger_table)
+    for i in range(m):
+        if self.finger_table[i]['hash'] >= key_hash:
+            return self.finger_table[i]
+    return self.finger_table[0]
+
+  def hash_func (self, id):
+    self.logger.debug ("ExperimentGenerator::hash_func")
+
+    # first get the digest from hashlib and then take the desired number of bytes from the
+    # lower end of the 256 bits hash. Big or little endian does not matter.
+    hash_digest = hashlib.sha256 (bytes (id, "utf-8")).digest ()  # this is how we get the digest or hash value
+    # figure out how many bytes to retrieve
+    num_bytes = int(self.bits_hash/8)  # otherwise we get float which we cannot use below
+    hash_val = int.from_bytes (hash_digest[:num_bytes], "big")  # take lower N number of bytes
+
+    return hash_val
 
   ########################################
   # driver program
@@ -244,19 +255,25 @@ class DiscoveryAppln ():
 
       # if publisher, check if publisher is already registered, if not, add to ledger.
       if (reg_req.role == discovery_pb2.ROLE_PUBLISHER):
-        if (not any(p.name == reg_req.info.id for p in self.discovery_ledger.publishers)):
-            self.discovery_ledger.publishers.append(Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, reg_req.topiclist))
-            success = True
+        if (self.lookup == "Chord"):
+          self.logger.info ("DiscoveryAppln::register_request CHORD NOT IMPLEMENTED YET!")
         else:
-            reason = "Publisher names must be unique."
+          if (not any(p.name == reg_req.info.id for p in self.discovery_ledger.publishers)):
+              self.discovery_ledger.publishers.append(Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, reg_req.topiclist))
+              success = True
+          else:
+              reason = "Publisher names must be unique."
     
       # if subscriber, check if subscriber is already registered, if not, add to ledger.
       elif (reg_req.role == discovery_pb2.ROLE_SUBSCRIBER):
-        if (not any(s.name == reg_req.info.id for s in self.discovery_ledger.subscribers)):
-            self.discovery_ledger.subscribers.append(Registrant(reg_req.info.id, None, None, None))
-            success = True
+        if (self.lookup == "Chord"):
+          self.logger.info ("DiscoveryAppln::register_request CHORD NOT IMPLEMENTED YET!")
         else:
-            reason = "Publisher names must be unique."
+          if (not any(s.name == reg_req.info.id for s in self.discovery_ledger.subscribers)):
+              self.discovery_ledger.subscribers.append(Registrant(reg_req.info.id, None, None, None))
+              success = True
+          else:
+              reason = "Publisher names must be unique."
 
       # if broker, check if broker is already registered, if not, add to ledger.
       elif (reg_req.role == discovery_pb2.ROLE_BOTH):
