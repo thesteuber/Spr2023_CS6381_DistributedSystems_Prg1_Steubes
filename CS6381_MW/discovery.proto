@@ -39,6 +39,7 @@ enum MsgTypes {
      TYPE_LOOKUP_ALL_PUBS = 4;   // probably needed by broker
      INC_REG_PUBS = 5;
      INC_REG_SUBS = 6;
+     CHORD_TYPE_LOOKUP_PUB_BY_TOPIC = 7; 
      // anything more
 }
 
@@ -93,9 +94,15 @@ message IsReadyResp
 message LookupPubByTopicReq
 {
     repeated string topiclist = 1; // modify this appropriately
-    string sender_hash = 2;
-    string sender_ip = 3;
-    string sender_port = 4;
+}
+
+message ChordLookupPubByTopicReq
+{
+    repeated string topiclist = 1;
+    repeated RegistrantInfo publishers = 2;
+    string first_node_hash = 3;
+    string sender_ip = 4;
+    string sender_port = 5;
 }
 
 // lookupPubByTopic request
@@ -129,6 +136,14 @@ message LookupAllPubsReq
 
 }
 
+message ChordLookupAllPubsReq
+{
+    repeated RegistrantInfo publishers = 1;
+    string first_node_hash = 2;
+    string sender_ip = 3;
+    string sender_port = 4;
+}
+
 message LookupAllPubsResp
 {
     repeated RegistrantInfo publishers = 1;
@@ -147,6 +162,7 @@ message DiscoveryReq
               LookupAllPubsReq allpubs_req = 5;
               IncrementRegisteredPubsReq incregpubs_req = 6;
               IncrementRegisteredSubsReq incregsubs_req = 7;
+              ChordLookupPubByTopicReq chord_lookup_req = 8;
         }
 }
 
