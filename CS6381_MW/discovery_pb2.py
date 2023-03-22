@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0f\x64iscovery.proto\"8\n\x0eRegistrantInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04\x61\x64\x64r\x18\x02 \x01(\t\x12\x0c\n\x04port\x18\x03 \x01(\r\"T\n\x0bRegisterReq\x12\x13\n\x04role\x18\x01 \x01(\x0e\x32\x05.Role\x12\x1d\n\x04info\x18\x02 \x01(\x0b\x32\x0f.RegistrantInfo\x12\x11\n\ttopiclist\x18\x03 \x03(\t\"7\n\x0cRegisterResp\x12\x17\n\x06status\x18\x01 \x01(\x0e\x32\x07.Status\x12\x0e\n\x06reason\x18\x02 \x01(\t\"\x0c\n\nIsReadyReq\"\x1d\n\x0bIsReadyResp\x12\x0e\n\x06status\x18\x01 \x01(\x08\"(\n\x13LookupPubByTopicReq\x12\x11\n\ttopiclist\x18\x01 \x03(\t\";\n\x14LookupPubByTopicResp\x12#\n\npublishers\x18\x01 \x03(\x0b\x32\x0f.RegistrantInfo\"\x12\n\x10LookupAllPubsReq\"8\n\x11LookupAllPubsResp\x12#\n\npublishers\x18\x01 \x03(\x0b\x32\x0f.RegistrantInfo\"\xd6\x01\n\x0c\x44iscoveryReq\x12\x1b\n\x08msg_type\x18\x01 \x01(\x0e\x32\t.MsgTypes\x12$\n\x0cregister_req\x18\x02 \x01(\x0b\x32\x0c.RegisterReqH\x00\x12\"\n\x0bisready_req\x18\x03 \x01(\x0b\x32\x0b.IsReadyReqH\x00\x12*\n\nlookup_req\x18\x04 \x01(\x0b\x32\x14.LookupPubByTopicReqH\x00\x12(\n\x0b\x61llpubs_req\x18\x05 \x01(\x0b\x32\x11.LookupAllPubsReqH\x00\x42\t\n\x07\x43ontent\"\xdf\x01\n\rDiscoveryResp\x12\x1b\n\x08msg_type\x18\x01 \x01(\x0e\x32\t.MsgTypes\x12&\n\rregister_resp\x18\x02 \x01(\x0b\x32\r.RegisterRespH\x00\x12$\n\x0cisready_resp\x18\x03 \x01(\x0b\x32\x0c.IsReadyRespH\x00\x12,\n\x0blookup_resp\x18\x04 \x01(\x0b\x32\x15.LookupPubByTopicRespH\x00\x12*\n\x0c\x61llpubs_resp\x18\x05 \x01(\x0b\x32\x12.LookupAllPubsRespH\x00\x42\t\n\x07\x43ontent*P\n\x04Role\x12\x10\n\x0cROLE_UNKNOWN\x10\x00\x12\x12\n\x0eROLE_PUBLISHER\x10\x01\x12\x13\n\x0fROLE_SUBSCRIBER\x10\x02\x12\r\n\tROLE_BOTH\x10\x03*\\\n\x06Status\x12\x12\n\x0eSTATUS_UNKNOWN\x10\x00\x12\x12\n\x0eSTATUS_SUCCESS\x10\x01\x12\x12\n\x0eSTATUS_FAILURE\x10\x02\x12\x16\n\x12STATUS_CHECK_AGAIN\x10\x03*y\n\x08MsgTypes\x12\x10\n\x0cTYPE_UNKNOWN\x10\x00\x12\x11\n\rTYPE_REGISTER\x10\x01\x12\x10\n\x0cTYPE_ISREADY\x10\x02\x12\x1c\n\x18TYPE_LOOKUP_PUB_BY_TOPIC\x10\x03\x12\x18\n\x14TYPE_LOOKUP_ALL_PUBS\x10\x04\x62\x06proto3')
+  serialized_pb=_b('\n\x0f\x64iscovery.proto\"8\n\x0eRegistrantInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04\x61\x64\x64r\x18\x02 \x01(\t\x12\x0c\n\x04port\x18\x03 \x01(\r\"T\n\x0bRegisterReq\x12\x13\n\x04role\x18\x01 \x01(\x0e\x32\x05.Role\x12\x1d\n\x04info\x18\x02 \x01(\x0b\x32\x0f.RegistrantInfo\x12\x11\n\ttopiclist\x18\x03 \x03(\t\"7\n\x0cRegisterResp\x12\x17\n\x06status\x18\x01 \x01(\x0e\x32\x07.Status\x12\x0e\n\x06reason\x18\x02 \x01(\t\"\x0c\n\nIsReadyReq\"\x1d\n\x0bIsReadyResp\x12\x0e\n\x06status\x18\x01 \x01(\x08\"e\n\x13LookupPubByTopicReq\x12\x11\n\ttopiclist\x18\x01 \x03(\t\x12\x13\n\x0bsender_hash\x18\x02 \x01(\t\x12\x11\n\tsender_ip\x18\x03 \x01(\t\x12\x13\n\x0bsender_port\x18\x04 \x01(\t\";\n\x14LookupPubByTopicResp\x12#\n\npublishers\x18\x01 \x03(\x0b\x32\x0f.RegistrantInfo\"1\n\x1aIncrementRegisteredPubsReq\x12\x13\n\x0bsender_hash\x18\x01 \x01(\t\"1\n\x1aIncrementRegisteredSubsReq\x12\x13\n\x0bsender_hash\x18\x01 \x01(\t\"\x12\n\x10LookupAllPubsReq\"8\n\x11LookupAllPubsResp\x12#\n\npublishers\x18\x01 \x03(\x0b\x32\x0f.RegistrantInfo\"\xc4\x02\n\x0c\x44iscoveryReq\x12\x1b\n\x08msg_type\x18\x01 \x01(\x0e\x32\t.MsgTypes\x12$\n\x0cregister_req\x18\x02 \x01(\x0b\x32\x0c.RegisterReqH\x00\x12\"\n\x0bisready_req\x18\x03 \x01(\x0b\x32\x0b.IsReadyReqH\x00\x12*\n\nlookup_req\x18\x04 \x01(\x0b\x32\x14.LookupPubByTopicReqH\x00\x12(\n\x0b\x61llpubs_req\x18\x05 \x01(\x0b\x32\x11.LookupAllPubsReqH\x00\x12\x35\n\x0eincregpubs_req\x18\x06 \x01(\x0b\x32\x1b.IncrementRegisteredPubsReqH\x00\x12\x35\n\x0eincregsubs_req\x18\x07 \x01(\x0b\x32\x1b.IncrementRegisteredSubsReqH\x00\x42\t\n\x07\x43ontent\"\xdf\x01\n\rDiscoveryResp\x12\x1b\n\x08msg_type\x18\x01 \x01(\x0e\x32\t.MsgTypes\x12&\n\rregister_resp\x18\x02 \x01(\x0b\x32\r.RegisterRespH\x00\x12$\n\x0cisready_resp\x18\x03 \x01(\x0b\x32\x0c.IsReadyRespH\x00\x12,\n\x0blookup_resp\x18\x04 \x01(\x0b\x32\x15.LookupPubByTopicRespH\x00\x12*\n\x0c\x61llpubs_resp\x18\x05 \x01(\x0b\x32\x12.LookupAllPubsRespH\x00\x42\t\n\x07\x43ontent*P\n\x04Role\x12\x10\n\x0cROLE_UNKNOWN\x10\x00\x12\x12\n\x0eROLE_PUBLISHER\x10\x01\x12\x13\n\x0fROLE_SUBSCRIBER\x10\x02\x12\r\n\tROLE_BOTH\x10\x03*\\\n\x06Status\x12\x12\n\x0eSTATUS_UNKNOWN\x10\x00\x12\x12\n\x0eSTATUS_SUCCESS\x10\x01\x12\x12\n\x0eSTATUS_FAILURE\x10\x02\x12\x16\n\x12STATUS_CHECK_AGAIN\x10\x03*y\n\x08MsgTypes\x12\x10\n\x0cTYPE_UNKNOWN\x10\x00\x12\x11\n\rTYPE_REGISTER\x10\x01\x12\x10\n\x0cTYPE_ISREADY\x10\x02\x12\x1c\n\x18TYPE_LOOKUP_PUB_BY_TOPIC\x10\x03\x12\x18\n\x14TYPE_LOOKUP_ALL_PUBS\x10\x04\x62\x06proto3')
 )
 
 _ROLE = _descriptor.EnumDescriptor(
@@ -48,8 +48,8 @@ _ROLE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=889,
-  serialized_end=969,
+  serialized_start=1162,
+  serialized_end=1242,
 )
 _sym_db.RegisterEnumDescriptor(_ROLE)
 
@@ -79,8 +79,8 @@ _STATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=971,
-  serialized_end=1063,
+  serialized_start=1244,
+  serialized_end=1336,
 )
 _sym_db.RegisterEnumDescriptor(_STATUS)
 
@@ -114,8 +114,8 @@ _MSGTYPES = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1065,
-  serialized_end=1186,
+  serialized_start=1338,
+  serialized_end=1459,
 )
 _sym_db.RegisterEnumDescriptor(_MSGTYPES)
 
@@ -333,6 +333,27 @@ _LOOKUPPUBBYTOPICREQ = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sender_hash', full_name='LookupPubByTopicReq.sender_hash', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sender_ip', full_name='LookupPubByTopicReq.sender_ip', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sender_port', full_name='LookupPubByTopicReq.sender_port', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -346,7 +367,7 @@ _LOOKUPPUBBYTOPICREQ = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=265,
-  serialized_end=305,
+  serialized_end=366,
 )
 
 
@@ -376,8 +397,70 @@ _LOOKUPPUBBYTOPICRESP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=307,
-  serialized_end=366,
+  serialized_start=368,
+  serialized_end=427,
+)
+
+
+_INCREMENTREGISTEREDPUBSREQ = _descriptor.Descriptor(
+  name='IncrementRegisteredPubsReq',
+  full_name='IncrementRegisteredPubsReq',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='sender_hash', full_name='IncrementRegisteredPubsReq.sender_hash', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=429,
+  serialized_end=478,
+)
+
+
+_INCREMENTREGISTEREDSUBSREQ = _descriptor.Descriptor(
+  name='IncrementRegisteredSubsReq',
+  full_name='IncrementRegisteredSubsReq',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='sender_hash', full_name='IncrementRegisteredSubsReq.sender_hash', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=480,
+  serialized_end=529,
 )
 
 
@@ -400,8 +483,8 @@ _LOOKUPALLPUBSREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=368,
-  serialized_end=386,
+  serialized_start=531,
+  serialized_end=549,
 )
 
 
@@ -431,8 +514,8 @@ _LOOKUPALLPUBSRESP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=388,
-  serialized_end=444,
+  serialized_start=551,
+  serialized_end=607,
 )
 
 
@@ -478,6 +561,20 @@ _DISCOVERYREQ = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='incregpubs_req', full_name='DiscoveryReq.incregpubs_req', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='incregsubs_req', full_name='DiscoveryReq.incregsubs_req', index=6,
+      number=7, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -493,8 +590,8 @@ _DISCOVERYREQ = _descriptor.Descriptor(
       name='Content', full_name='DiscoveryReq.Content',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=447,
-  serialized_end=661,
+  serialized_start=610,
+  serialized_end=934,
 )
 
 
@@ -555,8 +652,8 @@ _DISCOVERYRESP = _descriptor.Descriptor(
       name='Content', full_name='DiscoveryResp.Content',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=664,
-  serialized_end=887,
+  serialized_start=937,
+  serialized_end=1160,
 )
 
 _REGISTERREQ.fields_by_name['role'].enum_type = _ROLE
@@ -569,6 +666,8 @@ _DISCOVERYREQ.fields_by_name['register_req'].message_type = _REGISTERREQ
 _DISCOVERYREQ.fields_by_name['isready_req'].message_type = _ISREADYREQ
 _DISCOVERYREQ.fields_by_name['lookup_req'].message_type = _LOOKUPPUBBYTOPICREQ
 _DISCOVERYREQ.fields_by_name['allpubs_req'].message_type = _LOOKUPALLPUBSREQ
+_DISCOVERYREQ.fields_by_name['incregpubs_req'].message_type = _INCREMENTREGISTEREDPUBSREQ
+_DISCOVERYREQ.fields_by_name['incregsubs_req'].message_type = _INCREMENTREGISTEREDSUBSREQ
 _DISCOVERYREQ.oneofs_by_name['Content'].fields.append(
   _DISCOVERYREQ.fields_by_name['register_req'])
 _DISCOVERYREQ.fields_by_name['register_req'].containing_oneof = _DISCOVERYREQ.oneofs_by_name['Content']
@@ -581,6 +680,12 @@ _DISCOVERYREQ.fields_by_name['lookup_req'].containing_oneof = _DISCOVERYREQ.oneo
 _DISCOVERYREQ.oneofs_by_name['Content'].fields.append(
   _DISCOVERYREQ.fields_by_name['allpubs_req'])
 _DISCOVERYREQ.fields_by_name['allpubs_req'].containing_oneof = _DISCOVERYREQ.oneofs_by_name['Content']
+_DISCOVERYREQ.oneofs_by_name['Content'].fields.append(
+  _DISCOVERYREQ.fields_by_name['incregpubs_req'])
+_DISCOVERYREQ.fields_by_name['incregpubs_req'].containing_oneof = _DISCOVERYREQ.oneofs_by_name['Content']
+_DISCOVERYREQ.oneofs_by_name['Content'].fields.append(
+  _DISCOVERYREQ.fields_by_name['incregsubs_req'])
+_DISCOVERYREQ.fields_by_name['incregsubs_req'].containing_oneof = _DISCOVERYREQ.oneofs_by_name['Content']
 _DISCOVERYRESP.fields_by_name['msg_type'].enum_type = _MSGTYPES
 _DISCOVERYRESP.fields_by_name['register_resp'].message_type = _REGISTERRESP
 _DISCOVERYRESP.fields_by_name['isready_resp'].message_type = _ISREADYRESP
@@ -605,6 +710,8 @@ DESCRIPTOR.message_types_by_name['IsReadyReq'] = _ISREADYREQ
 DESCRIPTOR.message_types_by_name['IsReadyResp'] = _ISREADYRESP
 DESCRIPTOR.message_types_by_name['LookupPubByTopicReq'] = _LOOKUPPUBBYTOPICREQ
 DESCRIPTOR.message_types_by_name['LookupPubByTopicResp'] = _LOOKUPPUBBYTOPICRESP
+DESCRIPTOR.message_types_by_name['IncrementRegisteredPubsReq'] = _INCREMENTREGISTEREDPUBSREQ
+DESCRIPTOR.message_types_by_name['IncrementRegisteredSubsReq'] = _INCREMENTREGISTEREDSUBSREQ
 DESCRIPTOR.message_types_by_name['LookupAllPubsReq'] = _LOOKUPALLPUBSREQ
 DESCRIPTOR.message_types_by_name['LookupAllPubsResp'] = _LOOKUPALLPUBSRESP
 DESCRIPTOR.message_types_by_name['DiscoveryReq'] = _DISCOVERYREQ
@@ -662,6 +769,20 @@ LookupPubByTopicResp = _reflection.GeneratedProtocolMessageType('LookupPubByTopi
   # @@protoc_insertion_point(class_scope:LookupPubByTopicResp)
   ))
 _sym_db.RegisterMessage(LookupPubByTopicResp)
+
+IncrementRegisteredPubsReq = _reflection.GeneratedProtocolMessageType('IncrementRegisteredPubsReq', (_message.Message,), dict(
+  DESCRIPTOR = _INCREMENTREGISTEREDPUBSREQ,
+  __module__ = 'discovery_pb2'
+  # @@protoc_insertion_point(class_scope:IncrementRegisteredPubsReq)
+  ))
+_sym_db.RegisterMessage(IncrementRegisteredPubsReq)
+
+IncrementRegisteredSubsReq = _reflection.GeneratedProtocolMessageType('IncrementRegisteredSubsReq', (_message.Message,), dict(
+  DESCRIPTOR = _INCREMENTREGISTEREDSUBSREQ,
+  __module__ = 'discovery_pb2'
+  # @@protoc_insertion_point(class_scope:IncrementRegisteredSubsReq)
+  ))
+_sym_db.RegisterMessage(IncrementRegisteredSubsReq)
 
 LookupAllPubsReq = _reflection.GeneratedProtocolMessageType('LookupAllPubsReq', (_message.Message,), dict(
   DESCRIPTOR = _LOOKUPALLPUBSREQ,

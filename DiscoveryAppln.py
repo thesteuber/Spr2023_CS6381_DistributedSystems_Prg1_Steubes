@@ -93,6 +93,8 @@ class DiscoveryAppln ():
     self.finger_table = None # Finger table of nearby nodes if lookup is Chord
     self.dht_json = None # Location of dht nodes json file for Chord
     self.distributed_topics = [] # list of topics that this DHT node will store in Chord
+    self.chord_pubs_registered = 0 # count of pubs registered across DHT ring while in Chord discovery
+    self.chord_subs_registered = 0 # count of subs registered across DHT ring while in Chord discovery
 
 
   ########################################
@@ -277,19 +279,25 @@ class DiscoveryAppln ():
 
       # if broker, check if broker is already registered, if not, add to ledger.
       elif (reg_req.role == discovery_pb2.ROLE_BOTH):
-        if (self.discovery_ledger.broker == None):
+        if (self.lookup == "Chord"):
+          self.logger.info ("DiscoveryAppln::register_request CHORD NOT IMPLEMENTED YET!")
+        else:
+          if (self.discovery_ledger.broker == None):
             self.discovery_ledger.broker = Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, None)
             success = True
-        else:
-            reason = "Only 1 broker may be used."
+          else:
+              reason = "Only 1 broker may be used."
       
       # there should only be subscriber and publisher types requesting to register
       else:
         raise Exception ("Unknown event after poll")
 
-      if (len(self.discovery_ledger.publishers) >= self.pubs and len(self.discovery_ledger.subscribers) >= self.subs):
-        if (self.dissemination == "Direct" or (self.dissemination == "Broker" and self.discovery_ledger.broker != None)):
-          self.is_ready = True
+      if (self.lookup == "Chord"):
+        self.logger.info ("DiscoveryAppln::register_request CHORD NOT IMPLEMENTED YET!")
+      else:
+        if (len(self.discovery_ledger.publishers) >= self.pubs and len(self.discovery_ledger.subscribers) >= self.subs):
+          if (self.dissemination == "Direct" or (self.dissemination == "Broker" and self.discovery_ledger.broker != None)):
+            self.is_ready = True
     
       self.mw_obj.send_register_status(success, reason)
 
@@ -299,6 +307,7 @@ class DiscoveryAppln ():
 
     except Exception as e:
       raise e
+
 
   ########################################
   # handle isready request method called as part of upcall
@@ -321,6 +330,34 @@ class DiscoveryAppln ():
     except Exception as e:
       raise e
 
+  def pass_disc_req_on_until_reaches_sender(self, disc_req, sender_hash):
+    self.logger.info ("DiscoveryAppln::pass_disc_req_on_until_reaches_sender")
+    if (self.finger_table[0]['hash'] == sender_hash):
+      self.logger.info ("DiscoveryAppln::pass_disc_req_on_until_reaches_sender next is the sender, do nothing")
+      return
+    
+    # use middleware to serialize and pass on the discovery request
+    self.logger.info ("DiscoveryAppln::pass_disc_req_on_until_reaches_sender past to successor")
+    self.mw_obj.pass_to_successor(disc_req, self.finger_table[0])
+
+
+  def increment_registered_pubs (self, disc_req):
+    self.logger.info ("DiscoveryAppln::increment_registered_pubs")
+    self.chord_pubs_registered = self.chord_pubs_registered + 1
+    if (self.chord_pubs_registered >= self.pubs):
+      self.is_ready = True
+    self.logger.info ("DiscoveryAppln::increment_registered_pubs count incremented")
+
+    self.pass_disc_req_on_until_reaches_sender(disc_req, disc_req.incregpubs_req.sender_hash)
+
+  def increment_registered_subs (self, disc_req):
+    self.logger.info ("DiscoveryAppln::increment_registered_subs")
+    self.chord_subs_registered = self.chord_subs_registered + 1
+    if (self.chord_subs_registered >= self.subs):
+      self.is_ready = True
+    self.logger.info ("DiscoveryAppln::increment_registered_subs count incremented.")
+
+    self.pass_disc_req_on_until_reaches_sender(disc_req, disc_req.incregsubs_req.sender_hash)
 
   ########################################
   # handle lookup_by_topic_request request method called as part of upcall

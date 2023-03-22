@@ -4,7 +4,9 @@
 //
 // Purpose:
 // Describe an initial schema for message exchange with the Discovery service.
-
+//
+// USE the following to refresh the _pb2:
+// protoc -I=CS6381_MW --python_out=CS6381_MW CS6381_MW/discovery.proto
 
 // Let us use the Version 3 syntax
 syntax = "proto3";
@@ -83,10 +85,15 @@ message IsReadyResp
 // publishers with their name/IP/port for each topic requested. In the Direct approach, the
 // discovery service will send whereabouts of each publisher; in the Broker approach, the
 // whereabouts of the broker will be sent. Accordingly there will be request and response
-// message types
+// message types. Send_hash used for chord discovery
+// pass around req until the next hash = sender_hash
+// each node will return a LookupPubByTopicResp to the sender_hash 
 message LookupPubByTopicReq
 {
     repeated string topiclist = 1; // modify this appropriately
+    string sender_hash = 2;
+    string sender_ip = 3;
+    string sender_port = 4;
 }
 
 // lookupPubByTopic request
@@ -95,6 +102,23 @@ message LookupPubByTopicResp
 {
     repeated RegistrantInfo publishers = 1;
 }
+
+// For Chord discovery, everytime a publisher registers, increment
+// a counter on each discovery service by passing around the IncrementRegisteredPubsReq
+// to the next node until the next node hash = sender_hash
+message IncrementRegisteredPubsReq
+{
+    string sender_hash = 1;
+}
+
+// For Chord discovery, everytime a subscriber registers, increment
+// a counter on each discovery service by passing around the IncrementRegisteredSubsReq
+// to the next node until the next node hash = sender_hash
+message IncrementRegisteredSubsReq
+{
+    string sender_hash = 1;
+}
+
 
 // For broker use to have the discovery service send all the publishers to it.
 // No body needed
@@ -119,6 +143,8 @@ message DiscoveryReq
               IsReadyReq isready_req = 3;
               LookupPubByTopicReq lookup_req = 4;
               LookupAllPubsReq allpubs_req = 5;
+              IncrementRegisteredPubsReq incregpubs_req = 6;
+              IncrementRegisteredSubsReq incregsubs_req = 7;
         }
 }
 

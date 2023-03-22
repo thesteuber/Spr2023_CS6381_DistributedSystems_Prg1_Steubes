@@ -146,6 +146,12 @@ class DiscoveryMW ():
       elif (disc_req.msg_type == discovery_pb2.TYPE_LOOKUP_ALL_PUBS):
         # this is a lookup all publishers request
         timeout = self.upcall_obj.lookup_all_pubs()
+      elif (disc_req.msg_type == discovery_pb2.IncrementRegisteredPubsReq):
+        # increment the registered pubs count and send the message on
+        timeout = self.upcall_obj.increment_registered_pubs(disc_req)
+      elif (disc_req.msg_type == discovery_pb2.IncrementRegisteredSubsReq):
+        # increment the registered subs count and send the message on
+        timeout = self.upcall_obj.increment_registered_subs(disc_req)
 
       else: # anything else is unrecognizable by this object
         # raise an exception here
@@ -200,6 +206,29 @@ class DiscoveryMW ():
       raise e
 
 
+  def pass_to_successor(self, disc_req, successor):
+    try: 
+      self.logger.info ("DiscoveryMW::pass_to_successor")
+      # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
+      # a real string
+      buf2send = disc_req.SerializeToString ()
+      self.logger.debug ("DiscoveryMW::pass_to_successor Stringified serialized buf = {}".format (buf2send))
+
+      #create ZMQ req socket for successor
+      req_context = zmq.Context ()  # returns a singleton object
+      tmp_req = req_context.socket (zmq.REQ)
+
+      connect_str = "tcp://" + successor['IP'] + ":" + successor['port']
+      tmp_req.connect (connect_str)
+      self.logger.info ("DiscoveryMW::pass_to_successor successor connected to {}".format(connect_str))
+
+      self.logger.info ("DiscoveryMW::pass_to_successor sending message to successor {}".format(successor[id]))
+      # now send this to our discovery service
+      self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+
+    except Exception as e:
+      raise e
+
   ########################################
   # Send is ready status back to requester
   ########################################
@@ -240,6 +269,51 @@ class DiscoveryMW ():
       
       # now go to our event loop to receive a response to this request
       self.logger.info ("DiscoveryMW::send_is_ready - request sent and now wait for reply")
+      
+    except Exception as e:
+      raise e
+
+  ########################################
+  # get all pubs from discovery service
+  ########################################
+  def lookup_all_pubs (self):
+    ''' register the appln with the discovery service '''
+
+    try:
+      self.logger.info ("DiscoveryMW::lookup_all_pubs")
+
+      # we do a similar kind of serialization as we did in the register
+      # message but much simpler as the message format is very simple.
+      # Then send the request to the discovery service
+    
+      # The following code shows serialization using the protobuf generated code.
+      
+      # first build a LookupAllPubsReq message
+      self.logger.debug ("DiscoveryMW::lookup_all_pubs - populate the nested LookupAllPubsReq msg")
+      allpubs_req = discovery_pb2.LookupAllPubsReq ()  # allocate 
+      # actually, there is nothing inside that msg declaration.
+      self.logger.debug ("DiscoveryMW::lookup_all_pubs - done populating nested LookupAllPubsReq msg")
+
+      # Build the outer layer Discovery Message
+      self.logger.debug ("DiscoveryMW::lookup_all_pubs - build the outer DiscoveryReq message")
+      disc_req = discovery_pb2.DiscoveryReq ()
+      disc_req.msg_type = discovery_pb2.TYPE_LOOKUP_ALL_PUBS
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_req.allpubs_req.CopyFrom (allpubs_req)
+      self.logger.debug ("DiscoveryMW::lookup_all_pubs - done building the outer message")
+      
+      # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
+      # a real string
+      buf2send = disc_req.SerializeToString ()
+      self.logger.debug ("DiscoveryMW serialized buf = {}".format (buf2send))
+
+      # now send this to our discovery service
+      self.logger.debug ("DiscoveryMW::lookup_all_pubs - send stringified buffer to Discovery service")
+      self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      
+      # now go to our event loop to receive a response to this request
+      self.logger.info ("DiscoveryMW::lookup_all_pubs - request sent and now wait for reply")
       
     except Exception as e:
       raise e
