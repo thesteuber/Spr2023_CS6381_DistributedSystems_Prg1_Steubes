@@ -547,7 +547,7 @@ class DiscoveryAppln ():
 
       # use middleware to serialize and send the is ready status
       self.mw_obj.chord_send_topic_publishers(chord_lookup_req.topiclist, topic_pubs, chord_lookup_req.publishers,
-                                              self.node_hash, chord_lookup_req.sender_ip, 
+                                              chord_lookup_req.first_node_hash, chord_lookup_req.sender_ip, 
                                               chord_lookup_req.sender_port, self.finger_table[0])
 
       # return timeout of 0 so event loop calls us back in the invoke_operation
@@ -568,8 +568,13 @@ class DiscoveryAppln ():
     try:
       self.logger.info ("DiscoveryAppln::lookup_all_pubs")
 
-      # use middleware to serialize and send the is ready status
-      self.mw_obj.send_all_publishers(self.discovery_ledger.publishers, ip, port)
+      if (self.lookup == "Chord"):
+        self.logger.info ("DiscoveryAppln::lookup_all_pubs chord lookup")
+        self.mw_obj.chord_send_all_publishers(self.discovery_ledger.publishers, [], self.node_hash, ip, port, self.finger_table[0])
+      else:
+        self.logger.info ("DiscoveryAppln::lookup_all_pubs normal lookup")
+        # use middleware to serialize and send the is ready status
+        self.mw_obj.send_all_publishers(self.discovery_ledger.publishers, ip, port)
 
       # return timeout of 0 so event loop calls us back in the invoke_operation
       # method, where we take action based on what state we are in.
@@ -578,6 +583,28 @@ class DiscoveryAppln ():
     except Exception as e:
       raise e
 
+  def chord_lookup_all_pubs (self, chord_allpubs_req):
+    ''' handle isready request '''
+
+    try:
+      self.logger.info ("DiscoveryAppln::chord_lookup_all_pubs")
+
+      # if we have made 1 full rotation around the ring, send the gathered publishers to the subscriber
+      if (chord_allpubs_req.first_node_hash == self.node_hash):
+        self.logger.info ("DiscoveryAppln::chord_lookup_all_pubs sending publishers found on ring to original requester")
+        self.mw_ojb.forward_topic_publishers(chord_allpubs_req.publishers, chord_allpubs_req.sender_ip, chord_allpubs_req.sender_port)
+        return 0
+
+      self.mw_obj.chord_send_all_publishers(self.discovery_ledger.publishers, chord_allpubs_req.publishers, 
+                                            chord_allpubs_req.first_node_hash, chord_allpubs_req.sender_ip, 
+                                            chord_allpubs_req.sender_port, self.finger_table[0])
+
+      # return timeout of 0 so event loop calls us back in the invoke_operation
+      # method, where we take action based on what state we are in.
+      return 0
+    
+    except Exception as e:
+      raise e
 
   ########################################
   # dump the contents of the object 

@@ -169,6 +169,9 @@ class DiscoveryMW ():
       elif (disc_req.msg_type == discovery_pb2.TYPE_LOOKUP_ALL_PUBS):
         # this is a lookup all publishers request
         timeout = self.upcall_obj.lookup_all_pubs(ip, port)
+      elif (disc_req.msg_type == discovery_pb2.CHORD_TYPE_LOOKUP_ALL_PUBS):
+        # this is a lookup all publishers request
+        timeout = self.upcall_obj.chord_lookup_all_pubs(disc_req.chord_allpubs_req)
       elif (disc_req.msg_type == discovery_pb2.INC_REG_PUBS):
         # increment the registered pubs count and send the message on
         timeout = self.upcall_obj.increment_registered_pubs(disc_req)
@@ -621,6 +624,82 @@ class DiscoveryMW ():
       self.logger.debug ("DiscoveryMW::send_all_publishers - done building the outer message")
       
       self.send_message(disc_resp, ip, port)
+      
+    except Exception as e:
+      raise e
+    
+  def forward_all_publishers (self, topic_pubs, ip, port):
+    ''' send topic publishers '''
+    try:
+      self.logger.info ("DiscoveryMW::send_all_publishers")
+      
+      # first build a IsReady message
+      self.logger.debug ("DiscoveryMW::send_all_publishers - populate the nested LookupAllPubsResp msg")
+      lookup_resp = discovery_pb2.LookupAllPubsResp ()  # allocate 
+
+      for p in topic_pubs:
+        message_publisher = lookup_resp.publishers.add()
+        message_publisher.id = p.id
+        message_publisher.addr = p.addr
+        message_publisher.port = p.port
+        self.logger.debug ("tcp://{}:{}".format(message_publisher.addr, message_publisher.port))
+
+      self.logger.debug ("DiscoveryMW::send_all_publishers - done prepping message publishers")
+
+      # actually, there is nothing inside that msg declaration.
+      self.logger.debug ("DiscoveryMW::send_all_publishers - done populating nested LookupAllPubsResp msg")
+
+      # Build the outer layer Discovery Message
+      self.logger.debug ("DiscoveryMW::send_all_publishers - build the outer DiscoveryResp message")
+      disc_resp = discovery_pb2.DiscoveryResp ()
+      disc_resp.msg_type = discovery_pb2.TYPE_LOOKUP_ALL_PUBS
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_resp.allpubs_resp.CopyFrom (lookup_resp)
+      self.logger.debug ("DiscoveryMW::send_all_publishers - done building the outer message")
+      
+      self.send_message(disc_resp, ip, port)
+      
+    except Exception as e:
+      raise e
+    
+  def chord_send_all_publishers (self, publishers, current_pubs_list, first_node_hash, sender_ip, sender_port, successor):
+    ''' chord send topic publishers '''
+    try:
+      self.logger.info ("DiscoveryMW::chord_send_all_publishers")
+      
+      # first build a IsReady message
+      self.logger.debug ("DiscoveryMW::chord_send_all_publishers - populate the nested ChordLookupPubByTopicReq msg")
+      chord_lookup_req = discovery_pb2.ChordLookupAllPubsReq ()  # allocate 
+      
+      chord_lookup_req.first_node_hash = first_node_hash
+      chord_lookup_req.sender_ip = sender_ip
+      chord_lookup_req.sender_port = sender_port
+
+      for p in publishers:
+        message_publisher = chord_lookup_req.publishers.add()
+        message_publisher.id = p.name
+        message_publisher.addr = p.address
+        message_publisher.port = p.port
+        self.logger.debug ("tcp://{}:{}".format(message_publisher.addr, message_publisher.port))
+
+      chord_lookup_req.publishers.extend(current_pubs_list)
+
+      self.logger.debug ("DiscoveryMW::chord_send_all_publishers - done prepping message publishers")
+
+      # actually, there is nothing inside that msg declaration.
+      self.logger.debug ("DiscoveryMW::chord_send_all_publishers - done populating nested LookupPubByTopicResp msg")
+
+      # Build the outer layer Discovery Message
+      self.logger.debug ("DiscoveryMW::chord_send_all_publishers - build the outer DiscoveryReq message")
+      disc_req = discovery_pb2.DiscoveryReq ()
+      disc_req.msg_type = discovery_pb2.CHORD_TYPE_LOOKUP_ALL_PUBS
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_req.chord_lookup_req.CopyFrom (chord_lookup_req)
+      self.logger.debug ("DiscoveryMW::chord_send_all_publishers - done building the outer message")
+      
+      self.pass_to_successor(disc_req, successor)
       
     except Exception as e:
       raise e
