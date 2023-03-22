@@ -206,17 +206,17 @@ class DiscoveryMW ():
       raise e
 
 
-  def forward_pub_register_req_to_node(self, reg_req, node):
+  def forward_register_req_to_node(self, reg_req, node):
     try:
-      self.logger.info ("DiscoverlyMw::forward_pub_register_req_to_node")
+      self.logger.info ("DiscoverlyMw::forward_register_req_to_node")
       
-      self.logger.info ("DiscoverlyMw::forward_pub_register_req_to_node get wrapped in discovery request")
+      self.logger.info ("DiscoverlyMw::forward_register_req_to_node get wrapped in discovery request")
       disc_req = discovery_pb2.DiscoveryReq ()  # allocate
       disc_req.msg_type = discovery_pb2.RegisterReq  # set message type
       # It was observed that we cannot directly assign the nested field here.
       # A way around is to use the CopyFrom method as shown
       disc_req.register_req.CopyFrom (reg_req)
-      self.logger.debug ("DiscoverlyMw::forward_pub_register_req_to_node - done building the disc_req")
+      self.logger.debug ("DiscoverlyMw::forward_register_req_to_node - done building the disc_req")
 
       self.pass_to_successor(disc_req, node)
 
@@ -240,6 +240,29 @@ class DiscoveryMW ():
       # A way around is to use the CopyFrom method as shown
       disc_req.incregpubs_req.CopyFrom (incregpubs_req)
       self.logger.debug ("DiscoverlyMw::get_increment_pub_req - done building the outer message")
+      
+      return disc_req
+    
+    except Exception as e:
+      raise e
+    
+  def get_increment_sub_req (self, sender_hash):
+    try:
+      self.logger.info ("DiscoverlyMw::get_increment_sub_req")
+
+      # Next build a IncrementRegisteredPubsReq message
+      self.logger.debug ("DiscoverlyMw::get_increment_sub_req - Create the request")
+      incregsubs_req = discovery_pb2.IncrementRegisteredSubsReq ()  # allocate 
+      incregsubs_req.sender_hash = sender_hash
+
+      # Finally, build the outer layer DiscoveryReq Message
+      self.logger.debug ("DiscoverlyMw::get_increment_sub_req - build the outer DiscoveryReq message")
+      disc_req = discovery_pb2.DiscoveryReq ()  # allocate
+      disc_req.msg_type = discovery_pb2.INC_REG_SUBS  # set message type
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_req.incregsubs_req.CopyFrom (incregsubs_req)
+      self.logger.debug ("DiscoverlyMw::get_increment_sub_req - done building the outer message")
       
       return disc_req
     
