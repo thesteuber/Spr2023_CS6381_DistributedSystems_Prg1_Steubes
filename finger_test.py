@@ -101,9 +101,11 @@ class FingerTester ():
     my_index = [i for i, d in enumerate(self.dht_nodes) if d['hash'] == self.perspective][0]
     
     if self.dht_nodes[my_index]['port']:
-      string = self.dht_nodes[my_index]['id'] + ":" + self.dht_nodes[my_index]['ip'] + ":" + str (self.dht_nodes[my_index]['port'])  # will be the case for disc and pubs
+      string = self.dht_nodes[my_index]['id'] + ":" + self.dht_nodes[my_index]['IP'] + ":" + str (self.dht_nodes[my_index]['port'])  # will be the case for disc and pubs
     else:
-      string = self.dht_nodes[my_index]['id'] + ":" + self.dht_nodes[my_index]['ip']  # will be the case for subscribers
+      string = self.dht_nodes[my_index]['id'] + ":" + self.dht_nodes[my_index]['IP']  # will be the case for subscribers
+
+    finger_table = self.create_finger_table(self.dht_nodes[my_index], self.dht_nodes)
 
     # now get the hash value for this string
     hash_val_gen = self.hash_func (string)
@@ -111,8 +113,7 @@ class FingerTester ():
 
     self.logger.debug ("My already hash: {}".format(hash_val_already))
     self.logger.debug ("My generated hash: {}".format(hash_val_gen))
-
-    finger_table = self.create_finger_table(self.dht_nodes[my_index], self.dht_nodes)
+    
     # self.logger.debug ("CollisionTester::driver my hash index: {}".format(str(my_index)))
     # for i in range(len(self.dht_nodes))[1:]:
     #   next_index = i + my_index
