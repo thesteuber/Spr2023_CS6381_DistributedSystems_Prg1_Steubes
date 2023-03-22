@@ -40,6 +40,7 @@ enum MsgTypes {
      INC_REG_PUBS = 5;
      INC_REG_SUBS = 6;
      CHORD_TYPE_LOOKUP_PUB_BY_TOPIC = 7; 
+     CHORD_TYPE_LOOKUP_ALL_PUBS = 8; 
      // anything more
 }
 
@@ -163,6 +164,7 @@ message DiscoveryReq
               IncrementRegisteredPubsReq incregpubs_req = 6;
               IncrementRegisteredSubsReq incregsubs_req = 7;
               ChordLookupPubByTopicReq chord_lookup_req = 8;
+              ChordLookupAllPubsReq chord_allpubs_req = 9;
         }
 }
 
