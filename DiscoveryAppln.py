@@ -302,11 +302,13 @@ class DiscoveryAppln ():
     if (pub_hash > my_hash and my_hash > next_hash):
       self.logger.info ("DiscoveryAppln::chord_register_publisher register with me the last node in the dht ring.")
       success, reason = self.reg_single_publisher(reg_req)
+      self.mw_obj.send_register_status(success, reason)
     
     # if pub_hash is greater than my hash but less than the next hash, register with me
     elif (pub_hash > my_hash and pub_hash <= next_hash):
       self.logger.info ("DiscoveryAppln::chord_register_publisher register with me.")
       success, reason = self.reg_single_publisher(reg_req)
+      self.mw_obj.send_register_status(success, reason)
 
     # Not registering the publisher with me, must send the register request forward to the next 
     # finger in my finger table that is the predecessor of the first finger with a higher hash
@@ -315,7 +317,6 @@ class DiscoveryAppln ():
       self.chord_forward_publisher_register_req(reg_req, pub_hash)
 
     if success:
-      self.mw_obj.send_register_status(success, reason)
       disc_req_for_incrementing = self.mw_obj.get_increment_pub_req(my_hash)
       self.increment_registered_pubs(disc_req_for_incrementing)
 
