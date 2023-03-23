@@ -94,7 +94,7 @@ class PublisherMW ():
 
       if (self.lookup == "Chord"):
         self.router = context.socket(zmq.ROUTER)
-        self.router.bind("tcp://*:{}".format(self.port))
+        self.router.bind("tcp://*:{}".format(self.port + 1))
 
         # load in DHT Nodes from json file
         with open(args.dht_json) as json_file:
@@ -223,23 +223,24 @@ class PublisherMW ():
     self.logger.debug ("Stringified serialized buf = {}".format (buf2send))
 
     if (self.lookup == "Chord"):
-      self.logger.debug ("SubscriberMW::send_to_discovery_services - CHORD send to random Discovery service")
+      self.logger.debug ("PublisherMW::send_to_discovery_services - CHORD send to random Discovery service")
       #create ZMQ req socket for successor
       req_context = zmq.Context ()  # returns a singleton object
       tmp_req = req_context.socket (zmq.REQ)
 
       random_discovery_node = random.choice(self.dht_nodes)
 
-      connect_str = "tcp://" + random_discovery_node['IP'] + ":" + random_discovery_node['port']
+      connect_str = "tcp://" + str(random_discovery_node['IP']) + ":" + str(random_discovery_node['port'])
       tmp_req.connect (connect_str)
-      self.logger.info ("DiscoveryMW::send_to_ip_port successor connected to {}".format(connect_str))
+      self.logger.info ("PublisherMW::send_to_ip_port successor connected to {}".format(connect_str))
 
       # now send this to our discovery service
-      tmp_req.send_multipart (self.name, buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      identity = f"{self.addr}:{self.port}".encode()
+      tmp_req.send_multipart ([identity, buf2send])   # we use the "send" method of ZMQ that sends the bytes
       tmp_req.close()
     else:
       # now send this to our discovery service
-      self.logger.debug ("SubscriberMW::send_to_discovery_services - send stringified buffer to Discovery service")
+      self.logger.debug ("PublisherMW::send_to_discovery_services - send stringified buffer to Discovery service")
       self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
 
   ########################################

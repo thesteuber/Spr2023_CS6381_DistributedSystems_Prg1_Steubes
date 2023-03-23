@@ -264,7 +264,7 @@ class ExperimentGenerator ():
             "-j " + self.json_file + " " + \
             "-p " + str(nested_dict["port"]) + " " + \
             "-P " + str(self.num_pub) + " " + \
-            "-S " + str(self.num_sub) + " " + \
+            "-s " + str(self.num_sub) + " " + \
             "> " + nested_dict["id"] + ".out 2>&1 &\n"
           f.write (cmdline)
 
@@ -392,7 +392,7 @@ def parseCmdLineArgs ():
 
   parser.add_argument ("-P", "--num_pub", type=int, default=5, help="number of publishers, default 5")
   
-  parser.add_argument ("-S", "--num_sub", type=int, default=5, help="number of subscribers, default 5")
+  parser.add_argument ("-s", "--num_sub", type=int, default=5, help="number of subscribers, default 5")
 
   parser.add_argument ("-d", "--disc_base_port", type=int, default=5555, help="base port for discovery, default 5555")
 

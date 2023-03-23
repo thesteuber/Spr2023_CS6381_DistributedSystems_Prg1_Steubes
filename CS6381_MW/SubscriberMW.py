@@ -234,12 +234,13 @@ class SubscriberMW ():
 
       random_discovery_node = random.choice(self.dht_nodes)
 
-      connect_str = "tcp://" + random_discovery_node['IP'] + ":" + random_discovery_node['port']
+      connect_str = "tcp://" + str(random_discovery_node['IP']) + ":" + str(random_discovery_node['port'])
       tmp_req.connect (connect_str)
       self.logger.info ("DiscoveryMW::send_to_ip_port successor connected to {}".format(connect_str))
 
       # now send this to our discovery service
-      tmp_req.send_multipart (self.name, buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      identity = f"{self.addr}:{self.port}".encode()
+      tmp_req.send_multipart ([identity, buf2send])   # we use the "send" method of ZMQ that sends the bytes
       tmp_req.close()
     else:
       # now send this to our discovery service

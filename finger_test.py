@@ -98,13 +98,12 @@ class FingerTester ():
     # loop powers of 2 on the hash value to pick the m finger entries?
     finger_table = []
     my_index = [i for i, d in enumerate(self.dht_nodes) if d['hash'] == self.perspective][0]
-    
+    finger_table = self.create_finger_table(my_index, self.dht_nodes)
+
     if self.dht_nodes[my_index]['port']:
       string = self.dht_nodes[my_index]['id'] + ":" + self.dht_nodes[my_index]['IP'] + ":" + str (self.dht_nodes[my_index]['port'])  # will be the case for disc and pubs
     else:
       string = self.dht_nodes[my_index]['id'] + ":" + self.dht_nodes[my_index]['IP']  # will be the case for subscribers
-
-    finger_table = self.create_finger_table(my_index, self.dht_nodes)
 
     # now get the hash value for this string
     hash_val_gen = self.hash_func (string)

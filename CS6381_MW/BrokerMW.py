@@ -238,7 +238,8 @@ class BrokerMW ():
       self.logger.info ("DiscoveryMW::send_to_ip_port successor connected to {}".format(connect_str))
 
       # now send this to our discovery service
-      tmp_req.send_multipart (self.name, buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      identity = f"{self.addr}:{self.port}".encode()
+      tmp_req.send_multipart ([identity, buf2send])  # we use the "send" method of ZMQ that sends the bytes
       tmp_req.close()
     else:
       # now send this to our discovery service

@@ -387,6 +387,8 @@ def parseCmdLineArgs ():
 
   parser.add_argument ("-l", "--loglevel", type=int, default=logging.INFO, choices=[logging.DEBUG,logging.INFO,logging.WARNING,logging.ERROR,logging.CRITICAL], help="logging level, choices 10,20,30,40,50: default 20=logging.INFO")
   
+  parser.add_argument ("-j", "--dht_json", default="dht.json", help="Location of dht nodes json file.")
+
   return parser.parse_args()
 
 

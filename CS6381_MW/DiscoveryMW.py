@@ -65,6 +65,8 @@ class DiscoveryMW ():
       self.port = args.port
       self.addr = args.addr
 
+      self.logger.debug ("DiscoveryMW::configure - Location: {}:{}".format(self.addr, self.port))
+
       self.lookup = lookup
       self.name = args.name
       
@@ -83,6 +85,7 @@ class DiscoveryMW ():
       if (self.lookup == "Chord"):
         self.router = context.socket(zmq.ROUTER)
         self.router.bind("tcp://*:{}".format(self.port))
+        self.poller.register(self.router, zmq.POLLIN)
 
       else:
         self.rep = context.socket (zmq.REP)
@@ -111,11 +114,14 @@ class DiscoveryMW ():
       while self.handle_events:  # it starts with a True value
         # poll for events. We give it an infinite timeout.
         # The return value is a socket to event mask mapping
-        events = dict (self.poller.poll (timeout=timeout))
-        
-        if self.rep in events:  
-          # handle the incoming reply from remote entity and return the result
+        if (self.lookup == 'Chord'):
           timeout = self.handle_reply()
+        else:
+          events = dict (self.poller.poll (timeout=timeout))
+          
+          if self.rep in events:  
+            # handle the incoming reply from remote entity and return the result
+            timeout = self.handle_reply()
 
       self.logger.info ("DiscoveryMW::event_loop - out of the event loop")
     except Exception as e:
@@ -130,12 +136,17 @@ class DiscoveryMW ():
       self.logger.info ("DiscoveryMW::handle_reply")
 
       # let us first receive all the bytes
+      disc_req = discovery_pb2.DiscoveryReq()
+      
       bytesRcvd = None
       ip = ""
       port = ""
       if (self.lookup == "Chord"):
-        identity, bytesRcvd = self.router.recv_multipart()
-        ip, port = self.router.getsockopt_string(zmq.RCVADDR).split(':')
+        self.logger.info ("DiscoveryMW::handle_reply CHORD receive multipart")
+        identiy, _, _, bytesRcvd = self.router.recv_multipart()
+        identiy = identiy.decode()
+        self.logger.info ("DiscoveryMW::handle_reply CHORD identity {}".format(identiy))
+        ip, port = identiy.split(":")
       else:
         bytesRcvd = self.req.recv ()
         last_endpoint = self.rep.getsockopt(zmq.LAST_ENDPOINT).decode('utf-8')
@@ -145,7 +156,6 @@ class DiscoveryMW ():
       # The way to do this is to first allocate the space for the
       # message we expect, here DiscoveryResp and then parse
       # the incoming bytes and populate this structure (via protobuf code)
-      disc_req = discovery_pb2.DiscoveryReq()
       disc_req.ParseFromString(bytesRcvd)
 
       # demultiplex the message based on the message type but let the application
@@ -208,7 +218,8 @@ class DiscoveryMW ():
       self.logger.info ("DiscoveryMW::send_to_ip_port successor connected to {}".format(connect_str))
 
       # now send this to our discovery service
-      tmp_req.send_multipart (self.name, buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      identity = f"{self.addr}:{self.port}".encode()
+      tmp_req.send_multipart ([identity, buf2send])  # we use the "send" method of ZMQ that sends the bytes
       tmp_req.close()
     else:
       # now send this to our discovery service
@@ -391,7 +402,8 @@ class DiscoveryMW ():
       self.logger.info ("DiscoveryMW::send_to_ip_port successor connected to {}".format(connect_str))
 
       # now send this to our discovery service
-      tmp_req.send_multipart (self.name, buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      identity = f"{self.addr}:{self.port}".encode()
+      tmp_req.send_multipart ([identity, buf2send])   # we use the "send" method of ZMQ that sends the bytes
       tmp_req.close()
     except Exception as e:
       raise e
@@ -414,7 +426,8 @@ class DiscoveryMW ():
 
       self.logger.info ("DiscoveryMW::pass_to_successor sending message to successor {}".format(successor[id]))
       # now send this to our discovery service
-      tmp_req.send_multipart (self.name, buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      identity = f"{self.addr}:{self.port}".encode()
+      tmp_req.send_multipart ([identity, buf2send])   # we use the "send" method of ZMQ that sends the bytes
       tmp_req.close()
     except Exception as e:
       raise e

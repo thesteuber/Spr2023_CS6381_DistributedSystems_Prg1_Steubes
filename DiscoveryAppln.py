@@ -155,7 +155,7 @@ class DiscoveryAppln ():
     self.dht_nodes = sorted(self.dht_nodes, key=lambda d: d.get('hash', None))
 
     # get index of this DHT node
-    my_index = [i for i, d in enumerate(self.dht_nodes) if d['hash'] == self.perspective][0]
+    my_index = [i for i, d in enumerate(self.dht_nodes) if d['id'] == self.name][0]
 
     # create and store the finger table for this DHT node
     self.finger_table = self.create_finger_table(my_index, self.dht_nodes)
@@ -170,7 +170,7 @@ class DiscoveryAppln ():
   def create_finger_table(self, my_index, nodes):
     m = len(nodes)
     finger_table = []
-    max_hash = nodes[-1]['hash']
+    
     for i in range(m):
         next_index = (my_index + 2**i) % m
         finger = self.find_successor(nodes[next_index]['hash'], nodes)
@@ -640,7 +640,6 @@ class DiscoveryAppln ():
       self.logger.info ("     Name: {}".format (self.name))
       self.logger.info ("     Lookup: {}".format (self.lookup))
       self.logger.info ("     Num Topics: {}".format (self.num_topics))
-      self.logger.info ("     Iterations: {}".format (self.iters))
       self.logger.info ("     Frequency: {}".format (self.frequency))
       self.logger.info ("**********************************")
 
