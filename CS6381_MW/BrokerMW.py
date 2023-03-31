@@ -205,6 +205,9 @@ class BrokerMW ():
       if (disc_resp.msg_type == discovery_pb2.TYPE_REGISTER):
         # let the appln level object decide what to do
         timeout = self.upcall_obj.register_response (disc_resp.register_resp)
+      elif (disc_resp.msg_type == discovery_pb2.TYPE_UNREGISTER):
+        # let the appln level object decide what to do
+        timeout = self.upcall_obj.unregister_response (disc_resp.register_resp)
       elif (disc_resp.msg_type == discovery_pb2.TYPE_ISREADY):
         self.logger.error ("BrokerMW::handle_reply TYPE_ISREADY is deprecated!")
         # this is a response to is ready request

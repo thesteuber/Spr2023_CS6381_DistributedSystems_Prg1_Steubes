@@ -303,6 +303,11 @@ class PublisherAppln ():
 
     except Exception as e:
       raise e
+    
+  def unregister_response (self, reg_resp):
+    ''' handle unregister response '''
+    os.kill(os.getpid(), 9)
+    
 
   ########################################
   # handle isready response method called as part of upcall
