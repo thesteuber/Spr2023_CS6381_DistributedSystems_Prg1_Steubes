@@ -123,8 +123,6 @@ class DiscoveryAppln ():
       self.discovery_ledger = DiscoveryLedger()
       self.zoo_host = args.zookeeper
       self.adapter = ManagerAdapter(self.zoo_host, self.logger)
-      testpubs = self.adapter.get_publishers_by_topic("weather")
-      self.logger.debug(testpubs)
 
       # Now, get the configuration object
       self.logger.debug ("DiscoveryAppln::configure - parsing config.ini")
@@ -255,8 +253,10 @@ class DiscoveryAppln ():
   def reg_single_publisher(self, reg_req):
     success = False
     reason = ""
-    if (not any(p.name == reg_req.info.id for p in self.discovery_ledger.publishers)):
-        self.discovery_ledger.publishers.append(Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, reg_req.topiclist))
+    registrant = Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, reg_req.topiclist)
+    self.adapter.register_publisher(registrant)
+    if (not any(p.name == registrant.name for p in self.discovery_ledger.publishers)):
+        self.discovery_ledger.publishers.append(registrant)
         success = True
     else:
         reason = "Publisher names must be unique."
@@ -266,8 +266,10 @@ class DiscoveryAppln ():
   def reg_single_subscriber(self, reg_req):
     success = False
     reason = ""
-    if (not any(s.name == reg_req.info.id for s in self.discovery_ledger.subscribers)):
-        self.discovery_ledger.subscribers.append(Registrant(reg_req.info.id, None, None, None))
+    registrant = Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, reg_req.topiclist)
+    self.adapter.register_subscriber(registrant)
+    if (not any(s.name == registrant.name for s in self.discovery_ledger.subscribers)):
+        self.discovery_ledger.subscribers.append(registrant)
         success = True
     else:
         reason = "Subscriber names must be unique."
@@ -449,6 +451,12 @@ class DiscoveryAppln ():
       self.logger.info ("DiscoveryAppln::unregister_request")
       success = False
       reason = ""
+      registrant = Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, reg_req.topiclist)
+
+      if (reg_req.role == discovery_pb2.ROLE_PUBLISHER):
+        self.adapter.unregister_publisher(registrant)
+      elif (reg_req.role == discovery_pb2.ROLE_SUBSCRIBER):
+        self.adapter.unregister_subscriber(registrant)
 
       self.discovery_ledger.remove_registrant(reg_req.info.id)
       success = True

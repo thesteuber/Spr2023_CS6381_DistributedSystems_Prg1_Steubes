@@ -22,6 +22,8 @@ from kazoo.client import KazooClient
 from kazoo.exceptions import NoNodeError, NodeExistsError
 from kazoo.security import OPEN_ACL_UNSAFE
 
+from DiscoveryLedger import DiscoveryLedger, Registrant
+
 class ManagerAdapter:
     """
     Class for connecting to a ZooKeeper instance and managing
@@ -52,49 +54,36 @@ class ManagerAdapter:
         self.zk.ensure_path(self.dleader_path)
         self.zk.ensure_path(self.bleader_path)
 
-    def register_subscriber(self, topic, subscriber):
+    def register_subscriber(self, subscriber):
         """
         Registers a subscriber for a specific topic by adding the
         subscriber's information to the appropriate node in the ZooKeeper
         data structure.
-        :param topic: The topic the subscriber is interested in.
         :param subscriber: A dictionary containing the subscriber's 
-                           information, such as IP address and port number.
+                            information, such as IP address and port number.
         """
-        # Create the necessary nodes in ZooKeeper
-        topic_path = self.topics_path + "/" + topic
-        subscribers_path = topic_path + "/subscribers"
-        self.zk.ensure_path(topic_path)
-        self.zk.ensure_path(subscribers_path)
+        for topic in subscriber.topic_list:
+            node_path = "{}/{}/subscribers/{}".format(self.base_path, topic, subscriber.name)
+            node_data = "{}:{}".format(subscriber.address, subscriber.port)
 
-        # Add the subscriber's information to the appropriate node
-        subscriber_path = subscribers_path + "/" + subscriber['ip'] + ":" + str(subscriber['port'])
-        try:
-            self.zk.create(subscriber_path, ephemeral=True, acl=OPEN_ACL_UNSAFE)
-            self.logger.debug(f"ManagerAdapter:register_subscriber Successfully registered subscriber for topic {topic}: {subscriber_path}")
-        except NodeExistsError:
-            self.logger.debug(f"ManagerAdapter:register_subscriber Subscriber {subscriber_path} already registered for topic {topic}")
-        except Exception as e:
-            self.logger.error(f"ManagerAdapter:register_subscriber Failed to register subscriber for topic {topic}: {e}")
+            try:
+                self.zk.create(node_path, node_data.encode('utf-8'), makepath=True, acl=None, ephemeral=True)
+            except NodeExistsError:
+                self.zk.set(node_path, node_data.encode('utf-8'))
 
-    def unregister_subscriber(self, topic, subscriber):
+    def unregister_subscriber(self, subscriber):
         """
-        Unregisters a subscriber for a specific topic by removing the
-        subscriber's information from the appropriate node in the ZooKeeper
-        data structure.
-        :param topic: The topic the subscriber is no longer interested in.
-        :param subscriber: A dictionary containing the subscriber's 
-                           information, such as IP address and port number.
+        Unregisters a subscriber by removing the subscriber's information
+        from the appropriate node in the ZooKeeper data structure.
+        :param subscriber: A dictionary containing the subscriber's information,
+                        such as IP address and port number.
         """
-        subscriber_path = f'{self.base_path}/{topic}/subscribers/{subscriber["ip"]}:{subscriber["port"]}'
-        try:
-            if self.zk.exists(subscriber_path):
-                self.zk.delete(subscriber_path)
-                self.logger.debug(f'ManagerAdapter:unregister_subscriber Successfully unregistered subscriber {subscriber["ip"]}:{subscriber["port"]} from topic {topic}.')
-            else:
-                self.logger.debug(f'ManagerAdapter:unregister_subscriber Subscriber {subscriber["ip"]}:{subscriber["port"]} is not registered to topic {topic}.')
-        except NoNodeError:
-            self.logger.debug(f'ManagerAdapter:unregister_subscriber Topic {topic} does not exist in the ZooKeeper data structure.')
+        for topic in subscriber.topic_list:
+            node_path = "{}/{}/subscribers/{}".format(self.base_path, topic, subscriber.name)
+            try:
+                self.zk.delete(node_path)
+            except NoNodeError:
+                pass
 
     def unregister_subscriber_from_topics(self, subscriber, topics):
         """
@@ -108,7 +97,7 @@ class ManagerAdapter:
         for topic in topics:
             self.unregister_subscriber(topic, subscriber)
 
-    def register_publisher(self, topic, publisher):
+    def register_publisher(self, publisher):
         """
         Registers a publisher for a specific topic by adding the
         publisher's information to the appropriate node in the ZooKeeper
@@ -117,30 +106,29 @@ class ManagerAdapter:
         :param publisher: A dictionary containing the publisher's 
                         information, such as IP address and port number.
         """
-        node_path = "{}/{}/publishers/{}".format(self.base_path, topic, publisher["id"])
-        node_data = "{}:{}".format(publisher["ip"], publisher["port"])
-        
-        try:
-            self.zk.create(node_path, node_data.encode('utf-8'), makepath=True, acl=None, ephemeral=True)
-        except NodeExistsError:
-            self.zk.set(node_path, node_data.encode('utf-8'))
+        for topic in publisher.topic_list:
+            node_path = "{}/{}/publishers/{}".format(self.base_path, topic, publisher.name)
+            node_data = "{}:{}".format(publisher.address, publisher.port)
+            
+            try:
+                self.zk.create(node_path, node_data.encode('utf-8'), makepath=True, acl=None, ephemeral=True)
+            except NodeExistsError:
+                self.zk.set(node_path, node_data.encode('utf-8'))
 
-    def unregister_publisher(self, topic, publisher):
+    def unregister_publisher(self, publisher):
         """
-        Unregisters a publisher for a specific topic by removing the
-        publisher's information from the appropriate node in the ZooKeeper
+        Unregisters a publisher for all topics by removing the
+        publisher's information from the appropriate nodes in the ZooKeeper
         data structure.
-        :param topic: The topic the publisher is no longer publishing to.
         :param publisher: A dictionary containing the publisher's 
-                        information, such as IP address and port number.
+                        information, such as name, address and port number.
         """
-        pub_path = self.base_path + "/" + topic + "/publishers/" + publisher["ip"] + ":" + publisher["port"]
-        try:
-            self.zk.delete(pub_path)
-        except NoNodeError:
-            self.logger.debug(f"ManagerAdapter:unregister_publisher No publisher node for {topic} topic and publisher {publisher} exists")
-        except Exception as e:
-            self.logger.error(f"ManagerAdapter:unregister_publisher Failed to delete publisher node for {topic} topic and publisher {publisher}: {e}")
+        for topic in publisher.topic_list:
+            node_path = "{}/{}/publishers/{}".format(self.base_path, topic, publisher.name)
+            try:
+                self.zk.delete(node_path)
+            except NoNodeError:
+                pass
 
     def unregister_publisher_from_topics(self, publisher, topics):
         """
