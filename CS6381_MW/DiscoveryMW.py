@@ -292,7 +292,7 @@ class DiscoveryMW ():
       # Build the outer layer Discovery Message
       self.logger.debug ("DiscoveryMW::send_unregister_status - build the outer Register Response message")
       disc_resp = discovery_pb2.DiscoveryResp ()
-      disc_resp.msg_type = discovery_pb2.TYPE_REGISTER
+      disc_resp.msg_type = discovery_pb2.TYPE_UNREGISTER
       
       # It was observed that we cannot directly assign the nested field here.
       # A way around is to use the CopyFrom method as shown

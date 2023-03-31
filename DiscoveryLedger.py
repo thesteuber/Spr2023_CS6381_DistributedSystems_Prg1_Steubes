@@ -46,5 +46,5 @@ class DiscoveryLedger ():
         # Remove subscribers
         self.subscribers = [s for s in self.subscribers if s.name != name]
 
-        if self.broker.name == name:
+        if self.broker != None and self.broker.name == name:
             self.broker = None

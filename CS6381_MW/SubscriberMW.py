@@ -336,6 +336,55 @@ class SubscriberMW ():
     except Exception as e:
       raise e
 
+  def unregister (self, name, topiclist):
+    ''' unregister the appln with the discovery service '''
+
+    try:
+      self.logger.info ("SubscriberMW::unregister")
+
+      # as part of registration with the discovery service, we send
+      # what role we are playing, the list of topics we are publishing,
+      # and our whereabouts, e.g., name, IP and port
+
+      # The following code shows serialization using the protobuf generated code.
+
+      # Build the Registrant Info message first.
+      self.logger.debug ("SubscriberMW::unregister - populate the Registrant Info")
+      reg_info = discovery_pb2.RegistrantInfo () # allocate
+      reg_info.id = name  # our id
+      reg_info.addr = self.addr  # our advertised IP addr where we are publishing
+      reg_info.port = self.port # port on which we are publishing
+      self.logger.debug ("SubscriberMW::unregister - done populating the Registrant Info")
+      
+      # Next build a RegisterReq message
+      self.logger.debug ("SubscriberMW::unregister - populate the nested register req")
+      register_req = discovery_pb2.UnregisterReq ()  # allocate 
+      register_req.role = discovery_pb2.ROLE_SUBSCRIBER  # we are a publisher/subscriber as the broker
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      register_req.info.CopyFrom (reg_info)  # copy contents of inner structure
+      register_req.topiclist[:] = topiclist   # this is how repeated entries are added (or use append() or extend ()
+      self.logger.debug ("SubscriberMW::unregister - done populating nested RegisterReq")
+
+      # Finally, build the outer layer DiscoveryReq Message
+      self.logger.debug ("SubscriberMW::unregister - build the outer DiscoveryReq message")
+      disc_req = discovery_pb2.DiscoveryReq ()  # allocate
+      disc_req.msg_type = discovery_pb2.TYPE_UNREGISTER  # set message type
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_req.unregister_req.CopyFrom (register_req)
+      self.logger.debug ("SubscriberMW::unregister - done building the outer message")
+      
+      self.send_to_discovery_services(disc_req)
+
+      # now go to our event loop to receive a response to this request
+      self.logger.info ("SubscriberMW::unregister - sent register message and now now wait for reply")
+    
+      self.handle_reply ()
+
+    except Exception as e:
+      raise e
+
   ########################################
   # check if the discovery service gives us a green signal to proceed
   #
