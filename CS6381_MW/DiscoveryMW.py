@@ -169,6 +169,9 @@ class DiscoveryMW ():
       if (disc_req.msg_type == discovery_pb2.TYPE_REGISTER):
         # let the appln level object decide what to do
         timeout = self.upcall_obj.register_request (disc_req.register_req, ip, port)
+      elif (disc_req.msg_type == discovery_pb2.TYPE_UNREGISTER):
+        # let the appln level object decide what to do
+        timeout = self.upcall_obj.unregister_request (disc_req.unregister_req, ip, port)
       elif (disc_req.msg_type == discovery_pb2.TYPE_ISREADY):
         # this is the is ready request
         self.logger.error("DiscoveryMW::handle_reply received ISREADY request, but that is deprecated...")
@@ -260,6 +263,41 @@ class DiscoveryMW ():
       # A way around is to use the CopyFrom method as shown
       disc_resp.register_resp.CopyFrom (reg_resp)
       self.logger.debug ("DiscoveryMW::send_register_status - done building the outer message")
+      
+      self.send_message(disc_resp, ip, port)
+      
+    except Exception as e:
+      raise e
+    
+  def send_unregister_status (self, success, reason, ip, port):
+    ''' send the register status '''
+    try:
+      self.logger.info ("DiscoveryMW::send_unregister_status")
+
+      # we do a similar kind of serialization as we did in the register
+      # message but much simpler as the message format is very simple.
+      # Then send the request to the discovery service
+    
+      # The following code shows serialization using the protobuf generated code.
+      
+      # first build a IsReady message
+      self.logger.debug ("DiscoveryMW::send_unregister_status - populate the nested Register Response msg")
+      unreg_resp = discovery_pb2.UnregisterResp ()  # allocate 
+      unreg_resp.status = discovery_pb2.STATUS_SUCCESS if success else discovery_pb2.STATUS_FAILURE
+      unreg_resp.reason = reason
+      
+      # actually, there is nothing inside that msg declaration.
+      self.logger.debug ("DiscoveryMW::send_unregister_status - done populating nested Register Response msg")
+
+      # Build the outer layer Discovery Message
+      self.logger.debug ("DiscoveryMW::send_unregister_status - build the outer Register Response message")
+      disc_resp = discovery_pb2.DiscoveryResp ()
+      disc_resp.msg_type = discovery_pb2.TYPE_REGISTER
+      
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_resp.unregister_resp.CopyFrom (unreg_resp)
+      self.logger.debug ("DiscoveryMW::send_unregister_status - done building the outer message")
       
       self.send_message(disc_resp, ip, port)
       

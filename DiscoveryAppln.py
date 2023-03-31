@@ -442,6 +442,26 @@ class DiscoveryAppln ():
     except Exception as e:
       raise e
 
+  def unregister_request (self, reg_req, ip, port):
+    ''' handle unregister request '''
+
+    try:
+      self.logger.info ("DiscoveryAppln::unregister_request")
+      success = False
+      reason = ""
+
+      self.discovery_ledger.remove_registrant(reg_req.info.id)
+      success = True
+    
+      self.mw_obj.send_unregister_status(success, reason, ip, port)
+
+      # return a timeout of zero so that the event loop in its next iteration will immediately make
+      # an upcall to us
+      return 0
+
+    except Exception as e:
+      raise e
+
 
   ########################################
   # handle isready request method called as part of upcall
