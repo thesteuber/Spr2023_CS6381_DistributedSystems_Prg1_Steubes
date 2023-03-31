@@ -60,6 +60,8 @@ class PublisherMW ():
     self.handle_events = True # in general we keep going thru the event loop
     self.lookup = "" # lookup method for the system
     self.dht_nodes = None # list of all DHT Nodes in system
+    self.context = None
+    self.discovery = ""
 
   ########################################
   # configure/initialize
@@ -74,13 +76,13 @@ class PublisherMW ():
       # First retrieve our advertised IP addr and the publication port num
       self.port = args.port
       self.addr = args.addr
-
+      self.discovery = args.discovery
       self.lookup = lookup
       self.name = args.name
       
       # Next get the ZMQ context
       self.logger.debug ("PublisherMW::configure - obtain ZMQ context")
-      context = zmq.Context ()  # returns a singleton object
+      self.context = zmq.Context ()  # returns a singleton object
 
       # get the ZMQ poller object
       self.logger.debug ("PublisherMW::configure - obtain the poller")
@@ -90,21 +92,21 @@ class PublisherMW ():
       # REQ is needed because we are the client of the Discovery service
       # PUB is needed because we publish topic data
       self.logger.debug ("PublisherMW::configure - obtain REQ and PUB sockets")
-      self.pub = context.socket (zmq.PUB)
+      self.pub = self.context.socket (zmq.PUB)
 
       if (self.lookup == "Chord"):
-        self.router = context.socket(zmq.ROUTER)
+        self.router = self.context.socket(zmq.ROUTER)
         self.router.bind("tcp://*:{}".format(self.port + 1))
 
         # load in DHT Nodes from json file
         with open(args.dht_json) as json_file:
             self.dht_nodes = json.load(json_file).get('dht')
       else:
-        self.req = context.socket (zmq.REQ)
+        self.req = self.context.socket (zmq.REQ)
         # Since are using the event loop approach, register the REQ socket for incoming events
         # Note that nothing ever will be received on the PUB socket and so it does not make
         # any sense to register it with the poller for an incoming message.
-        self.logger.debug ("SubscriberMW::configure - register the REQ socket for incoming replies")
+        self.logger.debug ("PublisherMW::configure - register the REQ socket for incoming replies")
         self.poller.register (self.req, zmq.POLLIN)
       
         # Now connect ourselves to the discovery service. Recall that the IP/port were
@@ -204,8 +206,9 @@ class PublisherMW ():
         # let the appln level object decide what to do
         timeout = self.upcall_obj.register_response (disc_resp.register_resp)
       elif (disc_resp.msg_type == discovery_pb2.TYPE_ISREADY):
+        self.logger.error ("PublisherMW::handle_reply TYPE_ISREADY is deprecated!")
         # this is a response to is ready request
-        timeout = self.upcall_obj.isready_response (disc_resp.isready_resp)
+        # timeout = self.upcall_obj.isready_response (disc_resp.isready_resp)
 
       else: # anything else is unrecognizable by this object
         # raise an exception here
@@ -240,8 +243,37 @@ class PublisherMW ():
       tmp_req.close()
     else:
       # now send this to our discovery service
-      self.logger.debug ("PublisherMW::send_to_discovery_services - send stringified buffer to Discovery service")
-      self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      #self.logger.debug ("PublisherMW::send_to_discovery_services - send stringified buffer to Discovery service")
+      
+      #self.req.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+
+      while True:
+        try:
+            # Initialize REQ socket if not already done
+            if self.req is None:
+                context = zmq.Context()
+                self.req = context.socket(zmq.REQ)
+                self.req.connect("tcp://" + self.discovery)
+                self.poller.register(self.req, zmq.POLLIN)
+            
+            # Send registration request
+            self.req.send(buf2send)
+
+            # Wait for response
+            socks = dict(self.poller.poll(4000))
+            if self.req in socks and socks[self.req] == zmq.POLLIN:
+                self.logger.debug ("PublisherMW::send_to_discovery_services - response received from Discovery service")
+                return True
+            
+            # Timeout waiting for response, close and re-open REQ socket
+            self.logger.debug ("PublisherMW::send_to_discovery_services - timed out waiting for response from Discovery service, re-sending registration request")
+            self.req.close()
+            self.req = None
+            self.poller.unregister(self.req)
+            
+        except Exception as e:
+            self.logger.error("Exception caught in PublisherMW::send_to_discovery_services: {}".format(e))
+            return False
 
   ########################################
   # register with the discovery service

@@ -64,7 +64,7 @@ class SubscriberAppln ():
     CONFIGURE = 1,
     REGISTER = 2,
     ISREADY = 3,
-    LOOKUP = 4, # TODO: actually leverage this
+    LOOKUP = 4,
     COLLECT = 5,
     COMPLETED = 6
 
@@ -100,6 +100,7 @@ class SubscriberAppln ():
       # initialize our variables
       self.name = args.name # our name
       self.metric_file = args.metrics_file # output file name
+      self.zoo_host = args.zookeeper
       
       # if not os.path.isfile(self.metric_file):
       #   self.logger.info ("SubscriberAppln::configure out file does not exists, creating it")
@@ -178,7 +179,7 @@ class SubscriberAppln ():
       # None or some large value, but if we want to send a request ourselves right away,
       # we set timeout is zero.
       #
-      self.mw_obj.event_loop (timeout=0)  # start the event loop
+      self.mw_obj.event_loop (timeout=500)  # start the event loop
       
       self.logger.info ("SubscriberAppln::driver completed")
       
@@ -212,7 +213,7 @@ class SubscriberAppln ():
         # we have just now sent a register request, the very next thing we expect is
         # to receive a response from remote entity. So we need to set the timeout
         # for the next iteration of the event loop to a large num and so return a None.
-        return None
+        return 500
       
       elif (self.state == self.State.ISREADY):
         # Now keep checking with the discovery service if we are ready to go
@@ -221,8 +222,8 @@ class SubscriberAppln ():
         # of an explicit loop we are going to go back and forth between the event loop
         # and the upcall until we receive the go ahead from the discovery service.
         
-        self.logger.debug ("SubscriberAppln::invoke_operation - check if are ready to go")
-        self.mw_obj.is_ready ()  # send the is_ready? request
+        self.logger.debug ("SubscriberAppln::invoke_operation - ready to go")
+        self.state = self.State.LOOKUP
 
         # Remember that we were invoked by the event loop as part of the upcall.
         # So we are going to return back to it for its next iteration. Because
@@ -284,7 +285,7 @@ class SubscriberAppln ():
         self.logger.debug ("SubscriberAppln::register_response - registration is a success")
 
         # set our next state to isready so that we can then send the isready message right away
-        self.state = self.State.ISREADY
+        self.state = self.State.LOOKUP
         
         # return a timeout of zero so that the event loop in its next iteration will immediately make
         # an upcall to us
@@ -423,6 +424,8 @@ def parseCmdLineArgs ():
   parser.add_argument ("-l", "--loglevel", type=int, default=logging.INFO, choices=[logging.DEBUG,logging.INFO,logging.WARNING,logging.ERROR,logging.CRITICAL], help="logging level, choices 10,20,30,40,50: default 20=logging.INFO")
   
   parser.add_argument ("-j", "--dht_json", default="dht.json", help="Location of dht nodes json file.")
+
+  parser.add_argument ("-z", "--zookeeper", default="localhost:2181", help="IP Addr:Port combo for the zookeeper server, default localhost:2181")
 
   return parser.parse_args()
 

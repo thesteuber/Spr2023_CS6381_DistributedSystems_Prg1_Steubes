@@ -111,6 +111,7 @@ class PublisherAppln ():
       self.iters = args.iters  # num of iterations
       self.frequency = args.frequency # frequency with which topics are disseminated
       self.num_topics = args.num_topics  # total num of topics we publish
+      self.zoo_host = args.zookeeper
 
       # Now, get the configuration object
       self.logger.debug ("PublisherAppln::configure - parsing config.ini")
@@ -172,7 +173,7 @@ class PublisherAppln ():
       # None or some large value, but if we want to send a request ourselves right away,
       # we set timeout is zero.
       #
-      self.mw_obj.event_loop (timeout=0)  # start the event loop
+      self.mw_obj.event_loop (timeout=500)  # start the event loop
       
       self.logger.info ("PublisherAppln::driver completed")
       
@@ -206,7 +207,7 @@ class PublisherAppln ():
         # we have just now sent a register request, the very next thing we expect is
         # to receive a response from remote entity. So we need to set the timeout
         # for the next iteration of the event loop to a large num and so return a None.
-        return None
+        return 500
       
       elif (self.state == self.State.ISREADY):
         # Now keep checking with the discovery service if we are ready to go
@@ -215,8 +216,10 @@ class PublisherAppln ():
         # of an explicit loop we are going to go back and forth between the event loop
         # and the upcall until we receive the go ahead from the discovery service.
         
-        self.logger.debug ("PublisherAppln::invoke_operation - check if are ready to go")
-        self.mw_obj.is_ready ()  # send the is_ready? request
+        #self.logger.debug ("PublisherAppln::invoke_operation - check if are ready to go")
+        #self.mw_obj.is_ready ()  # send the is_ready? request
+        self.state = self.State.DISSEMINATE
+
 
         # Remember that we were invoked by the event loop as part of the upcall.
         # So we are going to return back to it for its next iteration. Because
@@ -287,8 +290,8 @@ class PublisherAppln ():
       if (reg_resp.status == discovery_pb2.STATUS_SUCCESS):
         self.logger.debug ("PublisherAppln::register_response - registration is a success")
 
-        # set our next state to isready so that we can then send the isready message right away
-        self.state = self.State.ISREADY
+        # set our next state to disseminate
+        self.state = self.State.DISSEMINATE
         
         # return a timeout of zero so that the event loop in its next iteration will immediately make
         # an upcall to us
@@ -388,6 +391,8 @@ def parseCmdLineArgs ():
   parser.add_argument ("-l", "--loglevel", type=int, default=logging.INFO, choices=[logging.DEBUG,logging.INFO,logging.WARNING,logging.ERROR,logging.CRITICAL], help="logging level, choices 10,20,30,40,50: default 20=logging.INFO")
   
   parser.add_argument ("-j", "--dht_json", default="dht.json", help="Location of dht nodes json file.")
+
+  parser.add_argument ("-z", "--zookeeper", default="localhost:2181", help="IP Addr:Port combo for the zookeeper server, default localhost:2181")
 
   return parser.parse_args()
 

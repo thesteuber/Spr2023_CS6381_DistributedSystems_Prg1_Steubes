@@ -50,6 +50,7 @@ from CS6381_MW import discovery_pb2
 # import any other packages you need.
 from enum import Enum  # for an enumeration we are using to describe what state we are in
 from DiscoveryLedger import DiscoveryLedger, Registrant
+from ManagerAdapter import ManagerAdapter
 import json
 import hashlib  # for the secure hash library
 
@@ -83,7 +84,7 @@ class DiscoveryAppln ():
     self.logger = logger  # internal logger for print statements
     self.subs = None # expected number of subscribers before ready
     self.pubs = None # expected number of publishers before ready
-    self.is_ready = False
+    self.is_ready = True # now true as the concept of not being ready is no longer
     self.discovery_ledger = None
     self.dissemination = None # Method by which messages are disseminated: ViaBroker or Direct
     self.dht_nodes = [] # For all DHT nodes in dht.json file
@@ -95,7 +96,7 @@ class DiscoveryAppln ():
     self.distributed_topics = [] # list of topics that this DHT node will store in Chord
     self.chord_pubs_registered = 0 # count of pubs registered across DHT ring while in Chord discovery
     self.chord_subs_registered = 0 # count of subs registered across DHT ring while in Chord discovery
-
+    self.adapter = None # Zookeeper Discovery Service Adapater
 
   ########################################
   # configure/initialize
@@ -120,7 +121,11 @@ class DiscoveryAppln ():
       self.bits_hash = args.bits_hash
       self.dht_json = args.dht_json
       self.discovery_ledger = DiscoveryLedger()
-      
+      self.zoo_host = args.zookeeper
+      self.adapter = ManagerAdapter(self.zoo_host, self.logger)
+      testpubs = self.adapter.get_publishers_by_topic("weather")
+      self.logger.debug(testpubs)
+
       # Now, get the configuration object
       self.logger.debug ("DiscoveryAppln::configure - parsing config.ini")
       config = configparser.ConfigParser ()
@@ -687,6 +692,9 @@ def parseCmdLineArgs ():
   
   parser.add_argument ("-j", "--dht_json", default="dht.json", help="Location of dht nodes json file.")
   
+  parser.add_argument ("-z", "--zookeeper", default="localhost:2181", help="IP Addr:Port combo for the zookeeper server, default localhost:2181")
+
+
   return parser.parse_args()
 
 

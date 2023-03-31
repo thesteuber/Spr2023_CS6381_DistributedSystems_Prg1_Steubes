@@ -27,6 +27,7 @@ import zmq  # ZMQ sockets
 
 # import serialization logic
 from CS6381_MW import discovery_pb2
+
 #from CS6381_MW import topic_pb2  # you will need this eventually
 
 # import any other packages you need.
@@ -64,6 +65,7 @@ class DiscoveryMW ():
       # First retrieve our advertised IP addr and the publication port num
       self.port = args.port
       self.addr = args.addr
+      
 
       self.logger.debug ("DiscoveryMW::configure - Location: {}:{}".format(self.addr, self.port))
 
@@ -148,9 +150,9 @@ class DiscoveryMW ():
         self.logger.info ("DiscoveryMW::handle_reply CHORD identity {}".format(identiy))
         ip, port = identiy.split(":")
       else:
-        bytesRcvd = self.req.recv ()
+        bytesRcvd = self.rep.recv()
         last_endpoint = self.rep.getsockopt(zmq.LAST_ENDPOINT).decode('utf-8')
-        ip, port = last_endpoint.split(':')
+        ip, port = last_endpoint.strip("tcp://").split(':')
 
       # now use protobuf to deserialize the bytes
       # The way to do this is to first allocate the space for the
@@ -169,7 +171,8 @@ class DiscoveryMW ():
         timeout = self.upcall_obj.register_request (disc_req.register_req, ip, port)
       elif (disc_req.msg_type == discovery_pb2.TYPE_ISREADY):
         # this is the is ready request
-        timeout = self.upcall_obj.isready_request(ip, port)
+        self.logger.error("DiscoveryMW::handle_reply received ISREADY request, but that is deprecated...")
+        # timeout = self.upcall_obj.isready_request(ip, port)
       elif (disc_req.msg_type == discovery_pb2.TYPE_LOOKUP_PUB_BY_TOPIC):
         # this is a lookup publishers by topic/s request
         timeout = self.upcall_obj.lookup_by_topic_request(disc_req.lookup_req, ip, port)
