@@ -42,6 +42,7 @@ enum MsgTypes {
      CHORD_TYPE_LOOKUP_PUB_BY_TOPIC = 7; 
      CHORD_TYPE_LOOKUP_ALL_PUBS = 8; 
      CHORD_SET_BROKER = 9; 
+     TYPE_UNREGISTER = 10;
      // anything more
 }
 
@@ -67,6 +68,20 @@ message RegisterReq
 message RegisterResp
 {
     Status status = 1;   // success or failure
+    string reason = 2; // reason for failure
+}
+
+message UnregisterReq
+{
+    Role role = 1;   // enum indicating what role we are playing
+    RegistrantInfo info = 2; // info about the registrant
+    repeated string topiclist = 3; // an array of topic names (published or subscribed to)
+}
+
+// Response to registration can be a success or a failure accompanied by a reason.
+message UnregisterResp
+{
+    Status status = 1; // success or failure
     string reason = 2; // reason for failure
 }
 
@@ -173,6 +188,7 @@ message DiscoveryReq
               ChordLookupPubByTopicReq chord_lookup_req = 8;
               ChordLookupAllPubsReq chord_allpubs_req = 9;
               ChordSetBrokerReq chord_setbroker_req = 10;
+              UnregisterReq unregister_req = 11;
         }
 }
 
@@ -185,6 +201,7 @@ message DiscoveryResp
               IsReadyResp isready_resp = 3;
               LookupPubByTopicResp lookup_resp = 4;
               LookupAllPubsResp allpubs_resp = 5;
+              UnregisterResp unregister_resp = 6;
         }
 }
 
