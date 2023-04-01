@@ -251,12 +251,14 @@ class DiscoveryAppln ():
       raise e
 
   def reg_single_publisher(self, reg_req):
+    self.logger.info ("DiscoveryAppln::reg_single_publisher")
     success = False
     reason = ""
     registrant = Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, reg_req.topiclist)
     self.adapter.register_publisher(registrant)
     if (not any(p.name == registrant.name for p in self.discovery_ledger.publishers)):
         self.discovery_ledger.publishers.append(registrant)
+        self.refresh_leading_broker_publishers()
         success = True
     else:
         reason = "Publisher names must be unique."
@@ -264,6 +266,7 @@ class DiscoveryAppln ():
     return success, reason
   
   def reg_single_subscriber(self, reg_req):
+    self.logger.info ("DiscoveryAppln::reg_single_subscriber")
     success = False
     reason = ""
     registrant = Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, reg_req.topiclist)
@@ -277,6 +280,7 @@ class DiscoveryAppln ():
     return success, reason
   
   def reg_single_broker(self, reg_req):
+    self.logger.info ("DiscoveryAppln::reg_single_broker")
     success = False
     reason = ""
     registrant = Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, reg_req.topiclist)
@@ -284,6 +288,7 @@ class DiscoveryAppln ():
     if (self.discovery_ledger.broker == None):
       self.discovery_ledger.broker = registrant
       self.mw_obj.set_broker_leader(registrant)
+      self.refresh_leading_broker_publishers()
     
     success = True
     
@@ -445,10 +450,7 @@ class DiscoveryAppln ():
     
       if (self.lookup != "Chord"):
         self.mw_obj.send_register_status(success, reason, ip, port)
-        self.logger.info ("DiscoverlyMw::set_broker_leader - send all test")
-        mylist = self.mw_obj.get_disc_resp_send_all_publishers(self.discovery_ledger.publishers)
-        self.mw_obj.send_message(self.mw_obj.broker_req_socket, mylist, reg_req.info.addr, reg_req.info.port + 1)
-        self.logger.info ("DiscoverlyMw::set_broker_leader - send all test completed")
+        
 
       # return a timeout of zero so that the event loop in its next iteration will immediately make
       # an upcall to us
@@ -456,6 +458,13 @@ class DiscoveryAppln ():
 
     except Exception as e:
       raise e
+
+  def refresh_leading_broker_publishers(self):
+    if self.discovery_ledger.broker != None:
+      self.logger.info ("DiscoverlyMw::refresh_broker_publishers - send all test")
+      mylist = self.mw_obj.get_disc_resp_send_all_publishers(self.discovery_ledger.publishers)
+      self.mw_obj.send_message(self.mw_obj.broker_req_socket, mylist, None, None)
+      self.logger.info ("DiscoverlyMw::refresh_broker_publishers - send all test completed")
 
   def unregister_request (self, reg_req, ip, port):
     ''' handle unregister request '''

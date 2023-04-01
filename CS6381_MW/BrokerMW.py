@@ -62,6 +62,7 @@ class BrokerMW ():
     self.dht_nodes = None # list of all DHT Nodes in system
     self.context = None
     self.discovery = ""
+    self.connected_pubs = [] # list of pub names that have been connected
 
   ########################################
   # configure/initialize
@@ -486,10 +487,17 @@ class BrokerMW ():
   def connect_to_publisher(self, publisher):
     try:
       self.logger.debug ("BrokerMW::connect_to_publisher " + str(publisher.id))
+      
+      if publisher.id in self.connected_pubs:
+        self.logger.debug ("BrokerMW::connect_to_publisher - Publisher already connected")
+        return
+
       self.logger.debug ("tcp://{}:{}".format(publisher.addr, publisher.port))
 
       # connect the publisher to the SUB ZMQ Socket
       self.sub.connect("tcp://{}:{}".format(publisher.addr, publisher.port))
+
+      # subscribe the broker to all topics
       ts = TopicSelector ()
       allTopics = ts.interest (9)
       for t in allTopics:
