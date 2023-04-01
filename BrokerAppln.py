@@ -210,14 +210,7 @@ class BrokerAppln ():
 
       elif (self.state == self.State.COLLECT):
         self.logger.debug ("BrokerAppln::invoke_operation - start collecting")
-        # Collect any messages sent from the connected publishers
-        message = self.mw_obj.collect()
-        self.logger.debug ("BrokerAppln::invoke_operation - collecting completed")
-
-        self.logger.debug ("BrokerAppln::invoke_operation - start disseminate relay")
-        self.mw_obj.disseminate(message)
-        self.logger.debug ("BrokerAppln::invoke_operation - completed disseminate relay")
-
+        self.mw_obj.event_loop (1000) 
         # return a timeout or frequency to limit the polling.
         return self.frequency
         

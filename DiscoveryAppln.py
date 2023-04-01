@@ -275,6 +275,19 @@ class DiscoveryAppln ():
         reason = "Subscriber names must be unique."
     
     return success, reason
+  
+  def reg_single_broker(self, reg_req):
+    success = False
+    reason = ""
+    registrant = Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, reg_req.topiclist)
+    #self.adapter.register_subscriber(registrant)
+    if (self.discovery_ledger.broker == None):
+      self.discovery_ledger.broker = registrant
+      self.mw_obj.set_broker_leader(registrant)
+    
+    success = True
+    
+    return success, reason
 
   def chord_forward_publisher_register_req(self, reg_req, pub_hash):
     self.logger.info ("DiscoveryAppln::chord_forward_publisher_register_req")
@@ -417,11 +430,7 @@ class DiscoveryAppln ():
           self.logger.info ("DiscoveryAppln::register_request CHORD")
           self.chord_set_broker(self.mw_obj.get_set_broker_req(self.node_hash, reg_req.info))
         else:
-          if (self.discovery_ledger.broker == None):
-            self.discovery_ledger.broker = Registrant(reg_req.info.id, reg_req.info.addr, reg_req.info.port, None)
-            success = True
-          else:
-              reason = "Only 1 broker may be used."
+          success, reason = self.reg_single_broker(reg_req)
       
       # there should only be subscriber and publisher types requesting to register
       else:
@@ -436,6 +445,10 @@ class DiscoveryAppln ():
     
       if (self.lookup != "Chord"):
         self.mw_obj.send_register_status(success, reason, ip, port)
+        self.logger.info ("DiscoverlyMw::set_broker_leader - send all test")
+        mylist = self.mw_obj.get_disc_resp_send_all_publishers(self.discovery_ledger.publishers)
+        self.mw_obj.send_message(self.mw_obj.broker_req_socket, mylist, reg_req.info.addr, reg_req.info.port + 1)
+        self.logger.info ("DiscoverlyMw::set_broker_leader - send all test completed")
 
       # return a timeout of zero so that the event loop in its next iteration will immediately make
       # an upcall to us

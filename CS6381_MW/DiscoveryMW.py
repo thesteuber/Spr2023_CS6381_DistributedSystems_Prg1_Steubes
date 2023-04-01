@@ -44,6 +44,7 @@ class DiscoveryMW ():
     self.logger = logger  # internal logger for print statements
     self.name = None # Name of discoverer
     self.rep = None # will be a ZMQ REP socket to talk to Discovery service
+    self.broker_req_socket = None # will be a ZMQ REP socket to talk to Broker service
     self.router = None # will be a ZMQ ROUTER socket to talk to Discovery service
     self.poller = None # used to wait on incoming replies
     self.addr = None # our advertised IP address
@@ -51,6 +52,7 @@ class DiscoveryMW ():
     self.upcall_obj = None # handle to appln obj to handle appln-specific data
     self.handle_events = True # in general we keep going thru the event loop
     self.lookup = "" # lookup method for the system
+    self.context = None
 
   ########################################
   # configure/initialize
@@ -74,7 +76,7 @@ class DiscoveryMW ():
       
       # Next get the ZMQ context
       self.logger.debug ("DiscoveryMW::configure - obtain ZMQ context")
-      context = zmq.Context ()  # returns a singleton object
+      self.context = zmq.Context ()  # returns a singleton object
 
       # get the ZMQ poller object
       self.logger.debug ("DiscoveryMW::configure - obtain the poller")
@@ -85,12 +87,12 @@ class DiscoveryMW ():
       self.logger.debug ("DiscoveryMW::configure - obtain REP sockets")
 
       if (self.lookup == "Chord"):
-        self.router = context.socket(zmq.ROUTER)
+        self.router = self.context.socket(zmq.ROUTER)
         self.router.bind("tcp://*:{}".format(self.port))
         self.poller.register(self.router, zmq.POLLIN)
 
       else:
-        self.rep = context.socket (zmq.REP)
+        self.rep = self.context.socket (zmq.REP)
         # Since we are using the event loop approach, register the REP socket for incoming events
         self.logger.debug ("DiscoveryMW::configure - register the REP socket for incoming replies")
         self.poller.register (self.rep, zmq.POLLIN)
@@ -207,7 +209,7 @@ class DiscoveryMW ():
     except Exception as e:
       raise e
 
-  def send_message(self, msg, ip, port):
+  def send_message(self, socket, msg, ip, port):
     # now let us stringify the buffer and print it. This is actually a sequence of bytes and not
     # a real string
     buf2send = msg.SerializeToString ()
@@ -229,7 +231,7 @@ class DiscoveryMW ():
       tmp_req.close()
     else:
       # now send this to our discovery service
-      self.rep.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
+      socket.send (buf2send)  # we use the "send" method of ZMQ that sends the bytes
 
   ########################################
   # Send is register status back to requester
@@ -264,7 +266,7 @@ class DiscoveryMW ():
       disc_resp.register_resp.CopyFrom (reg_resp)
       self.logger.debug ("DiscoveryMW::send_register_status - done building the outer message")
       
-      self.send_message(disc_resp, ip, port)
+      self.send_message(self.rep, disc_resp, ip, port)
       
     except Exception as e:
       raise e
@@ -299,7 +301,7 @@ class DiscoveryMW ():
       disc_resp.unregister_resp.CopyFrom (unreg_resp)
       self.logger.debug ("DiscoveryMW::send_unregister_status - done building the outer message")
       
-      self.send_message(disc_resp, ip, port)
+      self.send_message(self.rep, disc_resp, ip, port)
       
     except Exception as e:
       raise e
@@ -333,7 +335,7 @@ class DiscoveryMW ():
       disc_resp.register_resp.CopyFrom (reg_resp)
       self.logger.debug ("DiscoveryMW::send_register_status - done building the outer message")
       
-      self.send_message(disc_resp, ip, port)
+      self.send_message(self.rep, disc_resp, ip, port)
       
     except Exception as e:
       raise e
@@ -379,6 +381,16 @@ class DiscoveryMW ():
     
     except Exception as e:
       raise e
+
+  def set_broker_leader (self, broker):
+      self.logger.info ("DiscoverlyMw::set_broker_leader")
+      if self.broker_req_socket != None:
+        self.broker_req_socket.close()
+        # TODO: call a refresh sync on broker to get subs and pubs tied to it?
+      self.broker_req_socket = self.context.socket(zmq.REQ)
+      self.broker_req_socket.connect(f"tcp://{broker.address}:{broker.port + 1}")
+
+      self.logger.info ("DiscoverlyMw::set_broker_leader - completed")
 
   def get_increment_pub_req (self, sender_hash):
     try:
@@ -504,7 +516,7 @@ class DiscoveryMW ():
       disc_resp.isready_resp.CopyFrom (isready_resp)
       self.logger.debug ("DiscoveryMW::send_is_ready - done building the outer message")
       
-      self.send_message(disc_resp, ip, port)
+      self.send_message(self.rep, disc_resp, ip, port)
       
       # now go to our event loop to receive a response to this request
       self.logger.info ("DiscoveryMW::send_is_ready - request sent and now wait for reply")
@@ -542,7 +554,7 @@ class DiscoveryMW ():
       disc_req.allpubs_req.CopyFrom (allpubs_req)
       self.logger.debug ("DiscoveryMW::lookup_all_pubs - done building the outer message")
       
-      self.send_message(disc_req, ip, port)
+      self.send_message(self.rep, disc_req, ip, port)
       
       # now go to our event loop to receive a response to this request
       self.logger.info ("DiscoveryMW::lookup_all_pubs - request sent and now wait for reply")
@@ -584,7 +596,7 @@ class DiscoveryMW ():
       disc_resp.lookup_resp.CopyFrom (lookup_resp)
       self.logger.debug ("DiscoveryMW::send_topic_publishers - done building the outer message")
       
-      self.send_message(disc_resp, ip, port)
+      self.send_message(self.rep, disc_resp, ip, port)
       
     except Exception as e:
       raise e
@@ -623,7 +635,7 @@ class DiscoveryMW ():
       disc_resp.lookup_resp.CopyFrom (lookup_resp)
       self.logger.debug ("DiscoveryMW::send_topic_publishers - done building the outer message")
       
-      self.send_message(disc_resp, ip, port)
+      self.send_message(self.rep, disc_resp, ip, port)
       
     except Exception as e:
       raise e
@@ -670,17 +682,9 @@ class DiscoveryMW ():
     except Exception as e:
       raise e
 
-    ########################################
-  # Send list of all publishers 
-  # back to broker
-  ########################################
-  def send_all_publishers (self, topic_pubs, ip, port):
-    ''' send topic publishers '''
-    try:
-      self.logger.info ("DiscoveryMW::send_all_publishers")
-      
-      # first build a IsReady message
-      self.logger.debug ("DiscoveryMW::send_all_publishers - populate the nested LookupAllPubsResp msg")
+  def get_disc_resp_send_all_publishers(self, topic_pubs):
+    # first build a IsReady message
+      self.logger.debug ("DiscoveryMW::get_disc_resp_send_all_publishers - populate the nested LookupAllPubsResp msg")
       lookup_resp = discovery_pb2.LookupAllPubsResp ()  # allocate 
 
       for p in topic_pubs:
@@ -690,22 +694,35 @@ class DiscoveryMW ():
         message_publisher.port = p.port
         self.logger.debug ("tcp://{}:{}".format(message_publisher.addr, message_publisher.port))
 
-      self.logger.debug ("DiscoveryMW::send_all_publishers - done prepping message publishers")
+      self.logger.debug ("DiscoveryMW::get_disc_resp_send_all_publishers - done prepping message publishers")
 
       # actually, there is nothing inside that msg declaration.
-      self.logger.debug ("DiscoveryMW::send_all_publishers - done populating nested LookupAllPubsResp msg")
+      self.logger.debug ("DiscoveryMW::get_disc_resp_send_all_publishers - done populating nested LookupAllPubsResp msg")
 
       # Build the outer layer Discovery Message
-      self.logger.debug ("DiscoveryMW::send_all_publishers - build the outer DiscoveryResp message")
+      self.logger.debug ("DiscoveryMW::get_disc_resp_send_all_publishers - build the outer DiscoveryResp message")
       disc_resp = discovery_pb2.DiscoveryResp ()
       disc_resp.msg_type = discovery_pb2.TYPE_LOOKUP_ALL_PUBS
       # It was observed that we cannot directly assign the nested field here.
       # A way around is to use the CopyFrom method as shown
       disc_resp.allpubs_resp.CopyFrom (lookup_resp)
-      self.logger.debug ("DiscoveryMW::send_all_publishers - done building the outer message")
+      self.logger.debug ("DiscoveryMW::get_disc_resp_send_all_publishers - done building the outer message")
+      return disc_resp
+
+    ########################################
+  # Send list of all publishers 
+  # back to broker
+  ########################################
+  def send_all_publishers (self, topic_pubs, ip, port):
+    ''' send topic publishers '''
+    try:
+      self.logger.info ("DiscoveryMW::send_all_publishers")
       
-      self.send_message(disc_resp, ip, port)
+      disc_resp = self.get_disc_resp_send_all_publishers(topic_pubs)
       
+      self.send_message(self.rep, disc_resp, ip, port)
+      
+      self.logger.info ("DiscoveryMW::send_all_publishers completed")
     except Exception as e:
       raise e
     
@@ -739,7 +756,7 @@ class DiscoveryMW ():
       disc_resp.allpubs_resp.CopyFrom (lookup_resp)
       self.logger.debug ("DiscoveryMW::send_all_publishers - done building the outer message")
       
-      self.send_message(disc_resp, ip, port)
+      self.send_message(self.rep, disc_resp, ip, port)
       
     except Exception as e:
       raise e

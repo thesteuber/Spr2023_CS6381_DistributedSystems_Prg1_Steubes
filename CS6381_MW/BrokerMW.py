@@ -51,6 +51,7 @@ class BrokerMW ():
     self.req = None # will be a ZMQ REQ socket to talk to Discovery service
     self.pub = None # will be a ZMQ PUB socket for dissemination
     self.sub = None # will be a ZMQ SUB socket for dissemination
+    self.discover_rep_socket = None
     self.router = None # will be a ZMQ ROUTER socket to talk to Discovery service
     self.poller = None # used to wait on incoming replies
     self.addr = None # our advertised IP address
@@ -93,6 +94,7 @@ class BrokerMW ():
       self.logger.debug ("BrokerMW::configure - obtain REQ and PUB sockets")
       self.pub = self.context.socket (zmq.PUB)
       self.sub = self.context.socket (zmq.SUB)
+      self.discover_rep_socket = self.context.socket (zmq.REP)
 
       if (self.lookup == "Chord"):
         self.router = self.context.socket(zmq.ROUTER)
@@ -108,7 +110,9 @@ class BrokerMW ():
         # any sense to register it with the poller for an incoming message.
         self.logger.debug ("SubscriberMW::configure - register the REQ socket for incoming replies")
         self.poller.register (self.req, zmq.POLLIN)
-      
+        self.poller.register (self.sub, zmq.POLLIN)
+        self.poller.register (self.discover_rep_socket, zmq.POLLIN)
+
         # Now connect ourselves to the discovery service. Recall that the IP/port were
         # supplied in our argument parsing. Best practices of ZQM suggest that the
         # one who maintains the REQ socket should do the "connect"
@@ -117,6 +121,7 @@ class BrokerMW ():
         # tcp:// followed by IP addr:port number.
         connect_str = "tcp://" + args.discovery
         self.req.connect (connect_str)
+        self.discover_rep_socket.bind(f"tcp://*:{self.port + 1}")
       
       # Since we are the broker and must act as publisher as well as subscriber, the best practice as suggested in ZMQ is for us to
       # "bind" the PUB socket
@@ -162,10 +167,18 @@ class BrokerMW ():
           # object is in.
           timeout = self.upcall_obj.invoke_operation ()
           
-        elif self.req in events:  # this is the only socket on which we should be receiving replies
-
+        elif self.req in events:  
           # handle the incoming reply from remote entity and return the result
-          timeout = self.handle_reply ()
+          timeout = self.handle_reply (self.req)
+
+        elif self.sub in events:  
+          # handle the incoming publish and dissiminate
+          timeout = self.collect ()
+
+        elif self.discover_rep_socket in events: 
+          # handle the incoming reply from remote discovery service
+          self.logger.info ("BrokerMW::event_loop - OMG I RECEIVED A MESSAGE FROM THE DISCOVERY SERVICE WHILE COLLECTION!")
+          timeout = self.handle_reply (self.discover_rep_socket)
           
         else:
           raise Exception ("Unknown event after poll")
@@ -177,7 +190,7 @@ class BrokerMW ():
   #################################################################
   # handle an incoming reply
   #################################################################
-  def handle_reply (self):
+  def handle_reply (self, socket):
 
     try:
       self.logger.info ("BrokerMW::handle_reply")
@@ -187,7 +200,7 @@ class BrokerMW ():
       if (self.lookup == "Chord"):
         identity, bytesRcvd = self.router.recv_multipart()
       else:
-        bytesRcvd = self.req.recv ()
+        bytesRcvd = socket.recv ()
 
       # now use protobuf to deserialize the bytes
       # The way to do this is to first allocate the space for the
@@ -232,7 +245,7 @@ class BrokerMW ():
     self.logger.debug ("Stringified serialized buf = {}".format (buf2send))
 
     if (self.lookup == "Chord"):
-      self.logger.debug ("SubscriberMW::send_to_discovery_services - CHORD send to random Discovery service")
+      self.logger.debug ("BrokerMW::send_to_discovery_services - CHORD send to random Discovery service")
       #create ZMQ req socket for successor
       req_context = zmq.Context ()  # returns a singleton object
       tmp_req = req_context.socket (zmq.REQ)
@@ -241,7 +254,7 @@ class BrokerMW ():
 
       connect_str = "tcp://" + random_discovery_node['IP'] + ":" + random_discovery_node['port']
       tmp_req.connect (connect_str)
-      self.logger.info ("DiscoveryMW::send_to_ip_port successor connected to {}".format(connect_str))
+      self.logger.info ("BrokerMW::send_to_ip_port successor connected to {}".format(connect_str))
 
       # now send this to our discovery service
       identity = f"{self.addr}:{self.port}".encode()
@@ -380,7 +393,7 @@ class BrokerMW ():
       # now go to our event loop to receive a response to this request
       self.logger.info ("BrokerMW::unregister - sent register message and now now wait for reply")
     
-      self.handle_reply ()
+      self.handle_reply (self.req)
 
     except Exception as e:
       raise e
@@ -504,10 +517,14 @@ class BrokerMW ():
 
       # receive the info as bytes. See how we are providing an encoding of utf-8
       message = self.sub.recv_string()
+      
+      self.logger.debug ("BrokerMW::collect - start disseminate relay")
+      self.disseminate(message)
+      self.logger.debug ("BrokerMW::collect - completed disseminate relay")
 
       self.logger.debug ("BrokerMW::collect complete")
 
-      return message
+      return True
       
     except Exception as e:
       raise e
