@@ -32,6 +32,8 @@ from topic_selector import TopicSelector
 
 # Now import our CS6381 Middleware
 from CS6381_MW.BrokerMW import BrokerMW
+from ManagerAdapter import ManagerAdapter
+
 # We also need the message formats to handle incoming responses.
 from CS6381_MW import discovery_pb2
 
@@ -69,6 +71,7 @@ class BrokerAppln ():
     self.dissemination = None # direct or via broker
     self.mw_obj = None # handle to the underlying Middleware object
     self.logger = logger  # internal logger for print statements
+    self.adapter = None # Zookeeper Discovery Service Adapater
 
   ########################################
   # configure/initialize
@@ -89,6 +92,7 @@ class BrokerAppln ():
       self.frequency = args.frequency # frequency with which topics are disseminated
       self.num_topics = args.num_topics  # total num of topics we publish
       self.zoo_host = args.zookeeper
+      self.adapter = ManagerAdapter(self.zoo_host, self.logger)
 
       # Now, get the configuration object
       self.logger.debug ("BrokerAppln::configure - parsing config.ini")

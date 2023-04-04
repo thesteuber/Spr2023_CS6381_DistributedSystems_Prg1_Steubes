@@ -45,6 +45,7 @@ from topic_selector import TopicSelector
 from CS6381_MW.SubscriberMW import SubscriberMW
 # We also need the message formats to handle incoming responses.
 from CS6381_MW import discovery_pb2
+from ManagerAdapter import ManagerAdapter
 
 # import any other packages you need.
 from enum import Enum  # for an enumeration we are using to describe what state we are in
@@ -83,6 +84,7 @@ class SubscriberAppln ():
     self.dissemination = None # direct or via broker
     self.mw_obj = None # handle to the underlying Middleware object
     self.logger = logger  # internal logger for print statements
+    self.adapter = None # Zookeeper Discovery Service Adapater
 
   ########################################
   # configure/initialize
@@ -101,16 +103,8 @@ class SubscriberAppln ():
       self.name = args.name # our name
       self.metric_file = args.metrics_file # output file name
       self.zoo_host = args.zookeeper
+      self.adapter = ManagerAdapter(self.zoo_host, self.logger)
       
-      # if not os.path.isfile(self.metric_file):
-      #   self.logger.info ("SubscriberAppln::configure out file does not exists, creating it")
-      #   f = open(self.metric_file, "w+")
-      #   f.write("pub,sub,sent_at,received_at,latency")
-      #   f.close()
-      # else:
-      #   f = open(self.metric_file, "w+")
-      #   f.write("pub,sub,sent_at,received_at,latency")
-      #   f.close()
       f = open(self.metric_file, "w+")
       f.write("pub,sub,sent_at,received_at,latency\n")
       f.close()

@@ -58,6 +58,7 @@ from topic_selector import TopicSelector
 from CS6381_MW.PublisherMW import PublisherMW
 # We also need the message formats to handle incoming responses.
 from CS6381_MW import discovery_pb2
+from ManagerAdapter import ManagerAdapter
 
 # import any other packages you need.
 from enum import Enum  # for an enumeration we are using to describe what state we are in
@@ -92,6 +93,7 @@ class PublisherAppln ():
     self.dissemination = None # direct or via broker
     self.mw_obj = None # handle to the underlying Middleware object
     self.logger = logger  # internal logger for print statements
+    self.adapter = None # Zookeeper Discovery Service Adapater
 
   ########################################
   # configure/initialize
@@ -112,6 +114,7 @@ class PublisherAppln ():
       self.frequency = args.frequency # frequency with which topics are disseminated
       self.num_topics = args.num_topics  # total num of topics we publish
       self.zoo_host = args.zookeeper
+      self.adapter = ManagerAdapter(self.zoo_host, self.logger)
 
       # Now, get the configuration object
       self.logger.debug ("PublisherAppln::configure - parsing config.ini")
