@@ -17,6 +17,7 @@
 ###############################################
 
 import json
+import os
 
 from kazoo.client import KazooClient
 from kazoo.exceptions import NoNodeError, NodeExistsError
@@ -53,6 +54,69 @@ class ManagerAdapter:
         self.zk.ensure_path(self.topics_path)
         self.zk.ensure_path(self.dleader_path)
         self.zk.ensure_path(self.bleader_path)
+
+        self.bleader_node = None
+        
+        # Create an ephemeral sequential node for broker leader election
+        self.bleader_node = self.zk.create(
+            self.bleader_path + '/broker-', 
+            sequence=True, 
+            ephemeral=True, 
+            makepath=True, 
+            acl=OPEN_ACL_UNSAFE
+        )
+        
+        # Callback function for the ephemeral sequential node
+        def bleader_callback(data, stat, event):
+            if event and event.type == "DELETED":
+                self.bleader_node = self.elect_bleader()
+
+        # Register the callback function for the ephemeral sequential node
+        self.zk.get(self.bleader_node, watch=bleader_callback)
+
+    def elect_bleader(self):
+        """
+        Elects the primary broker by selecting the one with the lowest
+        sequence number among all the brokers in the dleader_path.
+        :return: The path of the primary broker's node.
+        """
+        bleader_nodes = self.zk.get_children(self.bleader_path)
+        bleader_nodes = sorted(bleader_nodes)
+        return os.path.join(self.bleader_path, bleader_nodes[0])
+    
+    def get_primary_broker(self):
+        """
+        Returns the path of the primary broker's node.
+        :return: The path of the primary broker's node.
+        """
+        return self.elect_bleader()
+
+    def register_broker(self, broker):
+        """
+        Registers a broker by creating an ephemeral node in ZooKeeper.
+        :param broker: A dictionary containing the broker's information,
+                       such as IP address and port number.
+        """
+        node_path = f"{self.base_path}/brokers/{broker['name']}"
+        node_data = f"{broker['address']}:{broker['port']}"
+        
+        try:
+            self.zk.create(node_path, node_data.encode('utf-8'), makepath=True, acl=None, ephemeral=True)
+        except NodeExistsError:
+            self.zk.set(node_path, node_data.encode('utf-8'))
+
+    def unregister_broker(self, broker):
+        """
+        Unregisters a broker by deleting the corresponding node in ZooKeeper.
+        :param broker: A dictionary containing the broker's information,
+                       such as IP address and port number.
+        """
+        node_path = f"{self.base_path}/brokers/{broker['name']}"
+        
+        try:
+            self.zk.delete(node_path)
+        except NoNodeError:
+            pass
 
     def register_subscriber(self, subscriber):
         """
