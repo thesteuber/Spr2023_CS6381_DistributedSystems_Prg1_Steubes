@@ -74,6 +74,42 @@ class ManagerAdapter:
         # Register the callback function for the ephemeral sequential node
         self.zk.get(self.bleader_node, watch=bleader_callback)
 
+        self.dleader_node = None
+
+        # Create an ephemeral sequential node for discovery leader election
+        self.dleader_node = self.zk.create(
+            self.dleader_path + '/discovery-', 
+            sequence=True, 
+            ephemeral=True, 
+            makepath=True, 
+            acl=OPEN_ACL_UNSAFE
+        )
+        
+        # Callback function for the ephemeral sequential node
+        def dleader_callback(data, stat, event):
+            if event and event.type == "DELETED":
+                self.dleader_node = self.elect_dleader()
+        
+        # Register the callback function for the ephemeral sequential node
+        self.zk.get(self.dleader_node, watch=dleader_callback)
+
+    def elect_dleader(self):
+        """
+        Elects the primary discovery by selecting the one with the lowest
+        sequence number among all the discovery in the dleader_path.
+        :return: The path of the primary discovery's node.
+        """
+        dleader_nodes = self.zk.get_children(self.dleader_path)
+        dleader_nodes = sorted(dleader_nodes)
+        return os.path.join(self.dleader_path, dleader_nodes[0])
+    
+    def get_primary_discovery(self):
+        """
+        Returns the path of the primary discovery's node.
+        :return: The path of the primary discovery's node.
+        """
+        return self.elect_dleader()
+
     def elect_bleader(self):
         """
         Elects the primary broker by selecting the one with the lowest
