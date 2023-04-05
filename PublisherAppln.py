@@ -115,7 +115,7 @@ class PublisherAppln ():
       self.num_topics = args.num_topics  # total num of topics we publish
       self.zoo_host = args.zookeeper
       self.adapter = ManagerAdapter(self.zoo_host, self.logger)
-      self.adapter.set_dleader_callback_handle(self.mw_obj.refresh_discovery_connection)
+      
 
       # Now, get the configuration object
       self.logger.debug ("PublisherAppln::configure - parsing config.ini")
@@ -134,6 +134,7 @@ class PublisherAppln ():
       self.logger.debug ("PublisherAppln::configure - initialize the middleware object")
       self.mw_obj = PublisherMW (self.logger)
       self.mw_obj.configure (args, self.lookup) # pass remainder of the args to the m/w object
+      self.adapter.set_dleader_callback_handle(self.mw_obj.refresh_discovery_connection)
       
       self.logger.info ("PublisherAppln::configure - configuration complete")
       

@@ -104,7 +104,6 @@ class SubscriberAppln ():
       self.metric_file = args.metrics_file # output file name
       self.zoo_host = args.zookeeper
       self.adapter = ManagerAdapter(self.zoo_host, self.logger)
-      self.adapter.set_dleader_callback_handle(self.mw_obj.refresh_discovery_connection)
       
       f = open(self.metric_file, "w+")
       f.write("pub,sub,sent_at,received_at,latency\n")
@@ -131,7 +130,8 @@ class SubscriberAppln ():
       self.logger.debug ("SubscriberAppln::configure - initialize the middleware object")
       self.mw_obj = SubscriberMW (self.logger)
       self.mw_obj.configure (args, self.lookup) # pass remainder of the args to the m/w object
-
+      self.adapter.set_dleader_callback_handle(self.mw_obj.refresh_discovery_connection)
+      
       self.logger.info ("SubscriberAppln::configure - configuration complete")
       
     except Exception as e:

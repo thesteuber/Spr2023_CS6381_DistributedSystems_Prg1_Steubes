@@ -123,7 +123,7 @@ class DiscoveryAppln ():
       self.discovery_ledger = DiscoveryLedger()
       self.zoo_host = args.zookeeper
       self.adapter = ManagerAdapter(self.zoo_host, self.logger)
-      self.adapter.set_bleader_callback_handle(self.mw_obj.broker_leader_handle)
+      
 
       # Now, get the configuration object
       self.logger.debug ("DiscoveryAppln::configure - parsing config.ini")
@@ -144,6 +144,7 @@ class DiscoveryAppln ():
       self.logger.debug ("DiscoveryAppln::configure - initialize the middleware object")
       self.mw_obj = DiscoveryMW(self.logger)
       self.mw_obj.configure (args, self.lookup) # pass remainder of the args to the m/w object
+      self.adapter.set_bleader_callback_handle(self.mw_obj.broker_leader_handle)
       
       self.logger.info ("DiscoveryAppln::configure - configuration complete")
       
