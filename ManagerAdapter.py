@@ -277,24 +277,99 @@ class ManagerAdapter:
         except NoNodeError:
             return None
 
-    def get_publishers(self, topic):
+    def get_brokers(self):
         """
-        Returns a list of all publishers for a topic.
-        :param topic: The topic to retrieve publishers for.
-        :return: A list of dictionaries containing publisher information.
+        Returns a list of all brokers registered in ZooKeeper.
+        :return: A list of Registrant objects representing the brokers.
         """
-        publishers = []
-        topic_path = self.base_path + '/' + topic + '/publishers'
-        if self.zk.exists(topic_path):
-            publisher_nodes = self.zk.get_children(topic_path)
-            for node in publisher_nodes:
-                publisher_path = topic_path + '/' + node
+        brokers = []
+        brokers_path = f"{self.base_path}/brokers"
+        if self.zk.exists(brokers_path):
+            broker_nodes = self.zk.get_children(brokers_path)
+            for node in broker_nodes:
+                broker_path = f"{brokers_path}/{node}"
                 try:
-                    publisher_data, _ = self.zk.get(publisher_path)
-                    publishers.append(json.loads(publisher_data))
+                    broker_data, _ = self.zk.get(broker_path)
+                    name, address, port = broker_data.decode("utf-8").split(":")
+                    broker = Registrant(name, address, int(port), None)
+                    brokers.append(broker)
                 except NoNodeError:
                     pass
-        return publishers
+        return brokers
+
+    def get_publishers(self):
+        """
+        Returns a list of all publishers registered in the ZooKeeper data structure.
+        :return: A list of Registrant objects containing publisher information.
+        """
+        publishers = []
+        try:
+            topics = self.zk.get_children(self.topics_path)
+            for topic in topics:
+                publisher_nodes = self.zk.get_children(self.topics_path + '/' + topic + '/publishers')
+                for node in publisher_nodes:
+                    publisher_path = self.topics_path + '/' + topic + '/publishers/' + node
+                    try:
+                        publisher_data, _ = self.zk.get(publisher_path)
+                        publisher_name, publisher_address, publisher_port = publisher_data.decode("utf-8").split(':')
+                        publisher_topic_list = [topic]
+                        publisher = Registrant(publisher_name, publisher_address, publisher_port, publisher_topic_list)
+
+                        # Check if the publisher has already been added to the list
+                        existing_publisher = next((p for p in publishers if p.name == publisher_name), None)
+                        if existing_publisher is None:
+                            publishers.append(publisher)
+                        else:
+                            # Add the topic to the existing publisher's topic list
+                            for p in publishers:
+                                if p == publisher:
+                                    p.topic_list.append(topic)
+                    except NoNodeError:
+                        pass
+            return publishers
+        except NoNodeError:
+            return None
+
+    def get_subscribers(self):
+        """
+        Returns a list of unique subscribers and their topic lists.
+        :return: A list of Registrant objects representing subscribers and their topic lists.
+        """
+        subscribers = []
+        try:
+            # Iterate over all topics
+            for topic in self.zk.get_children(self.topics_path):
+                topic_path = self.topics_path + '/' + topic
+
+                # Iterate over all subscribers for this topic
+                for subscriber in self.zk.get_children(topic_path + '/subscribers'):
+                    subscriber_path = topic_path + '/subscribers/' + subscriber
+
+                    try:
+                        # Get the subscriber's data
+                        subscriber_data, _ = self.zk.get(subscriber_path)
+                        subscriber_data = subscriber_data.decode('utf-8')
+                        subscriber_info = subscriber_data.split(':')
+
+                        # Create a Registrant object for this subscriber if it doesn't already exist
+                        subscriber_name = subscriber_info[0]
+                        subscriber_address = subscriber_info[1]
+                        subscriber_port = int(subscriber_info[2])
+
+                        existing_subscriber = next((s for s in subscribers if s.name == subscriber_name), None)
+                        if existing_subscriber is None:
+                            # Add a new Registrant object to the list of subscribers
+                            subscriber_topics = [topic]
+                            new_subscriber = Registrant(subscriber_name, subscriber_address, subscriber_port, subscriber_topics)
+                            subscribers.append(new_subscriber)
+                        else:
+                            # Add the topic to the existing subscriber's topic list
+                            existing_subscriber.topic_list.append(topic)
+                    except NoNodeError:
+                        pass
+            return subscribers
+        except NoNodeError:
+            return None
 
     def get_publishers_by_topic(self, topic):
         """
