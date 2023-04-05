@@ -123,6 +123,7 @@ class DiscoveryAppln ():
       self.discovery_ledger = DiscoveryLedger()
       self.zoo_host = args.zookeeper
       self.adapter = ManagerAdapter(self.zoo_host, self.logger)
+      self.adapter.set_bleader_callback_handle(self.mw_obj.broker_leader_handle)
 
       # Now, get the configuration object
       self.logger.debug ("DiscoveryAppln::configure - parsing config.ini")
@@ -227,9 +228,7 @@ class DiscoveryAppln ():
     if (self.discovery_ledger.broker == None):
       self.discovery_ledger.broker = registrant
       self.mw_obj.set_broker_leader(registrant)
-      self.refresh_leading_broker_publishers()
-      self.refresh_subscribers_publishers()
-    
+      
     success = True
     
     return success, reason

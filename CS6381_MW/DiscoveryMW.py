@@ -27,6 +27,7 @@ import zmq  # ZMQ sockets
 
 # import serialization logic
 from CS6381_MW import discovery_pb2
+from DiscoveryLedger import DiscoveryLedger, Registrant
 
 #from CS6381_MW import topic_pb2  # you will need this eventually
 
@@ -383,14 +384,19 @@ class DiscoveryMW ():
     except Exception as e:
       raise e
 
+  def broker_leader_handle(self, ip, port):
+    broker = Registrant("new broker", ip, port, None)
+    self.set_broker_leader(broker)
+
   def set_broker_leader (self, broker):
       self.logger.info ("DiscoverlyMw::set_broker_leader")
       if self.broker_req_socket != None:
         self.broker_req_socket.close()
-        # TODO: call a refresh sync on broker to get subs and pubs tied to it?
       self.broker_req_socket = self.context.socket(zmq.REQ)
       self.broker_req_socket.connect(f"tcp://{broker.address}:{broker.port + 1}")
-
+      self.upcall_obj.refresh_leading_broker_publishers()
+      mylist = self.get_disc_resp_send_topic_publishers([broker])
+      self.refresh_subscribers_publishers(mylist)
       self.logger.info ("DiscoverlyMw::set_broker_leader - completed")
 
   def add_sub_req_socket(self, sub):
