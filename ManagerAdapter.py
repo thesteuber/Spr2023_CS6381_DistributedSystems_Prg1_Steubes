@@ -151,8 +151,8 @@ class ManagerAdapter:
         :param broker: A dictionary containing the broker's information,
                        such as IP address and port number.
         """
-        node_path = f"{self.base_path}/brokers/{broker['name']}"
-        node_data = f"{broker['address']}:{broker['port']}"
+        node_path = f"{self.base_path}/brokers/{broker.name}"
+        node_data = f"{broker.name}:{broker.address}:{broker.port}"
         
         try:
             self.zk.create(node_path, node_data.encode('utf-8'), makepath=True, acl=None, ephemeral=True)
@@ -181,8 +181,8 @@ class ManagerAdapter:
                             information, such as IP address and port number.
         """
         for topic in subscriber.topic_list:
-            node_path = "{}/{}/subscribers/{}".format(self.base_path, topic, subscriber.name)
-            node_data = "{}:{}".format(subscriber.address, subscriber.port)
+            node_path = "{}/{}/subscribers/{}".format(self.topics_path, topic, subscriber.name)
+            node_data = "{}:{}:{}".format(subscriber.name, subscriber.address, subscriber.port)
 
             try:
                 self.zk.create(node_path, node_data.encode('utf-8'), makepath=True, acl=None, ephemeral=True)
@@ -197,7 +197,7 @@ class ManagerAdapter:
                         such as IP address and port number.
         """
         for topic in subscriber.topic_list:
-            node_path = "{}/{}/subscribers/{}".format(self.base_path, topic, subscriber.name)
+            node_path = "{}/{}/subscribers/{}".format(self.topics_path, topic, subscriber.name)
             try:
                 self.zk.delete(node_path)
             except NoNodeError:
@@ -225,8 +225,8 @@ class ManagerAdapter:
                         information, such as IP address and port number.
         """
         for topic in publisher.topic_list:
-            node_path = "{}/{}/publishers/{}".format(self.base_path, topic, publisher.name)
-            node_data = "{}:{}".format(publisher.address, publisher.port)
+            node_path = "{}/{}/publishers/{}".format(self.topics_path, topic, publisher.name)
+            node_data = "{}:{}:{}".format(publisher.name, publisher.address, publisher.port)
             
             try:
                 self.zk.create(node_path, node_data.encode('utf-8'), makepath=True, acl=None, ephemeral=True)
@@ -242,7 +242,7 @@ class ManagerAdapter:
                         information, such as name, address and port number.
         """
         for topic in publisher.topic_list:
-            node_path = "{}/{}/publishers/{}".format(self.base_path, topic, publisher.name)
+            node_path = "{}/{}/publishers/{}".format(self.topics_path, topic, publisher.name)
             try:
                 self.zk.delete(node_path)
             except NoNodeError:
@@ -276,6 +276,25 @@ class ManagerAdapter:
             return subscribers
         except NoNodeError:
             return None
+
+    def get_publishers(self, topic):
+        """
+        Returns a list of all publishers for a topic.
+        :param topic: The topic to retrieve publishers for.
+        :return: A list of dictionaries containing publisher information.
+        """
+        publishers = []
+        topic_path = self.base_path + '/' + topic + '/publishers'
+        if self.zk.exists(topic_path):
+            publisher_nodes = self.zk.get_children(topic_path)
+            for node in publisher_nodes:
+                publisher_path = topic_path + '/' + node
+                try:
+                    publisher_data, _ = self.zk.get(publisher_path)
+                    publishers.append(json.loads(publisher_data))
+                except NoNodeError:
+                    pass
+        return publishers
 
     def get_publishers_by_topic(self, topic):
         """
