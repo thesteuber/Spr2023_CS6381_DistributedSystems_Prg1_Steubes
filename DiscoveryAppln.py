@@ -195,6 +195,8 @@ class DiscoveryAppln ():
     if (not any(p.name == registrant.name for p in self.discovery_ledger.publishers)):
         self.discovery_ledger.publishers.append(registrant)
         self.refresh_leading_broker_publishers()
+        if (self.dissemination != "Broker"):
+          self.refresh_subscribers_publishers()
         success = True
     else:
         reason = "Publisher names must be unique."
@@ -209,6 +211,7 @@ class DiscoveryAppln ():
     self.adapter.register_subscriber(registrant)
     if (not any(s.name == registrant.name for s in self.discovery_ledger.subscribers)):
         self.discovery_ledger.subscribers.append(registrant)
+        self.mw_obj.add_sub_req_socket(registrant)
         success = True
     else:
         reason = "Subscriber names must be unique."
@@ -225,6 +228,7 @@ class DiscoveryAppln ():
       self.discovery_ledger.broker = registrant
       self.mw_obj.set_broker_leader(registrant)
       self.refresh_leading_broker_publishers()
+      self.refresh_subscribers_publishers()
     
     success = True
     
@@ -304,6 +308,7 @@ class DiscoveryAppln ():
         self.adapter.unregister_publisher(registrant)
       elif (reg_req.role == discovery_pb2.ROLE_SUBSCRIBER):
         self.adapter.unregister_subscriber(registrant)
+        self.mw_obj.remove_sub_req_socket(registrant)
 
       self.discovery_ledger.remove_registrant(reg_req.info.id)
       success = True
@@ -319,10 +324,20 @@ class DiscoveryAppln ():
 
   def refresh_leading_broker_publishers(self):
     if self.discovery_ledger.broker != None:
-      self.logger.info ("DiscoverlyMw::refresh_broker_publishers - send all test")
+      self.logger.info ("DiscoverlyMw::refresh_broker_publishers - send all")
       mylist = self.mw_obj.get_disc_resp_send_all_publishers(self.discovery_ledger.publishers)
       self.mw_obj.send_message(self.mw_obj.broker_req_socket, mylist, None, None)
-      self.logger.info ("DiscoverlyMw::refresh_broker_publishers - send all test completed")
+      self.logger.info ("DiscoverlyMw::refresh_broker_publishers - send all completed")
+
+  def refresh_subscribers_publishers(self):
+    self.logger.info ("DiscoverlyMw::refresh_subscribers_publishers")
+    if (self.dissemination != "Broker"):
+      mylist = self.mw_obj.get_disc_resp_send_topic_publishers(self.discovery_ledger.publishers)
+      self.mw_obj.refresh_subscribers_publishers(self.mw_obj.broker_req_socket, mylist)
+    else:
+      mylist = self.mw_obj.get_disc_resp_send_topic_publishers([self.discovery_ledger.broker])
+      self.mw_obj.refresh_subscribers_publishers(self.mw_obj.broker_req_socket, mylist)
+    self.logger.info ("DiscoverlyMw::refresh_subscribers_publishers - completed")
 
 
   ########################################

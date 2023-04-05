@@ -64,6 +64,7 @@ class SubscriberMW ():
     self.sub = None # will be a ZMQ SUB socket for dissemination
     self.router = None # will be a ZMQ ROUTER socket to talk to Discovery service
     self.poller = None # used to wait on incoming replies
+    self.discover_rep_socket = None
     self.addr = None # our advertised IP address
     self.port = None # port num where we are going to publish our topics
     self.upcall_obj = None # handle to appln obj to handle appln-specific data
@@ -72,6 +73,7 @@ class SubscriberMW ():
     self.dht_nodes = None # list of all DHT Nodes in system
     self.context = None
     self.discovery = ""
+    self.connected_pubs = [] # list of pub names that have been connected
 
   ########################################
   # configure/initialize
@@ -103,6 +105,7 @@ class SubscriberMW ():
       # PUB is needed because we publish topic data
       self.logger.debug ("SubscriberMW::configure - obtain REQ and SUB sockets")
       self.sub = self.context.socket (zmq.SUB)
+      self.discover_rep_socket = self.context.socket (zmq.REP)
 
       if (self.lookup == "Chord"):
         self.router = self.context.socket(zmq.ROUTER)
@@ -118,6 +121,7 @@ class SubscriberMW ():
         # any sense to register it with the poller for an incoming message.
         self.logger.debug ("SubscriberMW::configure - register the REQ socket for incoming replies")
         self.poller.register (self.req, zmq.POLLIN)
+        self.poller.register (self.discover_rep_socket, zmq.POLLIN)
       
         # Now connect ourselves to the discovery service. Recall that the IP/port were
         # supplied in our argument parsing. Best practices of ZQM suggest that the
@@ -127,6 +131,7 @@ class SubscriberMW ():
         # tcp:// followed by IP addr:port number.
         connect_str = "tcp://" + args.discovery
         self.req.connect (connect_str)
+        self.discover_rep_socket.bind(f"tcp://*:{self.port + 1}")
       
       self.logger.info ("SubscriberMW::configure completed")
 
@@ -167,6 +172,11 @@ class SubscriberMW ():
 
           # handle the incoming reply from remote entity and return the result
           timeout = self.handle_reply ()
+
+        elif self.discover_rep_socket in events: 
+          # handle the incoming reply from remote discovery service
+          self.logger.info ("BrokerMW::event_loop - OMG I RECEIVED A MESSAGE FROM THE DISCOVERY SERVICE WHILE COLLECTION!")
+          timeout = self.handle_reply (self.discover_rep_socket)
           
         else:
           raise Exception ("Unknown event after poll")
@@ -524,6 +534,11 @@ class SubscriberMW ():
   def connect_to_publisher(self, publisher, topiclist):
     try:
       self.logger.debug ("SubscriberMW::connect_to_publisher " + str(publisher.id))
+
+      if publisher.id in self.connected_pubs:
+        self.logger.debug ("SubscriberMW::connect_to_publisher - Publisher already connected")
+        return
+
       self.logger.debug ("tcp://{}:{}".format(publisher.addr, publisher.port))
 
       # connect the publisher to the SUB ZMQ Socket
@@ -532,6 +547,8 @@ class SubscriberMW ():
         self.logger.debug ("SubscriberMW::connect_to_publisher subscribe to topic: " + t)
         self.sub.subscribe(t)
       
+      self.connected_pubs.append(publisher.id)
+
       self.logger.debug ("SubscriberMW::connect_to_publisher complete")
     except Exception as e:
       raise e

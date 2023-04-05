@@ -503,6 +503,8 @@ class BrokerMW ():
       for t in allTopics:
         self.sub.subscribe(t)
       
+      self.connected_pubs.append(publisher.id)
+
       self.logger.debug ("BrokerMW::connect_to_publisher complete")
     except Exception as e:
       raise e

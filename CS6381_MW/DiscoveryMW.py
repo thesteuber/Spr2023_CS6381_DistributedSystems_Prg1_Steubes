@@ -45,6 +45,7 @@ class DiscoveryMW ():
     self.name = None # Name of discoverer
     self.rep = None # will be a ZMQ REP socket to talk to Discovery service
     self.broker_req_socket = None # will be a ZMQ REP socket to talk to Broker service
+    self.sub_req_sockets = {} # will be a ZMQ REP socket to talk to each subscriber
     self.router = None # will be a ZMQ ROUTER socket to talk to Discovery service
     self.poller = None # used to wait on incoming replies
     self.addr = None # our advertised IP address
@@ -392,6 +393,38 @@ class DiscoveryMW ():
 
       self.logger.info ("DiscoverlyMw::set_broker_leader - completed")
 
+  def add_sub_req_socket(self, sub):
+    self.logger.info ("DiscoverlyMw::add_sub_req_socket")
+    tcp_address = f"tcp://{sub.address}:{sub.port + 1}"
+
+    if tcp_address not in self.sub_req_sockets.keys:
+      sub_socket = self.context.socket(zmq.REQ)
+      sub_socket.connect(tcp_address)
+      self.sub_req_sockets[tcp_address] = sub_socket
+      self.logger.info ("DiscoverlyMw::add_sub_req_socket - completed, added {}".format(tcp_address))
+    else:
+      self.logger.info ("DiscoverlyMw::add_sub_req_socket - completed, {} already in dictionary".format(tcp_address))
+
+  def remove_sub_req_socket(self, sub):
+    self.logger.info ("DiscoverlyMw::remove_sub_req_socket")
+    tcp_address = f"tcp://{sub.address}:{sub.port + 1}"
+    if tcp_address in self.sub_req_sockets.keys:
+        sub_socket = self.sub_req_sockets[tcp_address]
+        sub_socket.close()
+        del self.sub_req_sockets[tcp_address]
+        self.logger.info ("DiscoverlyMw::remove_sub_req_socket - completed, removed {}".format(tcp_address))
+    else:
+      self.logger.info ("DiscoverlyMw::remove_sub_req_socket - completed, {} already not in dictionary".format(tcp_address))
+
+  def refresh_subscribers_publishers(self, msg):
+    self.logger.info ("DiscoverlyMw::refresh_subscribers_publishers")
+
+    for sub_socket in self.sub_req_sockets:
+      self.logger.info ("DiscoverlyMw::refresh_subscribers_publishers - sending msg")
+      self.send_message(sub_socket, msg, None, None)
+
+    self.logger.info ("DiscoverlyMw::refresh_subscribers_publishers - completed")
+
   def get_increment_pub_req (self, sender_hash):
     try:
       self.logger.info ("DiscoverlyMw::get_increment_pub_req")
@@ -571,32 +604,11 @@ class DiscoveryMW ():
     try:
       self.logger.info ("DiscoveryMW::send_topic_publishers")
       
-      # first build a IsReady message
-      self.logger.debug ("DiscoveryMW::send_topic_publishers - populate the nested LookupPubByTopicResp msg")
-      lookup_resp = discovery_pb2.LookupPubByTopicResp ()  # allocate 
-
-      for p in topic_pubs:
-        message_publisher = lookup_resp.publishers.add()
-        message_publisher.id = p.name
-        message_publisher.addr = p.address
-        message_publisher.port = p.port
-        self.logger.debug ("tcp://{}:{}".format(message_publisher.addr, message_publisher.port))
-
-      self.logger.debug ("DiscoveryMW::send_topic_publishers - done prepping message publishers")
-
-      # actually, there is nothing inside that msg declaration.
-      self.logger.debug ("DiscoveryMW::send_topic_publishers - done populating nested LookupPubByTopicResp msg")
-
-      # Build the outer layer Discovery Message
-      self.logger.debug ("DiscoveryMW::send_topic_publishers - build the outer DiscoveryResp message")
-      disc_resp = discovery_pb2.DiscoveryResp ()
-      disc_resp.msg_type = discovery_pb2.TYPE_LOOKUP_PUB_BY_TOPIC
-      # It was observed that we cannot directly assign the nested field here.
-      # A way around is to use the CopyFrom method as shown
-      disc_resp.lookup_resp.CopyFrom (lookup_resp)
-      self.logger.debug ("DiscoveryMW::send_topic_publishers - done building the outer message")
+      disc_resp = self.get_disc_resp_send_topic_publishers(topic_pubs)
       
       self.send_message(self.rep, disc_resp, ip, port)
+
+      self.logger.info ("DiscoveryMW::send_topic_publishers - Complete")
       
     except Exception as e:
       raise e
@@ -707,6 +719,36 @@ class DiscoveryMW ():
       # A way around is to use the CopyFrom method as shown
       disc_resp.allpubs_resp.CopyFrom (lookup_resp)
       self.logger.debug ("DiscoveryMW::get_disc_resp_send_all_publishers - done building the outer message")
+      return disc_resp
+  
+  def get_disc_resp_send_topic_publishers(self, topic_pubs):
+      # first build a IsReady message
+      self.logger.info ("DiscoveryMW::get_disc_resp_send_topic_publishers")
+      
+      # first build a IsReady message
+      self.logger.debug ("DiscoveryMW::get_disc_resp_send_topic_publishers - populate the nested LookupPubByTopicResp msg")
+      lookup_resp = discovery_pb2.LookupPubByTopicResp ()  # allocate 
+
+      for p in topic_pubs:
+        message_publisher = lookup_resp.publishers.add()
+        message_publisher.id = p.name
+        message_publisher.addr = p.address
+        message_publisher.port = p.port
+        self.logger.debug ("tcp://{}:{}".format(message_publisher.addr, message_publisher.port))
+
+      self.logger.debug ("DiscoveryMW::get_disc_resp_send_topic_publishers - done prepping message publishers")
+
+      # actually, there is nothing inside that msg declaration.
+      self.logger.debug ("DiscoveryMW::get_disc_resp_send_topic_publishers - done populating nested LookupPubByTopicResp msg")
+
+      # Build the outer layer Discovery Message
+      self.logger.debug ("DiscoveryMW::get_disc_resp_send_topic_publishers - build the outer DiscoveryResp message")
+      disc_resp = discovery_pb2.DiscoveryResp ()
+      disc_resp.msg_type = discovery_pb2.TYPE_LOOKUP_PUB_BY_TOPIC
+      # It was observed that we cannot directly assign the nested field here.
+      # A way around is to use the CopyFrom method as shown
+      disc_resp.lookup_resp.CopyFrom (lookup_resp)
+      self.logger.debug ("DiscoveryMW::get_disc_resp_send_topic_publishers - done building the outer message")
       return disc_resp
 
     ########################################
