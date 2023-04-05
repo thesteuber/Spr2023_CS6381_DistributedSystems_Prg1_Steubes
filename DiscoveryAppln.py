@@ -190,6 +190,7 @@ class DiscoveryAppln ():
       raise e
 
   def refresh_discovery_with_zoo(self, ip, port):
+    #to do: this needs to refresh sockets and such
     self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo")
 
     self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - gather pubs")
@@ -355,12 +356,9 @@ class DiscoveryAppln ():
 
   def refresh_subscribers_publishers(self):
     self.logger.info ("DiscoverlyMw::refresh_subscribers_publishers")
-    if (self.dissemination != "Broker"):
-      mylist = self.mw_obj.get_disc_resp_send_topic_publishers(self.discovery_ledger.publishers)
-      self.mw_obj.refresh_subscribers_publishers(self.mw_obj.broker_req_socket, mylist)
-    else:
-      mylist = self.mw_obj.get_disc_resp_send_topic_publishers([self.discovery_ledger.broker])
-      self.mw_obj.refresh_subscribers_publishers(self.mw_obj.broker_req_socket, mylist)
+    self.mw_obj.refresh_subscribers_topic_publishers(self.discovery_ledger.broker,
+                                                     self.discovery_ledger.publishers, 
+                                                       self.discovery_ledger.subscribers)
     self.logger.info ("DiscoverlyMw::refresh_subscribers_publishers - completed")
 
 
