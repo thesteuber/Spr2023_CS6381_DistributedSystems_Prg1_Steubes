@@ -104,6 +104,7 @@ class SubscriberAppln ():
       self.metric_file = args.metrics_file # output file name
       self.zoo_host = args.zookeeper
       self.adapter = ManagerAdapter(self.zoo_host, self.logger)
+      self.adapter.set_dleader_callback_handle(self.mw_obj.refresh_discovery_connection)
       
       f = open(self.metric_file, "w+")
       f.write("pub,sub,sent_at,received_at,latency\n")

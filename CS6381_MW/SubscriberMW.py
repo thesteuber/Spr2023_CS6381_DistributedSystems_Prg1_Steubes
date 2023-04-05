@@ -138,6 +138,16 @@ class SubscriberMW ():
     except Exception as e:
       raise e
 
+  def refresh_discovery_connection (self, ip, port):
+    # REQ
+    self.req.close()
+    self.req = self.context.socket (zmq.REQ)
+    self.poller.register (self.req, zmq.POLLIN)
+    connect_str = "tcp://" + ip + ":" + port
+    self.req.connect (connect_str)
+
+
+
   #################################################################
   # run the event loop where we expect to receive a reply to a sent request
   #################################################################
@@ -552,7 +562,6 @@ class SubscriberMW ():
       self.logger.debug ("SubscriberMW::connect_to_publisher complete")
     except Exception as e:
       raise e
-
 
   #################################################################
   # collect the data on our pub socket

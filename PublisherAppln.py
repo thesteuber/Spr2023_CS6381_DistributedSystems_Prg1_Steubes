@@ -115,6 +115,7 @@ class PublisherAppln ():
       self.num_topics = args.num_topics  # total num of topics we publish
       self.zoo_host = args.zookeeper
       self.adapter = ManagerAdapter(self.zoo_host, self.logger)
+      self.adapter.set_dleader_callback_handle(self.mw_obj.refresh_discovery_connection)
 
       # Now, get the configuration object
       self.logger.debug ("PublisherAppln::configure - parsing config.ini")

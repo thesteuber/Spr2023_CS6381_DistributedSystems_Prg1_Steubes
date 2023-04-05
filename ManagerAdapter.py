@@ -41,6 +41,7 @@ class ManagerAdapter:
         self.host = host
         self.logger = logger
         self.bleader_callback_handle = None
+        self.dleader_callback_handle = None
         
         self.zk = KazooClient(hosts=host)
         self.zk.start()
@@ -95,9 +96,17 @@ class ManagerAdapter:
         def dleader_callback(data, stat, event):
             if event and event.type == "DELETED":
                 self.dleader_node = self.elect_dleader()
+
+                if (self.dleader_callback_handle != None):
+                    dleader_data = self.zk.get(self.dleader_path + '/' + self.dleader_node)[0].decode('utf-8')
+                    ip, port = dleader_data.split(':')
+                    self.dleader_callback_handle(ip, port)
         
         # Register the callback function for the ephemeral sequential node
         self.zk.get(self.dleader_node, watch=dleader_callback)
+
+    def set_dleader_callback_handle(self, handle_function):
+        self.dleader_callback_handle = handle_function
 
     def set_bleader_callback_handle(self, handle_function):
         self.bleader_callback_handle = handle_function
