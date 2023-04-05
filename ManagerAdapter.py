@@ -75,7 +75,7 @@ class ManagerAdapter:
 
                 if (self.bleader_callback_handle != None):
                     bleader_data = self.zk.get(self.bleader_path + '/' + self.bleader_node)[0].decode('utf-8')
-                    ip, port = bleader_data.split(':')
+                    name, ip, port = bleader_data.split(':')
                     self.bleader_callback_handle(ip, port)
 
         # Register the callback function for the ephemeral sequential node
@@ -99,7 +99,7 @@ class ManagerAdapter:
 
                 if (self.dleader_callback_handle != None):
                     dleader_data = self.zk.get(self.dleader_path + '/' + self.dleader_node)[0].decode('utf-8')
-                    ip, port = dleader_data.split(':')
+                    name, ip, port = dleader_data.split(':')
                     self.dleader_callback_handle(ip, port)
         
         # Register the callback function for the ephemeral sequential node
@@ -127,6 +127,11 @@ class ManagerAdapter:
         :return: The path of the primary discovery's node.
         """
         return self.elect_dleader()
+
+    def get_primary_broker_registrant(self):
+        broker_date = self.zk.get(self.elect_bleader())[0].decode('utf-8')
+        name, ip, port = broker_date.split(':')
+        return Registrant(name, ip, port, [])
 
     def elect_bleader(self):
         """
