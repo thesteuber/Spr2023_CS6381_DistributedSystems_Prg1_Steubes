@@ -190,7 +190,6 @@ class DiscoveryAppln ():
       raise e
 
   def refresh_discovery_with_zoo(self, ip, port):
-    #to do: this needs to refresh sockets and such
     self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo")
 
     self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - gather pubs")
@@ -208,8 +207,16 @@ class DiscoveryAppln ():
     new_ledger.publishers = publishers
     new_ledger.subscribers = subscribers
     new_ledger.broker = broker
-
     self.discovery_ledger = new_ledger
+
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - add sub sockets")
+    for sub in subscribers:
+      self.mw_obj.add_sub_req_socket(sub)
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - add sub sockets complete")
+
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - set primary broker")
+    self.mw_obj.set_broker_leader(broker)
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - set primary broker complete")
 
     self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - Completed")
 
