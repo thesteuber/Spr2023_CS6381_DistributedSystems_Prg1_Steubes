@@ -145,6 +145,7 @@ class DiscoveryAppln ():
       self.mw_obj = DiscoveryMW(self.logger)
       self.mw_obj.configure (args, self.lookup) # pass remainder of the args to the m/w object
       self.adapter.set_bleader_callback_handle(self.mw_obj.broker_leader_handle)
+      self.adapter.set_dleader_callback_handle(self.refresh_discovery_with_zoo)
       
       self.logger.info ("DiscoveryAppln::configure - configuration complete")
       
@@ -187,6 +188,37 @@ class DiscoveryAppln ():
       
     except Exception as e:
       raise e
+
+  def refresh_discovery_with_zoo(self, ip, port):
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo")
+
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - gather pubs")
+    publishers = self.adapter.get_publishers()
+
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - gather subs")
+    subscribers = self.adapter.get_subscribers()
+
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - gather primary broker")
+    broker = self.adapter.get_primary_broker_registrant()
+
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - gathering complete")
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - create ledger")
+    new_ledger = DiscoveryLedger()
+    new_ledger.publishers = publishers
+    new_ledger.subscribers = subscribers
+    new_ledger.broker = broker
+    self.discovery_ledger = new_ledger
+
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - add sub sockets")
+    for sub in subscribers:
+      self.mw_obj.add_sub_req_socket(sub)
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - add sub sockets complete")
+
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - set primary broker")
+    self.mw_obj.set_broker_leader(broker)
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - set primary broker complete")
+
+    self.logger.info ("DiscoveryAppln::refresh_discovery_with_zoo - Completed")
 
   def reg_single_publisher(self, reg_req):
     self.logger.info ("DiscoveryAppln::reg_single_publisher")
@@ -331,12 +363,9 @@ class DiscoveryAppln ():
 
   def refresh_subscribers_publishers(self):
     self.logger.info ("DiscoverlyMw::refresh_subscribers_publishers")
-    if (self.dissemination != "Broker"):
-      mylist = self.mw_obj.get_disc_resp_send_topic_publishers(self.discovery_ledger.publishers)
-      self.mw_obj.refresh_subscribers_publishers(self.mw_obj.broker_req_socket, mylist)
-    else:
-      mylist = self.mw_obj.get_disc_resp_send_topic_publishers([self.discovery_ledger.broker])
-      self.mw_obj.refresh_subscribers_publishers(self.mw_obj.broker_req_socket, mylist)
+    self.mw_obj.refresh_subscribers_topic_publishers(self.discovery_ledger.broker,
+                                                     self.discovery_ledger.publishers, 
+                                                       self.discovery_ledger.subscribers)
     self.logger.info ("DiscoverlyMw::refresh_subscribers_publishers - completed")
 
 

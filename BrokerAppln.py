@@ -214,7 +214,7 @@ class BrokerAppln ():
 
       elif (self.state == self.State.COLLECT):
         self.logger.debug ("BrokerAppln::invoke_operation - start collecting")
-        self.mw_obj.event_loop (1000) 
+        self.mw_obj.event_loop (500) 
         # return a timeout or frequency to limit the polling.
         return self.frequency
         

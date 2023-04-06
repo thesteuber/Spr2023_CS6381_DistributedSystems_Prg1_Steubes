@@ -422,14 +422,32 @@ class DiscoveryMW ():
     else:
       self.logger.info ("DiscoverlyMw::remove_sub_req_socket - completed, {} already not in dictionary".format(tcp_address))
 
-  def refresh_subscribers_publishers(self, msg):
-    self.logger.info ("DiscoverlyMw::refresh_subscribers_publishers")
+  
+      self.mw_obj.refresh_subscribers_topic_publishers(self.mw_obj.broker_req_socket, 
+                                                       self.discovery_ledger.publishers, 
+                                                       self.discovery_ledger.subscribers)
 
-    for sub_socket in self.sub_req_sockets:
-      self.logger.info ("DiscoverlyMw::refresh_subscribers_publishers - sending msg")
-      self.send_message(sub_socket, msg, None, None)
+  def refresh_subscribers_topic_publishers(self, broker, pubs, subs):
+    self.logger.info ("DiscoverlyMw::refresh_subscribers_topic_publishers")
 
-    self.logger.info ("DiscoverlyMw::refresh_subscribers_publishers - completed")
+    for sub in subs:
+      self.logger.info ("DiscoverlyMw::refresh_subscribers_topic_publishers - sending msg")
+      tcp_address = f"tcp://{sub.address}:{sub.port + 1}"
+      sub_socket = self.sub_req_sockets[tcp_address]
+
+      # get list of publishers that match up with any topic in the request topic list
+      topic_pubs = None
+      if (self.dissemination == "Broker"):
+        if broker is None:
+          topic_pubs = []
+        else:
+          topic_pubs = [broker] # only send the broker to subs requesting pubs if via broker
+      else:
+        topic_pubs = [p for p in pubs if any(t in p.topic_list for t in sub.topic_list)]
+
+      self.send_topic_publishers(sub_socket, topic_pubs, None, None)
+
+    self.logger.info ("DiscoverlyMw::refresh_subscribers_topic_publishers - completed")
 
   def get_increment_pub_req (self, sender_hash):
     try:

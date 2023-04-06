@@ -75,7 +75,7 @@ class ManagerAdapter:
 
                 if (self.bleader_callback_handle != None):
                     bleader_data = self.zk.get(self.bleader_path + '/' + self.bleader_node)[0].decode('utf-8')
-                    ip, port = bleader_data.split(':')
+                    name, ip, port = bleader_data.split(':')
                     self.bleader_callback_handle(ip, port)
 
         # Register the callback function for the ephemeral sequential node
@@ -99,7 +99,7 @@ class ManagerAdapter:
 
                 if (self.dleader_callback_handle != None):
                     dleader_data = self.zk.get(self.dleader_path + '/' + self.dleader_node)[0].decode('utf-8')
-                    ip, port = dleader_data.split(':')
+                    name, ip, port = dleader_data.split(':')
                     self.dleader_callback_handle(ip, port)
         
         # Register the callback function for the ephemeral sequential node
@@ -128,6 +128,11 @@ class ManagerAdapter:
         """
         return self.elect_dleader()
 
+    def get_primary_broker_registrant(self):
+        broker_date = self.zk.get(self.elect_bleader())[0].decode('utf-8')
+        name, ip, port = broker_date.split(':')
+        return Registrant(name, ip, port, [])
+
     def elect_bleader(self):
         """
         Elects the primary broker by selecting the one with the lowest
@@ -151,8 +156,8 @@ class ManagerAdapter:
         :param broker: A dictionary containing the broker's information,
                        such as IP address and port number.
         """
-        node_path = f"{self.base_path}/brokers/{broker['name']}"
-        node_data = f"{broker['address']}:{broker['port']}"
+        node_path = f"{self.base_path}/brokers/{broker.name}"
+        node_data = f"{broker.name}:{broker.address}:{broker.port}"
         
         try:
             self.zk.create(node_path, node_data.encode('utf-8'), makepath=True, acl=None, ephemeral=True)
@@ -181,8 +186,8 @@ class ManagerAdapter:
                             information, such as IP address and port number.
         """
         for topic in subscriber.topic_list:
-            node_path = "{}/{}/subscribers/{}".format(self.base_path, topic, subscriber.name)
-            node_data = "{}:{}".format(subscriber.address, subscriber.port)
+            node_path = "{}/{}/subscribers/{}".format(self.topics_path, topic, subscriber.name)
+            node_data = "{}:{}:{}".format(subscriber.name, subscriber.address, subscriber.port)
 
             try:
                 self.zk.create(node_path, node_data.encode('utf-8'), makepath=True, acl=None, ephemeral=True)
@@ -197,7 +202,7 @@ class ManagerAdapter:
                         such as IP address and port number.
         """
         for topic in subscriber.topic_list:
-            node_path = "{}/{}/subscribers/{}".format(self.base_path, topic, subscriber.name)
+            node_path = "{}/{}/subscribers/{}".format(self.topics_path, topic, subscriber.name)
             try:
                 self.zk.delete(node_path)
             except NoNodeError:
@@ -225,8 +230,8 @@ class ManagerAdapter:
                         information, such as IP address and port number.
         """
         for topic in publisher.topic_list:
-            node_path = "{}/{}/publishers/{}".format(self.base_path, topic, publisher.name)
-            node_data = "{}:{}".format(publisher.address, publisher.port)
+            node_path = "{}/{}/publishers/{}".format(self.topics_path, topic, publisher.name)
+            node_data = "{}:{}:{}".format(publisher.name, publisher.address, publisher.port)
             
             try:
                 self.zk.create(node_path, node_data.encode('utf-8'), makepath=True, acl=None, ephemeral=True)
@@ -242,7 +247,7 @@ class ManagerAdapter:
                         information, such as name, address and port number.
         """
         for topic in publisher.topic_list:
-            node_path = "{}/{}/publishers/{}".format(self.base_path, topic, publisher.name)
+            node_path = "{}/{}/publishers/{}".format(self.topics_path, topic, publisher.name)
             try:
                 self.zk.delete(node_path)
             except NoNodeError:
@@ -273,6 +278,100 @@ class ManagerAdapter:
                 for child in children:
                     subscriber = self.zk.get(self.base_path + '/' + topic + '/' + child)[0].decode("utf-8")
                     subscribers.append(json.loads(subscriber))
+            return subscribers
+        except NoNodeError:
+            return None
+
+    def get_brokers(self):
+        """
+        Returns a list of all brokers registered in ZooKeeper.
+        :return: A list of Registrant objects representing the brokers.
+        """
+        brokers = []
+        brokers_path = f"{self.base_path}/brokers"
+        if self.zk.exists(brokers_path):
+            broker_nodes = self.zk.get_children(brokers_path)
+            for node in broker_nodes:
+                broker_path = f"{brokers_path}/{node}"
+                try:
+                    broker_data, _ = self.zk.get(broker_path)
+                    name, address, port = broker_data.decode("utf-8").split(":")
+                    broker = Registrant(name, address, int(port), None)
+                    brokers.append(broker)
+                except NoNodeError:
+                    pass
+        return brokers
+
+    def get_publishers(self):
+        """
+        Returns a list of all publishers registered in the ZooKeeper data structure.
+        :return: A list of Registrant objects containing publisher information.
+        """
+        publishers = []
+        try:
+            topics = self.zk.get_children(self.topics_path)
+            for topic in topics:
+                publisher_nodes = self.zk.get_children(self.topics_path + '/' + topic + '/publishers')
+                for node in publisher_nodes:
+                    publisher_path = self.topics_path + '/' + topic + '/publishers/' + node
+                    try:
+                        publisher_data, _ = self.zk.get(publisher_path)
+                        publisher_name, publisher_address, publisher_port = publisher_data.decode("utf-8").split(':')
+                        publisher_topic_list = [topic]
+                        publisher = Registrant(publisher_name, publisher_address, publisher_port, publisher_topic_list)
+
+                        # Check if the publisher has already been added to the list
+                        existing_publisher = next((p for p in publishers if p.name == publisher_name), None)
+                        if existing_publisher is None:
+                            publishers.append(publisher)
+                        else:
+                            # Add the topic to the existing publisher's topic list
+                            for p in publishers:
+                                if p == publisher:
+                                    p.topic_list.append(topic)
+                    except NoNodeError:
+                        pass
+            return publishers
+        except NoNodeError:
+            return None
+
+    def get_subscribers(self):
+        """
+        Returns a list of unique subscribers and their topic lists.
+        :return: A list of Registrant objects representing subscribers and their topic lists.
+        """
+        subscribers = []
+        try:
+            # Iterate over all topics
+            for topic in self.zk.get_children(self.topics_path):
+                topic_path = self.topics_path + '/' + topic
+
+                # Iterate over all subscribers for this topic
+                for subscriber in self.zk.get_children(topic_path + '/subscribers'):
+                    subscriber_path = topic_path + '/subscribers/' + subscriber
+
+                    try:
+                        # Get the subscriber's data
+                        subscriber_data, _ = self.zk.get(subscriber_path)
+                        subscriber_data = subscriber_data.decode('utf-8')
+                        subscriber_info = subscriber_data.split(':')
+
+                        # Create a Registrant object for this subscriber if it doesn't already exist
+                        subscriber_name = subscriber_info[0]
+                        subscriber_address = subscriber_info[1]
+                        subscriber_port = int(subscriber_info[2])
+
+                        existing_subscriber = next((s for s in subscribers if s.name == subscriber_name), None)
+                        if existing_subscriber is None:
+                            # Add a new Registrant object to the list of subscribers
+                            subscriber_topics = [topic]
+                            new_subscriber = Registrant(subscriber_name, subscriber_address, subscriber_port, subscriber_topics)
+                            subscribers.append(new_subscriber)
+                        else:
+                            # Add the topic to the existing subscriber's topic list
+                            existing_subscriber.topic_list.append(topic)
+                    except NoNodeError:
+                        pass
             return subscribers
         except NoNodeError:
             return None
