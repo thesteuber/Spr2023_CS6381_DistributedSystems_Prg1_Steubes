@@ -395,8 +395,7 @@ class DiscoveryMW ():
       self.broker_req_socket = self.context.socket(zmq.REQ)
       self.broker_req_socket.connect(f"tcp://{broker.address}:{broker.port + 1}")
       self.upcall_obj.refresh_leading_broker_publishers()
-      mylist = self.get_disc_resp_send_topic_publishers([broker])
-      self.refresh_subscribers_publishers(mylist)
+      self.upcall_obj.refresh_subscribers_publishers()
       self.logger.info ("DiscoverlyMw::set_broker_leader - completed")
 
   def add_sub_req_socket(self, sub):
@@ -437,7 +436,7 @@ class DiscoveryMW ():
 
       # get list of publishers that match up with any topic in the request topic list
       topic_pubs = None
-      if (self.dissemination == "Broker"):
+      if (self.upcall_obj.dissemination == "Broker"):
         if broker is None:
           topic_pubs = []
         else:
@@ -623,14 +622,15 @@ class DiscoveryMW ():
   # Send list of topic publishers 
   # back to subscriber
   ########################################
-  def send_topic_publishers (self, topic_pubs, ip, port):
+  def send_topic_publishers (self, socket, topic_pubs, ip, port):
     ''' send topic publishers '''
     try:
       self.logger.info ("DiscoveryMW::send_topic_publishers")
-      
+      if socket is None:
+        socket = self.rep
       disc_resp = self.get_disc_resp_send_topic_publishers(topic_pubs)
       
-      self.send_message(self.rep, disc_resp, ip, port)
+      self.send_message(socket, disc_resp, ip, port)
 
       self.logger.info ("DiscoveryMW::send_topic_publishers - Complete")
       

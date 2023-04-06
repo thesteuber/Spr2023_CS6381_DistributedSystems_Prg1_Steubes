@@ -111,6 +111,7 @@ class ManagerAdapter:
         :return: A Registrant object for the primary discovery node.
         """
         dleader_data = self.zk.get(self.elect_dleader())[0].decode('utf-8')
+        self.logger.debug("gManagerAdapter:et_dleader_as_registrant - {}".format(dleader_data))
         name, address, port = dleader_data.split(':')
         return Registrant(name, address, port, None)
 
@@ -136,6 +137,26 @@ class ManagerAdapter:
         :return: The path of the primary discovery's node.
         """
         return self.elect_dleader()
+
+    def register_discovery(self, discovery):
+        """
+        Registers a discovery node by creating an ephemeral node in ZooKeeper.
+        If the current dleader is not set yet, sets it to the newly registered
+        discovery node.
+        :param discovery: A dictionary containing the discovery's information,
+                           such as IP address and port number.
+        """
+        node_path = f"{self.base_path}/discoveries/{discovery.name}"
+        node_data = f"{discovery.name}:{discovery.address}:{discovery.port}"
+        
+        try:
+            self.zk.create(node_path, node_data.encode('utf-8'), makepath=True, acl=None, ephemeral=True)
+        except NodeExistsError:
+            self.zk.set(node_path, node_data.encode('utf-8'))
+
+        # set dleader to the newly registered discovery node if it is not set yet
+        if self.get_dleader() is None:
+            self.set_dleader(node_path)
 
     def get_primary_broker_registrant(self):
         broker_date = self.zk.get(self.elect_bleader())[0].decode('utf-8')

@@ -123,8 +123,8 @@ class DiscoveryAppln ():
       self.discovery_ledger = DiscoveryLedger()
       self.zoo_host = args.zookeeper
       self.adapter = ManagerAdapter(self.zoo_host, self.logger)
-      test_dleader = self.adapter.get_dleader_as_registrant()
-      self.logger.debug ("DiscoveryAppln::configure - {}:{}:{}".format(test_dleader.name, test_dleader.id, test_dleader.port))
+      #test_dleader = self.adapter.get_dleader_as_registrant()
+      #self.logger.debug ("DiscoveryAppln::configure - {}:{}:{}".format(test_dleader.name, test_dleader.id, test_dleader.port))
 
       # Now, get the configuration object
       self.logger.debug ("DiscoveryAppln::configure - parsing config.ini")
@@ -419,7 +419,7 @@ class DiscoveryAppln ():
       else:
         self.logger.info ("DiscoveryAppln::lookup_by_topic_request normal lookup")
         # use middleware to serialize and send the is ready status
-        self.mw_obj.send_topic_publishers(topic_pubs, sender_ip, sender_port)
+        self.mw_obj.send_topic_publishers(None, topic_pubs, sender_ip, sender_port)
 
       # return timeout of 0 so event loop calls us back in the invoke_operation
       # method, where we take action based on what state we are in.
