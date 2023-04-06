@@ -182,7 +182,7 @@ class DiscoveryAppln ():
       # None or some large value, but if we want to send a request ourselves right away,
       # we set timeout is zero.
       #
-      self.mw_obj.event_loop (timeout=0)  # start the event loop
+      self.mw_obj.event_loop (timeout=50)  # start the event loop
       
       self.logger.info ("DiscoveryAppln::driver completed")
       
