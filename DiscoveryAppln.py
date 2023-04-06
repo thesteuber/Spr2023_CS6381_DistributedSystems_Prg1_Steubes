@@ -123,7 +123,8 @@ class DiscoveryAppln ():
       self.discovery_ledger = DiscoveryLedger()
       self.zoo_host = args.zookeeper
       self.adapter = ManagerAdapter(self.zoo_host, self.logger)
-      
+      test_dleader = self.adapter.get_dleader_as_registrant()
+      self.logger.debug ("DiscoveryAppln::configure - {}:{}:{}".format(test_dleader.name, test_dleader.id, test_dleader.port))
 
       # Now, get the configuration object
       self.logger.debug ("DiscoveryAppln::configure - parsing config.ini")

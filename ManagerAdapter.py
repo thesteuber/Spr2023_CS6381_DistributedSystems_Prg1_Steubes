@@ -105,6 +105,15 @@ class ManagerAdapter:
         # Register the callback function for the ephemeral sequential node
         self.zk.get(self.dleader_node, watch=dleader_callback)
 
+    def get_dleader_as_registrant(self):
+        """
+        Retrieves the primary discovery node's information as a Registrant object.
+        :return: A Registrant object for the primary discovery node.
+        """
+        dleader_data = self.zk.get(self.elect_dleader())[0].decode('utf-8')
+        name, address, port = dleader_data.split(':')
+        return Registrant(name, address, port, None)
+
     def set_dleader_callback_handle(self, handle_function):
         self.dleader_callback_handle = handle_function
 
