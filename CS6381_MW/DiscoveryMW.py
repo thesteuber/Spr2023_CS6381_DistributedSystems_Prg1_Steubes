@@ -430,9 +430,13 @@ class DiscoveryMW ():
     self.logger.info ("DiscoverlyMw::refresh_subscribers_topic_publishers")
 
     for sub in subs:
-      self.logger.info ("DiscoverlyMw::refresh_subscribers_topic_publishers - sending msg")
       tcp_address = f"tcp://{sub.address}:{sub.port + 1}"
+      self.logger.info ("DiscoverlyMw::refresh_subscribers_topic_publishers - sending msg to {}".format(tcp_address))
       sub_socket = self.sub_req_sockets[tcp_address]
+      if sub_socket is None:
+        self.logger.info ("DiscoverlyMw::refresh_subscribers_topic_publishers - sub socket is none")
+        for k in self.sub_req_sockets.keys():
+          self.logger.info ("DiscoverlyMw::refresh_subscribers_topic_publishers - {} did not match to {}".format(tcp_address, k))
 
       # get list of publishers that match up with any topic in the request topic list
       topic_pubs = None

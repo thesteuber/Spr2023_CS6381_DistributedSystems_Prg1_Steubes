@@ -121,6 +121,7 @@ class SubscriberMW ():
         # any sense to register it with the poller for an incoming message.
         self.logger.debug ("SubscriberMW::configure - register the REQ socket for incoming replies")
         self.poller.register (self.req, zmq.POLLIN)
+        self.poller.register (self.sub, zmq.POLLIN)
         self.poller.register (self.discover_rep_socket, zmq.POLLIN)
       
         # Now connect ourselves to the discovery service. Recall that the IP/port were
@@ -131,8 +132,9 @@ class SubscriberMW ():
         # tcp:// followed by IP addr:port number.
         connect_str = "tcp://" + args.discovery
         self.req.connect (connect_str)
+        self.logger.debug ("SubscriberMW::configure - connect to Discovery service 2")
         self.discover_rep_socket.bind(f"tcp://*:{self.port + 1}")
-      
+        self.logger.debug ("SubscriberMW::configure - binded discover_rep_socket to tcp://*:{}".format(self.port + 1))
       self.logger.info ("SubscriberMW::configure completed")
 
     except Exception as e:
@@ -178,15 +180,24 @@ class SubscriberMW ():
           # object is in.
           timeout = self.upcall_obj.invoke_operation ()
           
+        elif self.sub in events:  
+          # handle the incoming publish and dissiminate
+          message = self.collect()
+
+          self.logger.debug ("SubscriberMW::event_loop - collecting completed")
+          self.logger.debug (str(message))
+          self.logger.debug (message.sent_at)
+          self.upcall_obj.write_latency_row(message)
+
         elif self.req in events:  
 
           # handle the incoming reply from remote entity and return the result
-          timeout = self.handle_reply ()
+          timeout = self.handle_reply (self.req)
 
         elif self.discover_rep_socket in events: 
           # handle the incoming reply from remote discovery service
-          self.logger.info ("BrokerMW::event_loop - OMG I RECEIVED A MESSAGE FROM THE DISCOVERY SERVICE WHILE COLLECTION!")
-          timeout = self.handle_reply (self.discover_rep_socket)
+          self.logger.info ("SubscriberMW::event_loop - OMG I RECEIVED A MESSAGE FROM THE DISCOVERY SERVICE WHILE COLLECTION!")
+          timeout = self.handle_reply(self.discover_rep_socket)
           
         else:
           raise Exception ("Unknown event after poll")
@@ -198,7 +209,7 @@ class SubscriberMW ():
   #################################################################
   # handle an incoming reply
   #################################################################
-  def handle_reply (self):
+  def handle_reply (self, socket):
 
     try:
       self.logger.info ("SubscriberMW::handle_reply")
@@ -208,7 +219,7 @@ class SubscriberMW ():
       if (self.lookup == "Chord"):
         identity, bytesRcvd = self.router.recv_multipart()
       else:
-        bytesRcvd = self.req.recv ()
+        bytesRcvd = socket.recv ()
 
       # now use protobuf to deserialize the bytes
       # The way to do this is to first allocate the space for the
@@ -327,6 +338,8 @@ class SubscriberMW ():
       self.logger.debug ("SubscriberMW::register - populate the Registrant Info")
       reg_info = discovery_pb2.RegistrantInfo () # allocate
       reg_info.id = name  # our id
+      reg_info.addr = self.addr
+      reg_info.port = self.port
       self.logger.debug ("SubscriberMW::register - done populating the Registrant Info")
       
       # Next build a RegisterReq message
@@ -400,7 +413,7 @@ class SubscriberMW ():
       # now go to our event loop to receive a response to this request
       self.logger.info ("SubscriberMW::unregister - sent register message and now now wait for reply")
     
-      self.handle_reply ()
+      self.handle_reply (self.req)
 
     except Exception as e:
       raise e

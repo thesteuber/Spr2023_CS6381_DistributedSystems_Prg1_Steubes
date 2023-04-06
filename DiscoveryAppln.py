@@ -246,6 +246,7 @@ class DiscoveryAppln ():
     self.adapter.register_subscriber(registrant)
     if (not any(s.name == registrant.name for s in self.discovery_ledger.subscribers)):
         self.discovery_ledger.subscribers.append(registrant)
+        self.logger.info ("DiscoveryAppln::reg_single_subscriber sub - {}:{}:{}".format(registrant.name, registrant.address, registrant.port))
         self.mw_obj.add_sub_req_socket(registrant)
         success = True
     else:

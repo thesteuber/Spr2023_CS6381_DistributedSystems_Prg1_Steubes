@@ -131,7 +131,7 @@ class SubscriberAppln ():
       self.mw_obj = SubscriberMW (self.logger)
       self.mw_obj.configure (args, self.lookup) # pass remainder of the args to the m/w object
       self.adapter.set_dleader_callback_handle(self.mw_obj.refresh_discovery_connection)
-      
+
       self.logger.info ("SubscriberAppln::configure - configuration complete")
       
     except Exception as e:
@@ -236,15 +236,7 @@ class SubscriberAppln ():
 
         # We are here because both registration and is ready is done. So the only thing
         # left for us as a publisher is dissemination, which we do it actively here.
-        self.logger.debug ("SubscriberAppln::invoke_operation - start collecting")
-
-        # Collect any messages sent from the connected publishers
-        message = self.mw_obj.collect ()
-
-        self.logger.debug ("SubscriberAppln::invoke_operation - collecting completed")
-        self.logger.debug (str(message))
-        self.logger.debug (message.sent_at)
-        self.write_latency_row(message)
+        self.logger.debug ("SubscriberAppln::invoke_operation - collecting")
 
         # return a timeout or frequency to limit the polling.
         return self.frequency
