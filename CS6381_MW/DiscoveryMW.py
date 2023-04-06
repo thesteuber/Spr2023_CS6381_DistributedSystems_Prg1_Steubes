@@ -403,7 +403,7 @@ class DiscoveryMW ():
     self.logger.info ("DiscoverlyMw::add_sub_req_socket")
     tcp_address = f"tcp://{sub.address}:{sub.port + 1}"
 
-    if tcp_address not in self.sub_req_sockets.keys:
+    if tcp_address not in self.sub_req_sockets.keys():
       sub_socket = self.context.socket(zmq.REQ)
       sub_socket.connect(tcp_address)
       self.sub_req_sockets[tcp_address] = sub_socket
