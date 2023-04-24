@@ -84,9 +84,13 @@ class PublisherMW ():
       self.discovery = args.discovery
       self.lookup = lookup
       self.name = args.name
-      self.history_deque = deque(args.history)
+      self.logger.info ("PublisherMW::configure deque")
+      self.history_deque = deque(maxlen=args.history)
+      self.logger.info ("PublisherMW::configure ownership dict")
       self.ownership_dict = json.loads(args.ownership)
+      self.logger.info ("PublisherMW::configure history intervals")
       self.history_intervals = args.history_intervals
+      self.logger.info ("PublisherMW::configure basics done")
 
       # Next get the ZMQ context
       self.logger.debug ("PublisherMW::configure - obtain ZMQ context")
@@ -502,7 +506,7 @@ class PublisherMW ():
     try:
       self.logger.debug ("PublisherMW::disseminate_history")
 
-      for i in range in min(depth, len(self.history_deque)):
+      for i in range(min(depth, len(self.history_deque))):
         send_str = self.history_deque[i]
         self.logger.debug ("PublisherMW::disseminate_history - {}".format (send_str))
         # send the info as bytes. See how we are providing an encoding of utf-8
