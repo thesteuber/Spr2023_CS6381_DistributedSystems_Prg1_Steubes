@@ -29,10 +29,11 @@ class TopicParcel:
     ########################################
     # constructor
     ########################################
-    def __init__ (self, topic, data, publisher, sent_at = datetime.datetime.now().isoformat(sep=" ")):
+    def __init__ (self, topic, data, publisher, ownership = 0, sent_at = datetime.datetime.now().isoformat(sep=" ")):
         self.topic = topic           # Registrant name (some unique name)
         self.data = data             # topic data
         self.publisher = publisher # name of the publisher
+        self.ownership = ownership # ownership strength for pub to topic
         self.sent_at =  sent_at   # current timestamp
 
     @classmethod
@@ -42,8 +43,9 @@ class TopicParcel:
         topic = parcelDict["topic"]           # Registrant name (some unique name)
         data = parcelDict["data"]             # topic data
         publisher = parcelDict["publisher"] # name of the publisher
+        ownership = parcelDict["ownership"] # ownership strength for pub to topic
         sent_at = parcelDict["sent_at"]    # current timestamp
-        return TopicParcel(topic, data, publisher, sent_at)
+        return TopicParcel(topic, data, publisher, ownership, sent_at)
         
     def __str__(self):
      return self.topic + ":" + json.dumps(
@@ -51,5 +53,6 @@ class TopicParcel:
             "topic":self.topic, 
             "data":self.data, 
             "publisher":self.publisher,
+            "ownership":self.ownership,
             "sent_at":self.sent_at
         })

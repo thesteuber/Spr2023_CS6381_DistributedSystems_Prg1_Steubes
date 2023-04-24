@@ -64,6 +64,7 @@ class PublisherMW ():
     self.context = None
     self.discovery = ""
     self.history_deque = None
+    self.ownership_dict = None
 
   ########################################
   # configure/initialize
@@ -82,7 +83,7 @@ class PublisherMW ():
       self.lookup = lookup
       self.name = args.name
       self.history_deque = deque(args.history)
-
+      self.ownership_dict = json.loads(args.ownership)
 
       # Next get the ZMQ context
       self.logger.debug ("PublisherMW::configure - obtain ZMQ context")
@@ -457,7 +458,13 @@ class PublisherMW ():
       # Now use the protobuf logic to encode the info and send it.  But for now
       # we are simply sending the string to make sure dissemination is working.
       #send_str = topic + ":" + data + ":" + str(time.time())
-      send_str = str(Common.TopicParcel(topic, data, id))
+      # get ownership
+      try:
+          ownership = self.ownership_dict[topic]
+      except KeyError:
+          ownership = 0
+
+      send_str = str(Common.TopicParcel(topic, data, id, ownership))
       # append to history deque which keeps N many transmissions
       self.history_deque.append(send_str)
       self.logger.debug ("PublisherMW::disseminate - {}".format (send_str))

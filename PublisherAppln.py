@@ -406,6 +406,8 @@ def parseCmdLineArgs ():
 
   parser.add_argument ("-h", "--history", type=int, default=10, help="number of transmissions tracked in history by publisher")
 
+  parser.add_argument ("-o", "--ownership", default='{"weather" : 0, "airquality" : 5}', help="JSON object owner ship per topic. Default topic owner ship is 0.")
+
   return parser.parse_args()
 
 
