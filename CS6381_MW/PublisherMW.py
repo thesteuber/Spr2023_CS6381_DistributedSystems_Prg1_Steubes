@@ -478,7 +478,7 @@ class PublisherMW ():
       # append to history deque which keeps N many transmissions
       self.history_deque.append(send_str)
       self.logger.debug ("PublisherMW::disseminate - {}".format (send_str))
-      self.sent = self.history_intervals + 1
+      self.sent = self.sent + 1
 
       # check if needing to send out the periodic history dump
       if (self.sent_count % self.history_intervals == 0):

@@ -627,6 +627,7 @@ class SubscriberMW ():
 
         return resultParcel
       else:
+        self.ownership_ignores_dict[resultParcel.topic] = 0
         self.max_ownerships_dict[resultParcel.topic] = resultParcel.ownership
 
       self.logger.debug ("SubscriberMW::collect latency of message: " + str(latency) + "ms")
