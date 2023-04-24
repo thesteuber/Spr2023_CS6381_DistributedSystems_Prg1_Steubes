@@ -74,6 +74,7 @@ class SubscriberMW ():
     self.context = None
     self.discovery = ""
     self.connected_pubs = [] # list of pub names that have been connected
+    self.max_ownerships_dict = None # dictionary with max ownership in system per topic
 
   ########################################
   # configure/initialize
@@ -598,6 +599,20 @@ class SubscriberMW ():
       self.logger.debug ("SubscriberMW::collect complete")
       resultParcel = Common.TopicParcel.fromMessage(message)
       latency = (datetime.datetime.now() - datetime.datetime.fromisoformat(resultParcel.sent_at)).microseconds / 1000
+
+      try:
+          ownership = self.max_ownerships_dict[resultParcel.topic]
+      except KeyError:
+          # topic ownership max not yet set
+          self.max_ownerships_dict[resultParcel.topic] = resultParcel.ownership
+          ownership = self.max_ownerships_dict[resultParcel.topic]
+
+      if (resultParcel.ownership < ownership):
+        self.logger.debug ("SubscriberMW::collect latency of message: " + str(latency) + "ms" + " THIS MESSAGE IS IGNORED DUE TO LOW STRENGTH!")
+        return resultParcel
+      else:
+        self.max_ownerships_dict[resultParcel.topic] = resultParcel.ownership
+
       self.logger.debug ("SubscriberMW::collect latency of message: " + str(latency) + "ms")
 
       return resultParcel
