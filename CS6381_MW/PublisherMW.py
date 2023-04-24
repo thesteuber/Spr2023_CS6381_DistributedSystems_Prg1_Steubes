@@ -38,6 +38,7 @@ from CS6381_MW import discovery_pb2
 from CS6381_MW import Common
 import json
 import random
+from collections import deque
 
 ##################################
 #       Publisher Middleware class
@@ -62,6 +63,7 @@ class PublisherMW ():
     self.dht_nodes = None # list of all DHT Nodes in system
     self.context = None
     self.discovery = ""
+    self.history_deque = None
 
   ########################################
   # configure/initialize
@@ -79,7 +81,9 @@ class PublisherMW ():
       self.discovery = args.discovery
       self.lookup = lookup
       self.name = args.name
-      
+      self.history_deque = deque(args.history)
+
+
       # Next get the ZMQ context
       self.logger.debug ("PublisherMW::configure - obtain ZMQ context")
       self.context = zmq.Context ()  # returns a singleton object
@@ -454,12 +458,40 @@ class PublisherMW ():
       # we are simply sending the string to make sure dissemination is working.
       #send_str = topic + ":" + data + ":" + str(time.time())
       send_str = str(Common.TopicParcel(topic, data, id))
+      # append to history deque which keeps N many transmissions
+      self.history_deque.append(send_str)
       self.logger.debug ("PublisherMW::disseminate - {}".format (send_str))
 
       # send the info as bytes. See how we are providing an encoding of utf-8
       self.pub.send (bytes(send_str, "utf-8"))
 
       self.logger.debug ("PublisherMW::disseminate complete")
+    except Exception as e:
+      raise e
+    
+  #################################################################
+  # disseminate the data on our pub socket
+  #
+  # do the actual dissemination of info using the ZMQ pub socket
+  #
+  # Note, here I am sending three diff params. I am eventually going to replace this
+  # sending of a simple string with protobuf serialization. Recall that we need to be
+  # sending publisher id, topic, data, timestamp at a minimum for our experimental
+  # data collection. So anyway we will need to do the necessary serialization.
+  #
+  # This part is left as an exercise.
+  #################################################################
+  def disseminate_history (self, depth):
+    try:
+      self.logger.debug ("PublisherMW::disseminate_history")
+
+      for i in range in min(depth, len(self.history_deque)):
+        send_str = self.history_deque[i]
+        self.logger.debug ("PublisherMW::disseminate_history - {}".format (send_str))
+        # send the info as bytes. See how we are providing an encoding of utf-8
+        self.pub.send (bytes(send_str, "utf-8"))
+
+      self.logger.debug ("PublisherMW::disseminate_history complete")
     except Exception as e:
       raise e
             

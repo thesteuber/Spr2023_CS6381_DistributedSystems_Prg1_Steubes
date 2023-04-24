@@ -404,6 +404,8 @@ def parseCmdLineArgs ():
 
   parser.add_argument ("-z", "--zookeeper", default="localhost:2181", help="IP Addr:Port combo for the zookeeper server, default localhost:2181")
 
+  parser.add_argument ("-h", "--history", type=int, default=10, help="number of transmissions tracked in history by publisher")
+
   return parser.parse_args()
 
 
