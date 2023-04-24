@@ -418,6 +418,8 @@ def parseCmdLineArgs ():
 
   parser.add_argument ("-z", "--zookeeper", default="localhost:2181", help="IP Addr:Port combo for the zookeeper server, default localhost:2181")
 
+  parser.add_argument ("-ot", "--ownership_threshold", type=int, default=40, help="number of ignores between accepted messages before full reset occurs")
+
   return parser.parse_args()
 
 

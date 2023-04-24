@@ -74,7 +74,9 @@ class SubscriberMW ():
     self.context = None
     self.discovery = ""
     self.connected_pubs = [] # list of pub names that have been connected
-    self.max_ownerships_dict = None # dictionary with max ownership in system per topic
+    self.max_ownerships_dict = {} # dictionary with max ownership in system per topic
+    self.ownership_threshold = 0 # number of ownership ignores since last accepted message
+    self.ownership_ignores_dict = {} # number of ownership ignores since last accepted message
 
   ########################################
   # configure/initialize
@@ -92,6 +94,7 @@ class SubscriberMW ():
       # First retrieve our advertised IP addr and the publication port num
       self.port = args.port
       self.addr = args.addr
+      self.ownership_threshold = args.ot
       
       # Next get the ZMQ context
       self.logger.debug ("SubscriberMW::configure - obtain ZMQ context")
@@ -609,6 +612,19 @@ class SubscriberMW ():
 
       if (resultParcel.ownership < ownership):
         self.logger.debug ("SubscriberMW::collect latency of message: " + str(latency) + "ms" + " THIS MESSAGE IS IGNORED DUE TO LOW STRENGTH!")
+        ignores = self.ownership_ignores_dict.get(resultParcel.topic, 0)
+        if ignores == 0:
+            # topic ownership max not yet set
+            self.ownership_ignores_dict[resultParcel.topic] = 1
+            ignores = 1
+        else:
+            self.ownership_ignores_dict[resultParcel.topic] = self.ownership_ignores_dict[resultParcel.topic] + 1
+
+        # reset the max ownership for the topic if the threshold has been met
+        if ignores >= self.ownership_threshold:
+          self.ownership_ignores_dict[resultParcel.topic] = 0
+          self.max_ownerships_dict[resultParcel.topic] = 0
+
         return resultParcel
       else:
         self.max_ownerships_dict[resultParcel.topic] = resultParcel.ownership
