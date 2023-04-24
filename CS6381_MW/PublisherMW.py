@@ -65,6 +65,8 @@ class PublisherMW ():
     self.discovery = ""
     self.history_deque = None
     self.ownership_dict = None
+    self.history_intervals = 0 
+    self.sent_count = 0
 
   ########################################
   # configure/initialize
@@ -84,6 +86,7 @@ class PublisherMW ():
       self.name = args.name
       self.history_deque = deque(args.history)
       self.ownership_dict = json.loads(args.ownership)
+      self.history_intervals = args.history_intervals
 
       # Next get the ZMQ context
       self.logger.debug ("PublisherMW::configure - obtain ZMQ context")
@@ -465,12 +468,19 @@ class PublisherMW ():
           ownership = 0
 
       send_str = str(Common.TopicParcel(topic, data, id, ownership))
+      # send the info as bytes. See how we are providing an encoding of utf-8
+      self.pub.send (bytes(send_str, "utf-8"))
+
       # append to history deque which keeps N many transmissions
       self.history_deque.append(send_str)
       self.logger.debug ("PublisherMW::disseminate - {}".format (send_str))
+      self.sent = self.history_intervals + 1
 
-      # send the info as bytes. See how we are providing an encoding of utf-8
-      self.pub.send (bytes(send_str, "utf-8"))
+      # check if needing to send out the periodic history dump
+      if (self.sent_count % self.history_intervals == 0):
+        self.logger.debug ("PublisherMW::disseminate History dumping")
+        self.disseminate_history(self.history_intervals)
+      
 
       self.logger.debug ("PublisherMW::disseminate complete")
     except Exception as e:
