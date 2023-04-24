@@ -53,6 +53,7 @@ from DiscoveryLedger import DiscoveryLedger, Registrant
 from ManagerAdapter import ManagerAdapter
 import json
 import hashlib  # for the secure hash library
+import random
 
 ##################################
 #       DiscoveryAppln class
@@ -96,7 +97,9 @@ class DiscoveryAppln ():
     self.distributed_topics = [] # list of topics that this DHT node will store in Chord
     self.chord_pubs_registered = 0 # count of pubs registered across DHT ring while in Chord discovery
     self.chord_subs_registered = 0 # count of subs registered across DHT ring while in Chord discovery
-    self.adapter = None # Zookeeper Discovery Service Adapater
+    self.adapter = None # Zookeeper Discovery Service Adapaters
+    self.broker_connections_dict = {} # Dictionary of counts of broker names and requests for them
+    self.broker_threshold = 0 # threshold before starting to load balance out brokers
 
   ########################################
   # configure/initialize
@@ -123,6 +126,7 @@ class DiscoveryAppln ():
       self.discovery_ledger = DiscoveryLedger()
       self.zoo_host = args.zookeeper
       self.adapter = ManagerAdapter(self.zoo_host, self.logger)
+      self.broker_threshold = args.threshold
       #test_dleader = self.adapter.get_dleader_as_registrant()
       #self.logger.debug ("DiscoveryAppln::configure - {}:{}:{}".format(test_dleader.name, test_dleader.id, test_dleader.port))
 
@@ -410,7 +414,20 @@ class DiscoveryAppln ():
         if self.discovery_ledger.broker == None:
           topic_pubs = []
         else:
-          topic_pubs = [self.discovery_ledger.broker] # only send the broker to subs requesting pubs if via broker
+          broker = self.discovery_ledger.broker
+          try:
+              self.broker_connections_dict[broker.name]
+          except KeyError:
+              self.broker_connections_dict[broker.name] = 0
+            
+          self.broker_connections_dict[broker.name] = self.broker_connections_dict[broker.name] + 1
+          reg_count = self.broker_connections_dict[broker.name]
+          
+          if (reg_count > self.broker_threshold):
+            broker = random.choice(self.adapter.get_brokers())
+            
+          topic_pubs = [broker] # only send the broker to subs requesting pubs if via broker
+          
       else:
         topic_pubs = [p for p in self.discovery_ledger.publishers if any(t in p.topic_list for t in lookup_req.topiclist)]
 
@@ -807,6 +824,8 @@ def parseCmdLineArgs ():
   parser.add_argument ("-j", "--dht_json", default="dht.json", help="Location of dht nodes json file.")
   
   parser.add_argument ("-z", "--zookeeper", default="localhost:2181", help="IP Addr:Port combo for the zookeeper server, default localhost:2181")
+
+  parser.add_argument ("-th", "--threshold", type=int, default=10, help="broker threshold for load balancing")
 
 
   return parser.parse_args()
